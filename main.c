@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/22 11:03:26 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/02/22 12:46:48 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,24 @@ char get_symbol(uint8_t value)
 }
 
 
-void print_output64(int nsyms, int symoff, int stroff, char* ptr)
+void add_output64(int nsyms, int symoff, int stroff, t_env* env)
 {
 	int i;
 	char *stringtable;
 	struct nlist_64 *array;
+	t_cmd *cmd;
 
-	array = (void*)ptr + symoff;
-	stringtable = (void*)ptr + stroff;
-
+	array = (void*)env->ptr + symoff;
+	stringtable = (void*)env->ptr + stroff;
+	cmd = NULL;
 	for (i = 0; i < nsyms; ++i)
 	{
-		printf("0x%010x %c %s\n", (int)array[i].n_value  , get_symbol(array[i].n_type), stringtable + array[i].n_un.n_strx);
+		mlccmd(env, array[i].n_value, get_symbol(array[i].n_type), stringtable + array[i].n_un.n_strx);
 	}
 
 }
 
-void	handle_64(char *ptr)
+void	handle_64(t_env *env)
 {
 	int 	ncmds;
 	struct	mach_header_64 *header;
@@ -55,15 +56,15 @@ void	handle_64(char *ptr)
 	int i;
 	struct symtab_command *sym;
 
-	header = (struct mach_header_64*)ptr;
+	header = (struct mach_header_64*)env->ptr;
 	ncmds = header->ncmds;
-	lc = (void*)ptr + sizeof(struct	mach_header_64);
+	lc = (void*)env->ptr + sizeof(struct	mach_header_64);
 	for (i = 0; i < ncmds; ++i)
 	{
 		if (lc->cmd == LC_SYMTAB)
 		{
 			sym = (struct symtab_command *) lc;
-			print_output64(sym->nsyms, sym->symoff, sym->stroff, ptr);
+			add_output64(sym->nsyms, sym->symoff, sym->stroff, env);
 			break;
 		}
 		lc = (void*)lc + lc->cmdsize;
