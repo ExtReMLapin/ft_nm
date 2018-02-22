@@ -6,25 +6,28 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/19 12:15:08 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/02/22 11:03:26 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include <sys/mman.h>
-#include <mach-o/loader.h>
-#include <mach-o/nlist.h>
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
+#include "nm.h"
 
 
-int						misc_is_macho_file(uint32_t magic)
+char get_symbol(uint8_t value)
 {
-	return (magic == MH_MAGIC || magic == MH_CIGAM
-		|| magic == MH_MAGIC_64 || magic == MH_CIGAM_64);
+	printf("0x%02x ", value);
+	if (value == N_UNDF)
+		return ('0');
+	if (value == N_ABS)
+		return ('1');
+	if (value == N_SECT)
+		return ('2');
+	if (value == N_PBUD)
+		return ('3');
+	if (value == N_INDR)
+		return ('4');
+	else
+		return ('?');
 }
 
 
@@ -39,12 +42,10 @@ void print_output64(int nsyms, int symoff, int stroff, char* ptr)
 
 	for (i = 0; i < nsyms; ++i)
 	{
-		printf("%s\n", stringtable + array[i].n_un.n_strx);
-		printf("%i\n",  array[i].n_value);
+		printf("0x%010x %c %s\n", (int)array[i].n_value  , get_symbol(array[i].n_type), stringtable + array[i].n_un.n_strx);
 	}
 
 }
-
 
 void	handle_64(char *ptr)
 {
@@ -56,7 +57,7 @@ void	handle_64(char *ptr)
 
 	header = (struct mach_header_64*)ptr;
 	ncmds = header->ncmds;
-	lc = (void*)ptr + sizeof(*header);
+	lc = (void*)ptr + sizeof(struct	mach_header_64);
 	for (i = 0; i < ncmds; ++i)
 	{
 		if (lc->cmd == LC_SYMTAB)
@@ -66,11 +67,13 @@ void	handle_64(char *ptr)
 			break;
 		}
 		lc = (void*)lc + lc->cmdsize;
-
 	}
-
 }
 
+int bite(void)
+{
+	return 1;
+}
 
 void nm(char *ptr)
 {
@@ -88,6 +91,10 @@ void nm(char *ptr)
 
 }
 
+int allah(void)
+{
+	return 2;
+}
 
 int main (int ac, char ** av)
 {
