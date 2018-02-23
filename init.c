@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/23 10:29:50 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/02/23 10:33:37 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** Put the cmd data at the end of the existing list
 */
 
-void mlccmd(t_env *env, uint64_t n_value, char symbol, char *name)
+void 	mlccmd(t_env *env, uint64_t n_value, char symbol, char *name)
 {
 	t_cmd *cmd;
 	t_cmd *cmd2;
@@ -38,10 +38,9 @@ void mlccmd(t_env *env, uint64_t n_value, char symbol, char *name)
 		cmd2 = cmd2->next;
 	cmd2->next = cmd;
 	cmd->past = cmd2;
-
 }
 
-void init_commands(t_env *env)
+void 	init_commands(t_env *env)
 {
 	if (env->is64bit)
 	{
@@ -82,7 +81,7 @@ t_env *make_env(char *ptr, char* end)
 	cmds = env->list;
 	while (cmds)
 	{
-		printf("%#010llx %c %s\n",cmds->adr, cmds->symbol , cmds->name);
+		printf("%#016llX %c %s\n",cmds->adr, cmds->symbol , cmds->name);
 		cmds = cmds->next;
 	}
 
