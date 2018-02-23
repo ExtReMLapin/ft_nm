@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:49:33 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/23 10:18:01 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/02/23 11:11:31 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,5 @@ void						handle_32r(t_env *env);
 void						handle_fat(t_env *env);
 void						handle_fatr(t_env *env);
 void						failmessage(char *message);
-
+void						order_cmds(t_env *env);
 #endif

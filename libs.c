@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/23 10:59:00 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/02/23 12:42:32 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,56 @@ void		failmessage(char *message)
 ** The same way i could have just malloced the number of cmds instead of making a linked list
 */
 
+
+
+
+/*
+** ca morch po
+*/
+
+
 void 	swapcmds(t_cmd *a, t_cmd *b)
 {
-	t_cmd *tmp;
+
+/*	printf("%p %p %p\n",a->past, a, a->next);
+	printf("%p %p %p\n",b->past, b, b->next);
 
 	if (!b || !a)
 		failmessage("Attempt to swap two cmds one is invalid");
-	if (a->next)
-		a->next->past = b;
+
+
 	if (a->past)
 		a->past->next = b;
-
 	if (b->next)
 		b->next->past = a;
-	if (b->past)
-		b->past->next = a;
 
-	tmp = a->next;
 	a->next = b->next;
-	b->next = tmp;
+	b->past = a->past;
 
-	tmp = a->past;
-	a->past = b->past;
-	b->past = tmp;
+	b->next = a;
+	a->past = b;
+
+
+
+
+	printf("%p %p %p\n",a->past, a, a->next);
+	printf("%p %p %p\n",b->past, b, b->next);*/
+	uint64_t				adr;
+	char					symbol;
+	char					*name;
+
+	adr = a->adr;
+	symbol = a->symbol;
+	name = a->name;
+
+
+	a->adr = b->adr;
+	a->symbol = b->symbol;
+	a->name = b->name;
+
+	b->adr = adr;
+	b->symbol = symbol;
+	b->name = name;
 }
 
 /*
@@ -62,6 +89,8 @@ bool isstrbigger(char *a, char *b)
 	{
 		if (a[i] > b[i])
 			return (true);
+		if (a[i] < b[i])
+			return (false);
 		i++;
 	}
 	if (b[i] == '\0')
@@ -69,4 +98,74 @@ bool isstrbigger(char *a, char *b)
 	else
 		return (true);
 }
+
+/*
+** Fucking hell in-efficent code right after it, NSFW
+*/
+
+t_cmd *has_fucked_up_order_cmds(t_env *env)
+{
+	t_cmd *cmds;
+
+	cmds = env->list;
+	while (cmds->next)
+	{
+		if (isstrbigger(cmds->name, cmds->next->name))
+			return (cmds);
+		cmds = cmds->next;
+	}
+	return (NULL);
+}
+
+void 	order_cmds(t_env *env)
+{
+	t_cmd	*cmds;
+
+	while(true)
+	{
+		cmds = has_fucked_up_order_cmds(env);
+		if (cmds)
+			swapcmds(cmds, cmds->next);
+		else
+			break;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
