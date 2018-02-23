@@ -6,16 +6,14 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/22 12:46:48 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/02/23 10:14:09 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm.h"
 
-
 char get_symbol(uint8_t value)
 {
-	printf("0x%02x ", value);
 	if (value == N_UNDF)
 		return ('0');
 	if (value == N_ABS)
@@ -30,71 +28,11 @@ char get_symbol(uint8_t value)
 		return ('?');
 }
 
-
-void add_output64(int nsyms, int symoff, int stroff, t_env* env)
+void nm(char *ptr, char* end)
 {
-	int i;
-	char *stringtable;
-	struct nlist_64 *array;
-	t_cmd *cmd;
+	t_env *env;
 
-	array = (void*)env->ptr + symoff;
-	stringtable = (void*)env->ptr + stroff;
-	cmd = NULL;
-	for (i = 0; i < nsyms; ++i)
-	{
-		mlccmd(env, array[i].n_value, get_symbol(array[i].n_type), stringtable + array[i].n_un.n_strx);
-	}
-
-}
-
-void	handle_64(t_env *env)
-{
-	int 	ncmds;
-	struct	mach_header_64 *header;
-	struct  load_command *lc;
-	int i;
-	struct symtab_command *sym;
-
-	header = (struct mach_header_64*)env->ptr;
-	ncmds = header->ncmds;
-	lc = (void*)env->ptr + sizeof(struct	mach_header_64);
-	for (i = 0; i < ncmds; ++i)
-	{
-		if (lc->cmd == LC_SYMTAB)
-		{
-			sym = (struct symtab_command *) lc;
-			add_output64(sym->nsyms, sym->symoff, sym->stroff, env);
-			break;
-		}
-		lc = (void*)lc + lc->cmdsize;
-	}
-}
-
-int bite(void)
-{
-	return 1;
-}
-
-void nm(char *ptr)
-{
-	int magic_number;
-
-	magic_number = *(int*)ptr;
-	if (magic_number == MH_MAGIC_64)
-		handle_64(ptr);
-	else if (magic_number == MH_MAGIC)
-	{
-		printf("%s\n", "nope");
-	}
-	else
-		printf("%s\n", "could not find correct magic number");
-
-}
-
-int allah(void)
-{
-	return 2;
+	env = make_env(ptr, end);
 }
 
 int main (int ac, char ** av)
@@ -124,7 +62,7 @@ int main (int ac, char ** av)
 		return (EXIT_FAILURE);
 	}
 	close(fd);
-	nm(ptr);
+	nm(ptr, ptr + buf.st_size);
 	if (munmap(ptr, buf.st_size) < 0)
 	{
 		printf("%s\n", "unmmap fail");

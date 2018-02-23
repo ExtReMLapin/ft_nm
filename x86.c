@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libs.c                                             :+:      :+:    :+:   */
+/*   x86.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/23 10:15:48 by pfichepo         ###   ########.fr       */
+/*   Created: 2018/02/23 09:58:17 by pfichepo          #+#    #+#             */
+/*   Updated: 2018/02/23 10:16:34 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm.h"
 
-void failmessage(char *message)
+void	handle_32(t_env *env)
 {
-	printf("%s\n",message);
-	exit(EXIT_FAILURE);
+	handle_64(env);
+}
+
+void	handle_32r(t_env *env)
+{
+	handle_64(env);
 }

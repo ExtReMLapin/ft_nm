@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libs.c                                             :+:      :+:    :+:   */
+/*   xfat.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/23 10:15:48 by pfichepo         ###   ########.fr       */
+/*   Created: 2018/02/23 09:58:23 by pfichepo          #+#    #+#             */
+/*   Updated: 2018/02/23 10:16:50 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm.h"
 
-void failmessage(char *message)
+void	handle_fat(t_env *env)
 {
-	printf("%s\n",message);
-	exit(EXIT_FAILURE);
+	handle_64(env);
+}
+
+void	handle_fatr(t_env *env)
+{
+	handle_64(env);
 }
