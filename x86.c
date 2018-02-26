@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/26 10:37:28 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/02/26 10:58:06 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void add_output(int nsyms, int symoff, int stroff, t_env* env)
 	{
 		mlccmd(env, array[i].n_value, get_symbol(array[i].n_type), stringtable + array[i].n_un.n_strx);
 	}
-
 }
 
 

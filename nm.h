@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:49:33 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/23 11:11:31 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/02/26 10:57:38 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct 				s_cmd
 	uint64_t				adr;
 	char					symbol;
 	char					*name;
-	struct s_cmd			*past;
 	struct s_cmd			*next;
 }							t_cmd;
 

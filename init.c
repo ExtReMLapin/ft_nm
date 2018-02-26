@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/26 10:41:08 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/02/26 10:59:38 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void 	mlccmd(t_env *env, uint64_t n_value, char symbol, char *name)
 	cmd->symbol = symbol;
 	cmd->name = name;
 	cmd->next = NULL;
-	cmd->past = NULL;
 	if (env->list == NULL)
 	{
 		env->list = cmd;
@@ -37,7 +36,6 @@ void 	mlccmd(t_env *env, uint64_t n_value, char symbol, char *name)
 	while (cmd2->next)
 		cmd2 = cmd2->next;
 	cmd2->next = cmd;
-	cmd->past = cmd2;
 }
 
 void 	init_commands(t_env *env)
@@ -117,10 +115,12 @@ t_env *make_env(char *ptr, char* end)
 	cmds = env->list;
 	while (cmds)
 	{
-		print_hex(cmds->adr, true, env->is64bit);
-		printf(" %c %s\n", cmds->symbol , cmds->name);
+		if (strcmp(cmds->name, "radr://5614542") != 0)
+		{
+			print_hex(cmds->adr, true, env->is64bit);
+			printf(" %c %s\n", cmds->symbol , cmds->name);
+		}
 		cmds = cmds->next;
-
 	}
 	return (env);
 }

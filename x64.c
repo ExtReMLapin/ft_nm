@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/23 10:20:27 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/02/26 11:46:19 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ static void add_output64(int nsyms, int symoff, int stroff, t_env* env)
 	cmd = NULL;
 	for (i = 0; i < nsyms; ++i)
 	{
+		if ((void*)&array[i] + sizeof(*array) > (void*)env->end)
+			failmessage("Please check file integrity");
+
 		mlccmd(env, array[i].n_value, get_symbol(array[i].n_type), stringtable + array[i].n_un.n_strx);
 	}
 
