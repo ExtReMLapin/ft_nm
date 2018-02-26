@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/26 10:14:58 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/02/26 10:41:08 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void 	init_commands(t_env *env)
 
 
 
-void	print_hex(uint64_t hex, bool first)
+void	print_hex(uint64_t hex, bool first, bool is64)
 {
 	char 	hex_chars[16];
 	int		i;
@@ -75,7 +75,7 @@ void	print_hex(uint64_t hex, bool first)
 	i = 0;
 	if (hex == 0x0 && first)
 	{
-		while (i < 16 && first)
+		while (i < (8 + ((int)is64*8)) && first)
 		{
 			putchar(' ');
 			i++;
@@ -84,7 +84,7 @@ void	print_hex(uint64_t hex, bool first)
 	}
 	else
 	{
-		while (i < 7 && first)
+		while (i < (4 + ((int)is64*3)) && first)
 		{
 			putchar('0');
 			i++;
@@ -93,8 +93,8 @@ void	print_hex(uint64_t hex, bool first)
 	memcpy(hex_chars, "0123456789abcdef", sizeof(char) * 16);
 	if (hex > 15u)
 	{
-		print_hex(hex / 16u, false);
-		print_hex(hex % 16u, false);
+		print_hex(hex / 16u, false, is64);
+		print_hex(hex % 16u, false, is64);
 	}
 	else
 		putchar(hex_chars[hex]);
@@ -117,7 +117,7 @@ t_env *make_env(char *ptr, char* end)
 	cmds = env->list;
 	while (cmds)
 	{
-		print_hex(cmds->adr, true);
+		print_hex(cmds->adr, true, env->is64bit);
 		printf(" %c %s\n", cmds->symbol , cmds->name);
 		cmds = cmds->next;
 
