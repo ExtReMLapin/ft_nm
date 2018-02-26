@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/23 12:42:44 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/02/26 10:14:58 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,41 @@ void 	init_commands(t_env *env)
 	}
 }
 
+
+
+void	print_hex(uint64_t hex, bool first)
+{
+	char 	hex_chars[16];
+	int		i;
+
+	i = 0;
+	if (hex == 0x0 && first)
+	{
+		while (i < 16 && first)
+		{
+			putchar(' ');
+			i++;
+		}
+		return;
+	}
+	else
+	{
+		while (i < 7 && first)
+		{
+			putchar('0');
+			i++;
+		}
+	}
+	memcpy(hex_chars, "0123456789abcdef", sizeof(char) * 16);
+	if (hex > 15u)
+	{
+		print_hex(hex / 16u, false);
+		print_hex(hex % 16u, false);
+	}
+	else
+		putchar(hex_chars[hex]);
+}
+
 t_env *make_env(char *ptr, char* end)
 {
 	t_env *env;
@@ -82,11 +117,10 @@ t_env *make_env(char *ptr, char* end)
 	cmds = env->list;
 	while (cmds)
 	{
-		printf("%#016llX %c %s\n",cmds->adr, cmds->symbol , cmds->name);
+		print_hex(cmds->adr, true);
+		printf(" %c %s\n", cmds->symbol , cmds->name);
 		cmds = cmds->next;
 
 	}
-
-
 	return (env);
 }

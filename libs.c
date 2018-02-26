@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/23 12:42:32 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/02/26 10:11:53 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,45 +18,11 @@ void		failmessage(char *message)
 	exit(EXIT_FAILURE);
 }
 
-/*
-** I could have just swaped internal struct variables instead of making this hack, but i didn't
-** The same way i could have just malloced the number of cmds instead of making a linked list
-*/
 
-
-
-
-/*
-** ca morch po
-*/
 
 
 void 	swapcmds(t_cmd *a, t_cmd *b)
 {
-
-/*	printf("%p %p %p\n",a->past, a, a->next);
-	printf("%p %p %p\n",b->past, b, b->next);
-
-	if (!b || !a)
-		failmessage("Attempt to swap two cmds one is invalid");
-
-
-	if (a->past)
-		a->past->next = b;
-	if (b->next)
-		b->next->past = a;
-
-	a->next = b->next;
-	b->past = a->past;
-
-	b->next = a;
-	a->past = b;
-
-
-
-
-	printf("%p %p %p\n",a->past, a, a->next);
-	printf("%p %p %p\n",b->past, b, b->next);*/
 	uint64_t				adr;
 	char					symbol;
 	char					*name;
@@ -94,9 +60,9 @@ bool isstrbigger(char *a, char *b)
 		i++;
 	}
 	if (b[i] == '\0')
-		return (false);
-	else
 		return (true);
+	else
+		return (false);
 }
 
 /*
@@ -130,6 +96,19 @@ void 	order_cmds(t_env *env)
 			break;
 	}
 }
+
+
+void Bite(void)
+{
+	return;
+}
+
+
+void bite(void)
+{
+	return;
+}
+
 
 
 
