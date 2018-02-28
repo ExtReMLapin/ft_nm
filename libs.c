@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/26 10:58:02 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/02/28 10:31:51 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@ void		failmessage(char *message)
 	printf("%s\n",message);
 	exit(EXIT_FAILURE);
 }
-
-
-
 
 void 	swapcmds(t_cmd *a, t_cmd *b)
 {
@@ -74,11 +71,16 @@ t_cmd *has_fucked_up_order_cmds(t_env *env)
 	t_cmd *cmds;
 
 	cmds = env->list;
+	if (cmds == NULL)
+		failmessage("no cmds found");
+	int i = 0;
 	while (cmds->next)
 	{
 		if (isstrbigger(cmds->name, cmds->next->name))
 			return (cmds);
+
 		cmds = cmds->next;
+		i++;
 	}
 	return (NULL);
 }

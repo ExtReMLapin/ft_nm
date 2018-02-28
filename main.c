@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/23 10:14:09 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/02/28 10:30:00 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,12 @@
 
 char get_symbol(uint8_t value)
 {
-	if (value == N_UNDF)
-		return ('0');
-	if (value == N_ABS)
-		return ('1');
-	if (value == N_SECT)
-		return ('2');
-	if (value == N_PBUD)
-		return ('3');
-	if (value == N_INDR)
-		return ('4');
+	if (value == 1)
+		return ('U');
+	if (value == 15)
+		return ('T');
+	if (value == 14)
+		return ('t');
 	else
 		return ('?');
 }
