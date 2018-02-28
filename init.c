@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/28 10:27:50 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/02/28 12:19:09 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_env *make_env(char *ptr, char* end)
 	env->isfattype = (*(uint32_t*)ptr == FAT_CIGAM || *(uint32_t*)ptr == FAT_MAGIC);
 	env->list = NULL;
 	init_commands(env);
-	order_cmds(env);
+	//order_cmds(env);
 	cmds = env->list;
 	while (cmds)
 	{

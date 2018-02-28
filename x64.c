@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/28 10:27:28 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/02/28 12:15:53 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ static void add_output64(int nsyms, int symoff, int stroff, t_env* env)
 	char *stringtable;
 	struct nlist_64 *array;
 	t_cmd *cmd;
+
+
+	printf("%i %i %i\n",nsyms,  symoff,  stroff );
 
 	array = (void*)env->ptr + symoff;
 	stringtable = (void*)env->ptr + stroff;
@@ -36,9 +39,10 @@ static void add_output64(int nsyms, int symoff, int stroff, t_env* env)
 
 void	handle_64(t_env *env)
 {
+	printf("%s\n", "handle_64");
 	int 	ncmds;
 	struct	mach_header_64 *header;
-	struct  load_command *lc;
+	struct  segment_command_64 *lc;
 	int i;
 	struct symtab_command *sym;
 
@@ -46,12 +50,13 @@ void	handle_64(t_env *env)
 	if ((void*)header > (void*)env->end)
 		failmessage("Fail header");
 	ncmds = header->ncmds;
-	lc = (void*)env->ptr + sizeof(struct	mach_header_64);
+	lc = (struct  segment_command_64*)(header+1);
 	for (i = 0; i < ncmds; ++i)
 	{
 		if (lc->cmd == LC_SYMTAB)
 		{
 			sym = (struct symtab_command *) lc;
+			printf("%p %i %p\n", header, ncmds, lc);
 			add_output64(sym->nsyms, sym->symoff, sym->stroff, env);
 			break;
 		}
@@ -61,5 +66,6 @@ void	handle_64(t_env *env)
 
 void	handle_64r(t_env *env)
 {
+	printf("%s\n", "handle_64r");
 	handle_64(env);
 }

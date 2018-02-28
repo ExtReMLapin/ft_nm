@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/28 10:27:35 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/02/28 11:47:23 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void add_output(int nsyms, int symoff, int stroff, t_env* env)
 
 void	handle_32(t_env *env)
 {
+	printf("%s\n", "handle_32");
 	int 	ncmds;
 	struct	mach_header *header;
 	struct  load_command *lc;
@@ -56,5 +57,6 @@ void	handle_32(t_env *env)
 
 void	handle_32r(t_env *env)
 {
-	handle_64(env);
+	printf("%s\n", "handle_32r");
+	handle_64r(env);
 }
