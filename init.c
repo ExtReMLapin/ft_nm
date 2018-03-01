@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/01 10:15:01 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/01 11:47:18 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,8 @@ t_env *make_env(char *ptr, char* end)
 	cmds = env->list;
 	while (cmds)
 	{
-		if (strcmp(cmds->name, "radr://5614542") != 0)
-		{
-			print_hex(cmds->adr, true, env->is64bit);
-			printf(" %c %s\n", cmds->symbol , cmds->name);
-		}
+		print_hex(cmds->adr, true, env->is64bit);
+		printf(" %c %s\n", cmds->symbol , cmds->name);
 		cmds = cmds->next;
 	}
 	return (env);
