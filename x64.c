@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/28 12:15:53 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/01 10:14:45 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,21 @@ static void add_output64(int nsyms, int symoff, int stroff, t_env* env)
 	struct nlist_64 *array;
 	t_cmd *cmd;
 
-
-	printf("%i %i %i\n",nsyms,  symoff,  stroff );
-
 	array = (void*)env->ptr + symoff;
 	stringtable = (void*)env->ptr + stroff;
 	cmd = NULL;
 	for (i = 0; i < nsyms; ++i)
 	{
-		if (((void*)&array[i] + sizeof(*array) > (void*)env->end) ||
-			(void*)stringtable > (void*)env->end)
-		{
+		if (((void*)&array[i] + sizeof(*array) > (void*)env->end) || (void*)stringtable > (void*)env->end)
 			failmessage("Please check file integrity");
-		}
-		mlccmd(env, array[i].n_value, get_symbol(array[i].n_type), stringtable + array[i].n_un.n_strx);
+		if (get_symbol(array[i].n_type) != '?')
+			mlccmd(env, array[i].n_value, get_symbol(array[i].n_type), stringtable + array[i].n_un.n_strx);
 	}
 
 }
 
 void	handle_64(t_env *env)
 {
-	printf("%s\n", "handle_64");
 	int 	ncmds;
 	struct	mach_header_64 *header;
 	struct  segment_command_64 *lc;
@@ -56,7 +50,6 @@ void	handle_64(t_env *env)
 		if (lc->cmd == LC_SYMTAB)
 		{
 			sym = (struct symtab_command *) lc;
-			printf("%p %i %p\n", header, ncmds, lc);
 			add_output64(sym->nsyms, sym->symoff, sym->stroff, env);
 			break;
 		}
@@ -66,6 +59,5 @@ void	handle_64(t_env *env)
 
 void	handle_64r(t_env *env)
 {
-	printf("%s\n", "handle_64r");
 	handle_64(env);
 }
