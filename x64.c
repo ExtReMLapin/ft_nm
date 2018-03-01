@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/01 10:14:45 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/01 12:16:49 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static void add_output64(int nsyms, int symoff, int stroff, t_env* env)
 
 void	handle_64(t_env *env)
 {
+	printf("%s\n", "handle_64");
+
 	int 	ncmds;
 	struct	mach_header_64 *header;
 	struct  segment_command_64 *lc;
@@ -59,5 +61,6 @@ void	handle_64(t_env *env)
 
 void	handle_64r(t_env *env)
 {
+	printf("%s\n", "handle_64r");
 	handle_64(env);
 }

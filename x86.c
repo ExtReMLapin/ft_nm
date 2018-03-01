@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/01 10:12:25 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/01 12:28:34 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,21 @@ static void add_output(int nsyms, int symoff, int stroff, t_env* env)
 	cmd = NULL;
 	for (i = 0; i < nsyms; ++i)
 	{
-		mlccmd(env, array[i].n_value, get_symbol(array[i].n_type), stringtable + array[i].n_un.n_strx);
+		if (((void*)&array[i] + sizeof(*array) > (void*)env->end) || (void*)stringtable > (void*)env->end)
+			failmessage("Please check file integrity");
+		if (get_symbol(array[i].n_type) != '?')
+			mlccmd(env, array[i].n_value, get_symbol(array[i].n_type), stringtable + array[i].n_un.n_strx);
 	}
 }
 
 
 void	handle_32(t_env *env)
 {
+	printf("%s\n", "handle_32");
+
 	int 	ncmds;
 	struct	mach_header *header;
-	struct  load_command *lc;
+	struct  segment_command *lc;
 	int i;
 	struct symtab_command *sym;
 
@@ -41,7 +46,7 @@ void	handle_32(t_env *env)
 	if ((void*)header > (void*)env->end)
 		failmessage("Fail header");
 	ncmds = header->ncmds;
-	lc = (void*)env->ptr + sizeof(struct	mach_header);
+	lc = (struct  segment_command*)(header+1);
 	for (i = 0; i < ncmds; ++i)
 	{
 		if (lc->cmd == LC_SYMTAB)
@@ -56,5 +61,6 @@ void	handle_32(t_env *env)
 
 void	handle_32r(t_env *env)
 {
+	printf("%s\n", "reverse 36");
 	handle_64r(env);
 }

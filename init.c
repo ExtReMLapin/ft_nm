@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/01 11:47:18 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/01 12:32:13 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ void 	init_commands(t_env *env)
 	}
 }
 
-
-
 void	print_hex(uint64_t hex, bool first, bool is64)
 {
 	char 	hex_chars[16];
@@ -109,6 +107,9 @@ t_env *make_env(char *ptr, char* end)
 	env->is64bit = (*(uint32_t*)ptr == MH_MAGIC_64 || *(uint32_t*)ptr == MH_CIGAM_64);
 	env->isswap = (*(uint32_t*)ptr == MH_CIGAM_64 || *(uint32_t*)ptr == MH_CIGAM || *(uint32_t*)ptr == FAT_CIGAM);
 	env->isfattype = (*(uint32_t*)ptr == FAT_CIGAM || *(uint32_t*)ptr == FAT_MAGIC);
+	if (!env->is64bit && !env->isswap && !env->isfattype && *(uint32_t*)ptr != MH_MAGIC)
+		failmessage("File not recognized");
+
 	env->list = NULL;
 	init_commands(env);
 	order_cmds(env);
