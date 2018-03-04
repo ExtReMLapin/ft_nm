@@ -12,6 +12,27 @@
 
 #include <nm.h> 
 
+static void add_output(int nsyms, int symoff, int stroff, t_env* env, char* start)
+{
+	int i;
+	char *stringtable;
+	struct nlist *array;
+	t_cmd *cmd;
+
+	array = (void*)start + symoff;
+	stringtable = (void*)start + stroff;
+	cmd = NULL;
+	for (i = 0; i < nsyms; ++i)
+	{
+		if (((void*)&array[i] + sizeof(*array) > (void*)env->end) || (void*)stringtable > (void*)env->end)
+			failmessage("Please check file integrity");
+		printf("%s\n","adding cmds" );
+		mlccmd(env, array[i].n_value, get_symbol(array[i].n_type), stringtable + array[i].n_un.n_strx);
+	}
+
+}
+
+
 static void	handle_fat32(t_env *env, bool swap)
 {
 
@@ -35,11 +56,45 @@ static void	handle_fat32(t_env *env, bool swap)
 			arch->align = swap_uint32(arch->align);
 		}
 		printf("CPUTYPE %i  CPU SUBTYPE %i  OFFSET %i SIZE %i ALIGN %i\n", arch->cputype, arch->cpusubtype, arch->offset, arch->size, arch->align);
+		struct	mach_header *header2;
+		header2 = (void*)env->ptr + arch->offset;
+		if (header2->magic == MH_MAGIC)
+		{
 
+			int 	ncmds;
+	
+			struct  segment_command *lc;
+			int i;
+			struct symtab_command *sym;
+
+			
+		
+			if ((void*)header2 > (void*)env->end)
+				failmessage("Fail header");
+			ncmds = header2->ncmds;
+			lc = (struct  segment_command*)(header2+1);
+			for (i = 0; i < ncmds; ++i)
+			{
+				
+
+				if (lc->cmd == LC_SYMTAB)
+				{
+					printf("%s\n", "inside");
+					sym = (struct symtab_command *) lc;
+					add_output(sym->nsyms, sym->symoff, sym->stroff, env, (char*)header);
+					
+					break;
+				}
+				
+				lc = (void*)lc + lc->cmdsize;
+				
+			}
+		
+		}
 		arch = (void*)arch + sizeof(struct fat_arch);
 	}
 
-	exit(0);
+	
 }
 
 void handle_fat(t_env *env, bool swap)
@@ -57,5 +112,5 @@ void handle_fat(t_env *env, bool swap)
 		handle_fat32(env, swap);
 
 
-	exit(0);
+
 }
