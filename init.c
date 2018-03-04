@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 
-#include "nm.h"
+#include <nm.h>
 
 /*
 ** Put the cmd data at the end of the existing list
@@ -43,23 +43,23 @@ void 	init_commands(t_env *env)
 	if (env->is64bit)
 	{
 		if (env->isswap)
-			handle_64r(env);
+			handle_64(env, true);
 		else
-			handle_64(env);
+			handle_64(env, false);
 	}
 	else if (!env->isfattype)// 32bits non fat
 	{
 		if (env->isswap) // swapped 32bits
-			handle_32r(env);
+			handle_32(env, true);
 		else //32bits
-			handle_32(env);
+			handle_32(env, false);
 	}
 	else // fat
 	{
 		if (env->isswap) // swapped fat
-			handle_fatr(env);
+			handle_fat(env, true);
 		else //fat
-			handle_fatr(env);
+			handle_fat(env, false);
 	}
 }
 
@@ -116,7 +116,13 @@ t_env *make_env(char *ptr, char* end)
 	cmds = env->list;
 	while (cmds)
 	{
+		#ifdef COLORS
+			printf("%s", "\033[0;31m");
+		#endif
 		print_hex(cmds->adr, true, env->is64bit);
+		#ifdef COLORS
+			printf("%s", "\033[0;0m");
+		#endif
 		printf(" %c %s\n", cmds->symbol , cmds->name);
 		cmds = cmds->next;
 	}

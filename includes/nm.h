@@ -26,6 +26,8 @@
 # include <string.h>
 # include <stdbool.h>
 
+# define COLORS 1
+
 typedef struct 				s_cmd
 {
 	uint64_t				adr;
@@ -44,17 +46,15 @@ typedef struct				s_env
 	t_cmd 					*list;
 }							t_env;
 
-
-void						handle_64(t_env *env);
 void 						mlccmd(t_env *env, uint64_t n_value, char symbol, char *name);
 t_env 						*make_env(char *ptr, char* end);
 char 						get_symbol(uint8_t value);
-void						handle_64(t_env *env);
-void						handle_64r(t_env *env);
-void						handle_32(t_env *env);
-void						handle_32r(t_env *env);
-void						handle_fat(t_env *env);
-void						handle_fatr(t_env *env);
+void						handle_64(t_env *env, bool swap);
+void						handle_32(t_env *env, bool swap);
+void						handle_fat(t_env *env, bool swap);
 void						failmessage(char *message);
 void						order_cmds(t_env *env);
-#endif
+uint16_t					swap_uint16(uint16_t nb);
+uint32_t					swap_uint32(uint32_t nb);
+uint64_t					swap_uint64(uint64_t nb);
+#endif	

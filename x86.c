@@ -32,7 +32,7 @@ static void add_output(int nsyms, int symoff, int stroff, t_env* env)
 }
 
 
-void	handle_32(t_env *env)
+void	handle_32(t_env *env, bool swap)
 {
 	printf("%s\n", "handle_32");
 
@@ -57,10 +57,4 @@ void	handle_32(t_env *env)
 		}
 		lc = (void*)lc + lc->cmdsize;
 	}
-}
-
-void	handle_32r(t_env *env)
-{
-	printf("%s\n", "reverse 36");
-	handle_64r(env);
 }

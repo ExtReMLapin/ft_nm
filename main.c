@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "nm.h"
+#include <nm.h>
 
 char get_symbol(uint8_t value)
 {
@@ -52,7 +52,7 @@ int main (int ac, char ** av)
 		printf("%s\n", "fstat");
 		return (EXIT_FAILURE);
 	}
-	if ((ptr = mmap(0, buf.st_size, PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
+	if ((ptr = mmap(0, buf.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
 	{
 		printf("%s\n", "mmap fail");
 		return (EXIT_FAILURE);
