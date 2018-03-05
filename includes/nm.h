@@ -26,7 +26,7 @@
 # include <string.h>
 # include <stdbool.h>
 
-# define COLORS 1
+
 
 typedef struct 				s_cmd
 {

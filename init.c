@@ -112,7 +112,7 @@ t_env *make_env(char *ptr, char* end)
 
 	env->list = NULL;
 	init_commands(env);
-	//order_cmds(env);
+	order_cmds(env);
 	cmds = env->list;
 	while (cmds)
 	{

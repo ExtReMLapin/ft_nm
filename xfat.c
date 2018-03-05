@@ -26,10 +26,8 @@ static void add_output(int nsyms, int symoff, int stroff, t_env* env, char* star
 	{
 		if (((void*)&array[i] + sizeof(*array) > (void*)env->end) || (void*)stringtable > (void*)env->end)
 			failmessage("Please check file integrity");
-		printf("%s\n","adding cmds" );
 		mlccmd(env, array[i].n_value, get_symbol(array[i].n_type), stringtable + array[i].n_un.n_strx);
 	}
-
 }
 
 
@@ -58,6 +56,7 @@ static void	handle_fat32(t_env *env, bool swap)
 		printf("CPUTYPE %i  CPU SUBTYPE %i  OFFSET %i SIZE %i ALIGN %i\n", arch->cputype, arch->cpusubtype, arch->offset, arch->size, arch->align);
 		struct	mach_header *header2;
 		header2 = (void*)env->ptr + arch->offset;
+		
 		if (header2->magic == MH_MAGIC)
 		{
 
@@ -79,9 +78,8 @@ static void	handle_fat32(t_env *env, bool swap)
 
 				if (lc->cmd == LC_SYMTAB)
 				{
-					printf("%s\n", "inside");
 					sym = (struct symtab_command *) lc;
-					add_output(sym->nsyms, sym->symoff, sym->stroff, env, (char*)header);
+					add_output(sym->nsyms, sym->symoff, sym->stroff, env, (char*)header2);
 					
 					break;
 				}
