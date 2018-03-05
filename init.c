@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/01 12:32:13 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/05 15:11:25 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,39 +61,6 @@ void 	init_commands(t_env *env)
 		else //fat
 			handle_fat(env, false);
 	}
-}
-
-void	print_hex(uint64_t hex, bool first, bool is64)
-{
-	char 	hex_chars[16];
-	int		i;
-
-	i = 0;
-	if (hex == 0x0 && first)
-	{
-		while (i < (8 + ((int)is64*8)) && first)
-		{
-			putchar(' ');
-			i++;
-		}
-		return;
-	}
-	else
-	{
-		while (i < (4 + ((int)is64*3)) && first)
-		{
-			putchar('0');
-			i++;
-		}
-	}
-	memcpy(hex_chars, "0123456789abcdef", sizeof(char) * 16);
-	if (hex > 15u)
-	{
-		print_hex(hex / 16u, false, is64);
-		print_hex(hex % 16u, false, is64);
-	}
-	else
-		putchar(hex_chars[hex]);
 }
 
 t_env *make_env(char *ptr, char* end)

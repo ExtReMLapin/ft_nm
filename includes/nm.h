@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:49:33 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/28 10:27:42 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/05 14:48:52 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,5 @@ void						order_cmds(t_env *env);
 uint16_t					swap_uint16(uint16_t nb);
 uint32_t					swap_uint32(uint32_t nb);
 uint64_t					swap_uint64(uint64_t nb);
+void						print_hex(uint64_t hex, bool first, bool is64);
 #endif	
