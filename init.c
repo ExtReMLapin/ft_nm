@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/05 15:11:25 by anonymous        ###   ########.fr       */
+/*   Updated: 2018/03/08 09:44:59 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_env *make_env(char *ptr, char* end)
 		#ifdef COLORS
 			printf("%s", "\033[0;31m");
 		#endif
-		print_hex(cmds->adr, true, env->is64bit);
+		print_hex(cmds->adr, true, env);
 		#ifdef COLORS
 			printf("%s", "\033[0;0m");
 		#endif

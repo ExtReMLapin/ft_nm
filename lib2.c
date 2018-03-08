@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   lib2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/05 15:46:12 by anonymous        ###   ########.fr       */
+/*   Updated: 2018/03/08 09:41:46 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
+
+
+int how_many_chars(t_env *env)
+{
+	if (env->is64bit || env->isfattype)
+		return (16);
+	return (8);
+}
+
 
 size_t countspacesbeforehex(uint64_t hex)
 {
@@ -29,7 +38,7 @@ size_t countspacesbeforehex(uint64_t hex)
 }
 
 
-void	print_hex(uint64_t hex, bool first, bool is64)
+void	print_hex(uint64_t hex, bool first, t_env *env)
 {
 	char 	hex_chars[16];
 	char c;
@@ -37,7 +46,7 @@ void	print_hex(uint64_t hex, bool first, bool is64)
 
 	if (first)
 	{
-		i = (8 + ((int)is64*8)) - countspacesbeforehex(hex);
+		i = how_many_chars(env) - countspacesbeforehex(hex);
 		if (hex == 0x0)
 			c = ' ';
 		else
@@ -50,8 +59,8 @@ void	print_hex(uint64_t hex, bool first, bool is64)
 	memcpy(hex_chars, "0123456789abcdef", sizeof(char) * 16);
 	if (hex > 15)
 	{
-		print_hex(hex / 16, false, is64);
-		print_hex(hex % 16, false, is64);
+		print_hex(hex / 16, false, env);
+		print_hex(hex % 16, false, env);
 	}
 	else
 		putchar(hex_chars[hex]);

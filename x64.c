@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/01 12:16:49 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/08 09:42:55 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	handle_64(t_env *env, bool swap)
 	struct  segment_command_64 *lc;
 	int i;
 	struct symtab_command *sym;
+
+	swap = !swap;
 
 	header = (struct mach_header_64*)env->ptr;
 	if ((void*)header > (void*)env->end)
