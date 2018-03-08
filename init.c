@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/08 09:44:59 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/08 11:41:10 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,16 @@ void 	init_commands(t_env *env)
 	if (env->is64bit)
 	{
 		if (env->isswap)
-			handle_64(env, true);
+			handle_64(env, env->ptr, env->end, true);
 		else
-			handle_64(env, false);
+			handle_64(env, env->ptr, env->end, false);
 	}
 	else if (!env->isfattype)// 32bits non fat
 	{
 		if (env->isswap) // swapped 32bits
-			handle_32(env, true);
+			handle_32(env, env->ptr, env->end, true);
 		else //32bits
-			handle_32(env, false);
+			handle_32(env, env->ptr, env->end, false);
 	}
 	else // fat
 	{
@@ -79,6 +79,7 @@ t_env *make_env(char *ptr, char* end)
 
 	env->list = NULL;
 	init_commands(env);
+	
 	order_cmds(env);
 	cmds = env->list;
 	while (cmds)

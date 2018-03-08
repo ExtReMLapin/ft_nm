@@ -6,21 +6,21 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/08 09:42:55 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/08 11:41:59 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
 
-static void add_output64(int nsyms, int symoff, int stroff, t_env* env)
+static void add_output(int nsyms, void *symoff, void *stroff, t_env* env)
 {
 	int i;
 	char *stringtable;
 	struct nlist_64 *array;
 	t_cmd *cmd;
 
-	array = (void*)env->ptr + symoff;
-	stringtable = (void*)env->ptr + stroff;
+	array = (void*)symoff;
+	stringtable = (void*)stroff;
 	cmd = NULL;
 	for (i = 0; i < nsyms; ++i)
 	{
@@ -32,9 +32,9 @@ static void add_output64(int nsyms, int symoff, int stroff, t_env* env)
 
 }
 
-void	handle_64(t_env *env, bool swap)
+void	handle_64(t_env *env, char *adr, char* max, bool swap)
 {
-	printf("%s\n", "handle_64");
+	//printf("%s\n", "handle_64");
 
 	int 	ncmds;
 	struct	mach_header_64 *header;
@@ -44,8 +44,8 @@ void	handle_64(t_env *env, bool swap)
 
 	swap = !swap;
 
-	header = (struct mach_header_64*)env->ptr;
-	if ((void*)header > (void*)env->end)
+	header = (struct mach_header_64*)adr;
+	if ((void*)header > (void*)max)
 		failmessage("Fail header");
 	ncmds = header->ncmds;
 	lc = (struct  segment_command_64*)(header+1);
@@ -54,7 +54,7 @@ void	handle_64(t_env *env, bool swap)
 		if (lc->cmd == LC_SYMTAB)
 		{
 			sym = (struct symtab_command *) lc;
-			add_output64(sym->nsyms, sym->symoff, sym->stroff, env);
+			add_output(sym->nsyms, (void*)adr + sym->symoff, (void*)adr + sym->stroff, env);
 			break;
 		}
 		lc = (void*)lc + lc->cmdsize;

@@ -6,21 +6,21 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/08 09:42:50 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/08 11:41:46 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm.h"
 
-static void add_output(int nsyms, int symoff, int stroff, t_env* env)
+static void add_output(int nsyms, void *symoff, void *stroff, t_env* env)
 {
 	int i;
 	char *stringtable;
 	struct nlist *array;
 	t_cmd *cmd;
 
-	array = (void*)env->ptr + symoff;
-	stringtable = (void*)env->ptr + stroff;
+	array = (void*)symoff;
+	stringtable = (void*)stroff;
 	cmd = NULL;
 	for (i = 0; i < nsyms; ++i)
 	{
@@ -31,30 +31,26 @@ static void add_output(int nsyms, int symoff, int stroff, t_env* env)
 	}
 }
 
-
-void	handle_32(t_env *env, bool swap)
+void	handle_32(t_env *env, char *adr, char* max, bool swap)
 {
-	printf("%s\n", "handle_32");
 
 	int 	ncmds;
 	struct	mach_header *header;
 	struct  segment_command *lc;
-	int i;
+	int 	i;
 	struct symtab_command *sym;
 
-	swap = ! swap;
-
-	header = (struct mach_header*)env->ptr;
-	if ((void*)header > (void*)env->end)
+	header = (struct mach_header*)adr;
+	if ((void*)header > (void*)max)
 		failmessage("Fail header");
-	ncmds = header->ncmds;
+	ncmds = (swap) ? swap_uint32(header->ncmds) : header->ncmds;;
 	lc = (struct  segment_command*)(header+1);
 	for (i = 0; i < ncmds; ++i)
 	{
 		if (lc->cmd == LC_SYMTAB)
 		{
 			sym = (struct symtab_command *) lc;
-			add_output(sym->nsyms, sym->symoff, sym->stroff, env);
+			add_output(sym->nsyms, (void*)adr + sym->symoff, (void*)adr + sym->stroff, env);
 			break;
 		}
 		lc = (void*)lc + lc->cmdsize;
