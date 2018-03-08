@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/08 11:41:46 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/08 12:12:49 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	handle_32(t_env *env, char *adr, char* max, bool swap)
 	header = (struct mach_header*)adr;
 	if ((void*)header > (void*)max)
 		failmessage("Fail header");
-	ncmds = (swap) ? swap_uint32(header->ncmds) : header->ncmds;;
+	ncmds = (swap) ? swap_uint32(header->ncmds) : header->ncmds;
 	lc = (struct  segment_command*)(header+1);
 	for (i = 0; i < ncmds; ++i)
 	{

@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/08 11:41:59 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/08 12:12:55 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,10 @@ void	handle_64(t_env *env, char *adr, char* max, bool swap)
 	int i;
 	struct symtab_command *sym;
 
-	swap = !swap;
-
 	header = (struct mach_header_64*)adr;
 	if ((void*)header > (void*)max)
 		failmessage("Fail header");
-	ncmds = header->ncmds;
+	ncmds = (swap) ? swap_uint32(header->ncmds) : header->ncmds;
 	lc = (struct  segment_command_64*)(header+1);
 	for (i = 0; i < ncmds; ++i)
 	{
