@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   x86.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/08 12:12:49 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/12 11:01:46 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "nm.h"
+#include <nm.h>
 
 static void add_output(int nsyms, void *symoff, void *stroff, t_env* env)
 {
-	int i;
-	char *stringtable;
-	struct nlist *array;
-	t_cmd *cmd;
+	int				i;
+	char			*stringtable;
+	struct nlist	*array;
+	t_cmd			*cmd;
 
 	array = (void*)symoff;
 	stringtable = (void*)stroff;
@@ -33,7 +33,6 @@ static void add_output(int nsyms, void *symoff, void *stroff, t_env* env)
 
 void	handle_32(t_env *env, char *adr, char* max, bool swap)
 {
-
 	int 	ncmds;
 	struct	mach_header *header;
 	struct  segment_command *lc;

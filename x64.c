@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   x64.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/08 12:12:55 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/12 11:01:43 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void add_output(int nsyms, void *symoff, void *stroff, t_env* env)
 {
-	int i;
-	char *stringtable;
-	struct nlist_64 *array;
-	t_cmd *cmd;
+	int				i;
+	char			*stringtable;
+	struct nlist_64	*array;
+	t_cmd			*cmd;
 
 	array = (void*)symoff;
 	stringtable = (void*)stroff;
@@ -29,17 +29,14 @@ static void add_output(int nsyms, void *symoff, void *stroff, t_env* env)
 		if (get_symbol(array[i].n_type) != '?')
 			mlccmd(env, array[i].n_value, get_symbol(array[i].n_type), stringtable + array[i].n_un.n_strx);
 	}
-
 }
 
 void	handle_64(t_env *env, char *adr, char* max, bool swap)
 {
-	//printf("%s\n", "handle_64");
-
 	int 	ncmds;
 	struct	mach_header_64 *header;
 	struct  segment_command_64 *lc;
-	int i;
+	int		i;
 	struct symtab_command *sym;
 
 	header = (struct mach_header_64*)adr;

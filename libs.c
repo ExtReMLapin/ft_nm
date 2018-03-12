@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   libs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/08 09:48:10 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/12 11:03:30 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
 
+
+/*
+** Pas copié collé, c'est pas vrai, zavé pa dpreuvs
+*/
 
 uint16_t	swap_uint16(uint16_t nb)
 {
@@ -58,7 +62,6 @@ void 	swapcmds(t_cmd *a, t_cmd *b)
 	symbol = a->symbol;
 	name = a->name;
 
-
 	a->adr = b->adr;
 	a->symbol = b->symbol;
 	a->name = b->name;
@@ -81,7 +84,6 @@ bool isstrbigger(char *a, char *b)
 
 	if (strcmp(a, b) == 0)
 		return (false);
-
 	while (a[i] && b[i])
 	{
 		if (a[i] > b[i])

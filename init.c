@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/08 11:41:10 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/12 11:03:48 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,7 @@ t_env *make_env(char *ptr, char* end)
 	cmds = env->list;
 	while (cmds)
 	{
-		#ifdef COLORS
-			printf("%s", "\033[0;31m");
-		#endif
 		print_hex(cmds->adr, true, env);
-		#ifdef COLORS
-			printf("%s", "\033[0;0m");
-		#endif
 		printf(" %c %s\n", cmds->symbol , cmds->name);
 		cmds = cmds->next;
 	}

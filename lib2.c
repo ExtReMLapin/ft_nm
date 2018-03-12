@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/08 09:41:46 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/12 10:55:31 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int how_many_chars(t_env *env)
 		return (16);
 	return (8);
 }
-
 
 size_t countspacesbeforehex(uint64_t hex)
 {
@@ -36,7 +35,6 @@ size_t countspacesbeforehex(uint64_t hex)
 	}
 	return (i);
 }
-
 
 void	print_hex(uint64_t hex, bool first, t_env *env)
 {
