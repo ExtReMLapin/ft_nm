@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/12 11:03:48 by anonymous        ###   ########.fr       */
+/*   Updated: 2018/03/13 10:40:01 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void 	mlccmd(t_env *env, uint64_t n_value, char symbol, char *name)
 
 void 	init_commands(t_env *env)
 {
+	//printf("isswap = %i is64 = %i isfattype = %i\n", env->isswap, env->is64bit, env->isfattype);
 	if (env->is64bit)
 	{
 		if (env->isswap)

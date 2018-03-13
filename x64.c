@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   x64.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/12 11:01:43 by anonymous        ###   ########.fr       */
+/*   Updated: 2018/03/13 11:57:10 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ static void add_output(int nsyms, void *symoff, void *stroff, t_env* env)
 	{
 		if (((void*)&array[i] + sizeof(*array) > (void*)env->end) || (void*)stringtable > (void*)env->end)
 			failmessage("Please check file integrity");
-		if (get_symbol(array[i].n_type) != '?')
-			mlccmd(env, array[i].n_value, get_symbol(array[i].n_type), stringtable + array[i].n_un.n_strx);
+		if (get_symbol(array[i].n_type, array[i].n_sect) != '?')
+			mlccmd(env, array[i].n_value, get_symbol(array[i].n_type, array[i].n_sect), stringtable + array[i].n_un.n_strx);
+		//printf("Name = %s  n_type =  %08x n_sect =  %08x n_desc =  %08x \n", stringtable + array[i].n_un.n_strx,  array[i].n_type, array[i].n_sect, array[i].n_desc );
 	}
 }
 

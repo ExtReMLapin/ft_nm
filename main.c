@@ -6,14 +6,39 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/02/28 10:30:00 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/13 11:59:29 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
 
-char get_symbol(uint8_t value)
+
+/*
+** this project sucks, dont ask me to do things correctly
+*/
+
+char get_symbol(uint8_t value, uint8_t n_sect)
 {
+	if (value == 15)
+	{
+		if (n_sect == 0xb)
+			return('D');
+		if (n_sect == 0xc)
+			return ('B');
+		if (n_sect != 1)
+			return ('S');
+	}
+	if (value == 14)
+	{
+		if (n_sect == 0xb)
+			return ('d');
+		if (n_sect == 0xc)
+			return ('b');
+		if (n_sect != 1)
+			return ('s');
+	}
+
+
 	if (value == 1)
 		return ('U');
 	if (value == 15)

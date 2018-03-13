@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:49:33 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/08 11:50:59 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/13 10:38:40 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct 				s_cmd
 	char					symbol;
 	char					*name;
 	struct s_cmd			*next;
+
 }							t_cmd;
 
 typedef struct				s_env
@@ -48,7 +49,7 @@ typedef struct				s_env
 
 void 						mlccmd(t_env *env, uint64_t n_value, char symbol, char *name);
 t_env 						*make_env(char *ptr, char* end);
-char 						get_symbol(uint8_t value);
+char						get_symbol(uint8_t value, uint8_t n_sect);
 void						handle_64(t_env *env, char *adr, char* max, bool swap);
 void						handle_32(t_env *env, char *adr, char* max, bool swap);
 void						handle_fat(t_env *env, bool swap);
