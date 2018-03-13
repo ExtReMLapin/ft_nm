@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:49:33 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/13 10:38:40 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/13 12:41:08 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@
 # include <stdbool.h>
 
 
+typedef struct				s_section
+{
+	char					*name;
+	unsigned int			nb;
+	struct s_section		*next;
+}							t_section;
+
+typedef struct				s_lsection
+{
+	t_section				*first;
+	t_section				*last;
+}							t_lsection;
 
 typedef struct 				s_cmd
 {
@@ -45,7 +57,11 @@ typedef struct				s_env
 	char					*ptr;
 	char					*end;
 	t_cmd 					*list;
+	t_lsection				*section;
 }							t_env;
+
+
+
 
 void 						mlccmd(t_env *env, uint64_t n_value, char symbol, char *name);
 t_env 						*make_env(char *ptr, char* end);
