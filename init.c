@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/14 10:47:21 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/14 11:21:26 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void 	init_commands(t_env *env)
 {
 	if ((env->section = (t_lsection*)malloc(sizeof(t_lsection))) == NULL)
 		return;
+	//printf("64 = %i swap = %i fat = %i\n", env->is64bit, env->isswap, env->isfattype);
 	env->section ->first = NULL;
 	env->section ->last = NULL;
 	if (env->is64bit)
