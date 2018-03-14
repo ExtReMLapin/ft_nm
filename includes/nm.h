@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:49:33 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/14 10:16:49 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/14 11:47:42 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void						order_cmds(t_env *env);
 uint16_t					swap_uint16(uint16_t nb);
 uint32_t					swap_uint32(uint32_t nb);
 uint64_t					swap_uint64(uint64_t nb);
-void						print_hex(uint64_t hex, bool first, t_env *env);
+void						print_hex(uint64_t hex, bool first, t_env *env, bool blank);
 void						nm2(t_env *env, char *ptr, char* max);
 void						add_segment64(struct segment_command_64 *com, t_lsection *list);
 void						add_segment32(struct segment_command *com, t_lsection *list);
