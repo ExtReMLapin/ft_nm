@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lib2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/12 10:55:31 by anonymous        ###   ########.fr       */
+/*   Updated: 2018/03/14 10:47:53 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
-
 
 int how_many_chars(t_env *env)
 {
@@ -20,7 +19,7 @@ int how_many_chars(t_env *env)
 	return (8);
 }
 
-size_t countspacesbeforehex(uint64_t hex)
+size_t countcharhex(uint64_t hex)
 {
 
 	int i;
@@ -44,7 +43,8 @@ void	print_hex(uint64_t hex, bool first, t_env *env)
 
 	if (first)
 	{
-		i = how_many_chars(env) - countspacesbeforehex(hex);
+		i = how_many_chars(env) - countcharhex(hex);
+		//printf(" => %i = %i - %lu\n", i, how_many_chars(env) , countcharhex(hex));
 		if (hex == 0x0)
 			c = ' ';
 		else

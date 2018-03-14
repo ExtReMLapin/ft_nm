@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/14 10:25:13 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/14 10:47:21 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,11 @@ t_env *make_env(char *ptr, char* end)
 	cmds = env->list;
 	while (cmds)
 	{
-		print_hex(cmds->adr, true, env);
 		if (cmds->symbol != 'z' && cmds->symbol != 'Z')
-		printf(" %c %s\n", cmds->symbol , cmds->name);
+		{
+			print_hex(cmds->adr, true, env);
+			printf(" %c %s\n", cmds->symbol , cmds->name);
+		}
 		cmds = cmds->next;
 	}
 	return (env);
