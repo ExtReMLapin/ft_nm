@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/13 12:51:32 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/14 10:11:19 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,17 @@ static void						add_list(char *name, t_lsection *list)
 }
 
 static void						add_segment(\
-									struct segment_command *com, t_lsection *list)
+									struct segment_command_64 *com, t_lsection *list)
 {
 	unsigned int				i;
 	struct section_64			*sec;
 	struct segment_command_64	*seg;
 
 	i = 0;
+
 	seg = (struct segment_command_64*)com;
 	sec = (struct section_64*)(seg + sizeof(seg) / sizeof(void*));
-	while (i < seg->nsects)
+	while (i < com->nsects)
 	{
 		add_list(sec->sectname, list);
 		sec = (struct section_64 *)(((void*)sec) + sizeof(struct section_64));
@@ -54,26 +55,6 @@ static void						add_segment(\
 	}
 }
 
-t_lsection						*get_section(\
-							struct segment_command *c, struct mach_header_64 *m)
-{
-	t_lsection					*list;
-	unsigned int				i;
-
-	i = 0;
-	if ((list = (t_lsection*)malloc(sizeof(list))) == NULL)
-		return (NULL);
-	list->first = NULL;
-	list->last = NULL;
-	while (i < m->ncmds)
-	{
-		if (c->cmd == LC_SEGMENT_64)
-			add_segment(c, list);
-		c += c->cmdsize / sizeof(void *);
-		i++;
-	}
-	return (list);
-}
 
 
 static char			secto(t_lsection *sec, unsigned int n_sect)
@@ -81,11 +62,11 @@ static char			secto(t_lsection *sec, unsigned int n_sect)
 	t_section		*tmp;
 
 	tmp = sec->first;
+
 	while (tmp) 
 	{
 		if (tmp->nb == n_sect)
 		{
-			printf("aaa %s\n", tmp->name);
 			if (!strcmp(tmp->name, SECT_DATA))
 				return ('D');
 			else if (!strcmp(tmp->name, SECT_BSS))
@@ -94,14 +75,14 @@ static char			secto(t_lsection *sec, unsigned int n_sect)
 				return ('T');
 			else
 			{
-				printf("%s d %s ohoh\n", "failend", tmp->name);
+
 				return ('S');
 			}
 			//printf("aaa %s\n", tmp->name);
 		}
 		tmp = tmp->next;
 	}
-	printf("%s %p\n", "fail return", tmp);
+	//printf("%s %p\n", "fail return", tmp);
 	return ('S');
 }
 
@@ -160,7 +141,7 @@ void	handle_64(t_env *env, char *adr, char* max, bool swap)
 {
 	int 	ncmds;
 	struct	mach_header_64 *header;
-	struct  segment_command *lc;
+	struct  load_command *lc;
 	int		i;
 	struct symtab_command *sym;
 
@@ -168,15 +149,27 @@ void	handle_64(t_env *env, char *adr, char* max, bool swap)
 	if ((void*)header > (void*)max)
 		failmessage("Fail header");
 	ncmds = (swap) ? swap_uint32(header->ncmds) : header->ncmds;
-	lc = (struct  segment_command*)(header+1);
-	env->section = get_section(lc, header);
+	lc = (struct  load_command*)(header+1);
+	if ((env->section  = (t_lsection*)malloc(sizeof(t_lsection))) == NULL)
+		return;
+	env->section ->first = NULL;
+	env->section ->last = NULL;
+
+
+	for (i = 0; i < ncmds; ++i)
+	{
+		if (lc->cmd == LC_SEGMENT_64)
+			add_segment((struct segment_command_64*)lc, env->section );
+		lc = (void*)lc + lc->cmdsize;
+	}
+
+	lc = (struct  load_command*)(header+1);
 	for (i = 0; i < ncmds; ++i)
 	{
 		if (lc->cmd == LC_SYMTAB)
 		{
-			sym = (struct symtab_command *) lc;
+			sym = (struct symtab_command *)lc;
 			add_output(sym->nsyms, (void*)adr + sym->symoff, (void*)adr + sym->stroff, env);
-			break;
 		}
 		lc = (void*)lc + lc->cmdsize;
 	}
