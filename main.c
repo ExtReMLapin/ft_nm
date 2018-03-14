@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/13 11:59:29 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/14 10:15:45 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,37 +17,60 @@
 ** this project sucks, dont ask me to do things correctly
 */
 
-char get_symbol(uint8_t value, uint8_t n_sect)
-{
-	if (value == 15)
-	{
-		if (n_sect == 0xb)
-			return('D');
-		if (n_sect == 0xc)
-			return ('B');
-		if (n_sect != 1)
-			return ('S');
-	}
-	if (value == 14)
-	{
-		if (n_sect == 0xb)
-			return ('d');
-		if (n_sect == 0xc)
-			return ('b');
-		if (n_sect != 1)
-			return ('s');
-	}
 
+static char			secto(t_lsection *sec, unsigned int n_sect)
+{ 
+	t_section		*tmp;
 
-	if (value == 1)
-		return ('U');
-	if (value == 15)
-		return ('T');
-	if (value == 14)
-		return ('t');
-	else
-		return ('?');
+	tmp = sec->first;
+
+	while (tmp) 
+	{
+		if (tmp->nb == n_sect)
+		{
+			if (!strcmp(tmp->name, SECT_DATA))
+				return ('D');
+			else if (!strcmp(tmp->name, SECT_BSS))
+				return ('B');
+			else if (!strcmp(tmp->name, SECT_TEXT))
+				return ('T');
+			else
+				return ('S');
+		}
+		tmp = tmp->next;
+	}
+	return ('S');
 }
+
+char				typing(uint32_t type, uint32_t n_sect, t_lsection *sec, int addr)
+{
+	char			ret;
+
+	ret = '?';
+	if ((type & N_TYPE) == N_UNDF)
+	{
+		if (addr)
+			ret = 'C';
+		else
+			ret = 'U';
+	}
+	else if ((type & N_TYPE) == N_ABS)
+		ret = 'A';
+	else if ((type & N_TYPE) == N_PBUD)
+		ret = 'U';
+	else if ((type & N_TYPE) == N_SECT)
+		ret = secto(sec, n_sect);
+	else if ((type & N_TYPE) == N_INDR)
+		ret = 'I';
+	if ((type & N_STAB) != 0)
+		ret = 'Z';
+	if ((type & N_EXT) == 0 && ret != '?')
+		ret += 32;
+	return (ret);
+}
+
+
+
 
 void nm(char *ptr, char* end)
 {

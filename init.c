@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/13 10:40:01 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/14 10:25:13 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void 	mlccmd(t_env *env, uint64_t n_value, char symbol, char *name)
 
 void 	init_commands(t_env *env)
 {
-	//printf("isswap = %i is64 = %i isfattype = %i\n", env->isswap, env->is64bit, env->isfattype);
+	if ((env->section = (t_lsection*)malloc(sizeof(t_lsection))) == NULL)
+		return;
+	env->section ->first = NULL;
+	env->section ->last = NULL;
 	if (env->is64bit)
 	{
 		if (env->isswap)
@@ -86,6 +89,7 @@ t_env *make_env(char *ptr, char* end)
 	while (cmds)
 	{
 		print_hex(cmds->adr, true, env);
+		if (cmds->symbol != 'z' && cmds->symbol != 'Z')
 		printf(" %c %s\n", cmds->symbol , cmds->name);
 		cmds = cmds->next;
 	}

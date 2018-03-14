@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:49:33 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/14 09:59:09 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/14 10:16:49 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ typedef struct				s_env
 
 void 						mlccmd(t_env *env, uint64_t n_value, char symbol, char *name);
 t_env 						*make_env(char *ptr, char* end);
-char						get_symbol(uint8_t value, uint8_t n_sect);
 void						handle_64(t_env *env, char *adr, char* max, bool swap);
 void						handle_32(t_env *env, char *adr, char* max, bool swap);
 void						handle_fat(t_env *env, bool swap);
@@ -76,4 +75,7 @@ uint32_t					swap_uint32(uint32_t nb);
 uint64_t					swap_uint64(uint64_t nb);
 void						print_hex(uint64_t hex, bool first, t_env *env);
 void						nm2(t_env *env, char *ptr, char* max);
+void						add_segment64(struct segment_command_64 *com, t_lsection *list);
+void						add_segment32(struct segment_command *com, t_lsection *list);
+char						typing(uint32_t type, uint32_t n_sect, t_lsection *sec, int addr);
 #endif	
