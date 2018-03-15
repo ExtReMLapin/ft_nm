@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:49:33 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/15 11:03:06 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/15 11:27:58 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void						handle_32(t_env *env, char *adr, char* max, bool swap);
 void						handle_fat(t_env *env, bool swap);
 void						failmessage(char *message);
 void						order_cmds(t_env *env);
-void						print_cmds(t_cmd *cmd);
+void						print_cmds(t_cmd *cmd, int n);
 uint16_t					swap_uint16(uint16_t nb);
 uint32_t					swap_uint32(uint32_t nb);
 uint64_t					swap_uint64(uint64_t nb);
