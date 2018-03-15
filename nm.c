@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 11:20:20 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/15 10:57:31 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/15 12:08:46 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void nm2(t_env *env, char *ptr, char* max)
 
 	head = *(uint32_t*)ptr;
 	clearlist(env);
+	clearsections(env);
 	if (head == MH_MAGIC_64)
 		handle_64(env, ptr, max, false);
 	else if (head == MH_CIGAM_64)

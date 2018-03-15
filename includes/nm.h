@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:49:33 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/15 11:27:58 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/15 12:08:43 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,5 @@ char						typing(uint32_t type, uint32_t n_sect, t_lsection *sec, int addr);
 bool						check_ar_header(char *ptr);
 void						handle_ar(char const *file, char *max, t_env *env);
 void						clearlist(t_env *env);
+void						clearsections(t_env *env);
 #endif	
