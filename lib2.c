@@ -6,18 +6,12 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/14 11:47:45 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/15 11:00:51 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
 
-int how_many_chars(t_env *env)
-{
-	if (env->is64bit || env->isfattype)
-		return (16);
-	return (8);
-}
 
 size_t countcharhex(uint64_t hex)
 {
@@ -35,7 +29,7 @@ size_t countcharhex(uint64_t hex)
 	return (i);
 }
 
-void	print_hex(uint64_t hex, bool first, t_env *env, bool blank)
+void	print_hex(uint64_t hex, bool first, int how_many_chars, bool blank)
 {
 	char 	hex_chars[16];
 	char c;
@@ -43,8 +37,7 @@ void	print_hex(uint64_t hex, bool first, t_env *env, bool blank)
 
 	if (first)
 	{
-		i = how_many_chars(env) - countcharhex(hex);
-		//printf(" => %i = %i - %lu\n", i, how_many_chars(env) , countcharhex(hex));
+		i = how_many_chars - countcharhex(hex);
 		if (blank)
 			c = ' ';
 		else
@@ -57,8 +50,8 @@ void	print_hex(uint64_t hex, bool first, t_env *env, bool blank)
 	memcpy(hex_chars, "0123456789abcdef", sizeof(char) * 16);
 	if (hex > 15)
 	{
-		print_hex(hex / 16, false, env, blank);
-		print_hex(hex % 16, false, env, blank);
+		print_hex(hex / 16, false, 0, blank);
+		print_hex(hex % 16, false, 0, blank);
 	}
 	else
 		putchar(hex_chars[hex]);

@@ -1,35 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   nm.c                                               :+:      :+:    :+:   */
+/*   lists.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/08 11:20:20 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/15 10:57:31 by pfichepo         ###   ########.fr       */
+/*   Created: 2018/03/15 10:52:46 by pfichepo          #+#    #+#             */
+/*   Updated: 2018/03/15 11:13:12 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
 
+
 /*
-** Called by fat files
+** NOT EFFICIENT BUT IDC
 */
 
-void nm2(t_env *env, char *ptr, char* max)
+void		clearlist(t_env *env)
 {
-	uint32_t head;
+	t_cmd *cur;
+	t_cmd *curnext;
 
-	head = *(uint32_t*)ptr;
-	clearlist(env);
-	if (head == MH_MAGIC_64)
-		handle_64(env, ptr, max, false);
-	else if (head == MH_CIGAM_64)
-		handle_64(env, ptr, max, true);
-	else if (head == MH_MAGIC)
-		handle_32(env, ptr, max, false);
-	else if (head == MH_CIGAM)
-		handle_32(env, ptr, max, true);
-	else
-		failmessage("ohohoh, pas normal");
+	if (!env->list)
+		return;
+	while (env->list->next)
+	{
+		cur = env->list;
+		while (cur->next)
+		{
+			curnext = cur;
+			cur = cur->next;
+			curnext->next = NULL;
+		}
+		free(cur);
+		cur = NULL;
+	}
+	free(env->list);
+	env->list = NULL;
 }

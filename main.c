@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/14 10:15:45 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/15 10:18:53 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ char				typing(uint32_t type, uint32_t n_sect, t_lsection *sec, int addr)
 
 
 
-void nm(char *ptr, char* end)
+void nm(char *ptr, char* end, char*name)
 {
 	t_env *env;
 
-	env = make_env(ptr, end);
+	env = make_env(ptr, end, name);
 }
 
 int main (int ac, char ** av)
@@ -106,7 +106,8 @@ int main (int ac, char ** av)
 		return (EXIT_FAILURE);
 	}
 	close(fd);
-	nm(ptr, ptr + buf.st_size);
+
+	nm(ptr, ptr + buf.st_size, av[1]);
 	if (munmap(ptr, buf.st_size) < 0)
 	{
 		printf("%s\n", "unmmap fail");

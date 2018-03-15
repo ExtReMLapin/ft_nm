@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/12 11:03:30 by anonymous        ###   ########.fr       */
+/*   Updated: 2018/03/15 11:02:45 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,3 +136,19 @@ void 	order_cmds(t_env *env)
 	}
 }
 
+
+void print_cmds(t_cmd *cmd)
+{
+	t_cmd *cmds;
+
+	cmds = cmd;
+	while (cmds)
+	{
+		if (cmds->symbol != 'z' && cmds->symbol != 'Z')
+		{
+			print_hex(cmds->adr, true, 16, cmds->symbol == 'U');
+			printf(" %c %s\n", cmds->symbol , cmds->name);
+		}
+		cmds = cmds->next;
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/14 11:47:59 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/15 10:59:06 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ void 	init_commands(t_env *env)
 	//printf("64 = %i swap = %i fat = %i\n", env->is64bit, env->isswap, env->isfattype);
 	env->section ->first = NULL;
 	env->section ->last = NULL;
+
+	if (env->isarchive)
+	{
+		handle_ar(env->ptr, env->end, env);
+		return;
+	}
 	if (env->is64bit)
 	{
 		if (env->isswap)
@@ -68,33 +74,22 @@ void 	init_commands(t_env *env)
 	}
 }
 
-t_env *make_env(char *ptr, char* end)
+t_env *make_env(char *ptr, char* end, char* name)
 {
 	t_env *env;
-	t_cmd *cmds;
 
 	env = (t_env*)malloc(sizeof(t_env));
+	env->file_name = name;
 	env->ptr = ptr;
 	env->end = end;
 	env->is64bit = (*(uint32_t*)ptr == MH_MAGIC_64 || *(uint32_t*)ptr == MH_CIGAM_64);
 	env->isswap = (*(uint32_t*)ptr == MH_CIGAM_64 || *(uint32_t*)ptr == MH_CIGAM || *(uint32_t*)ptr == FAT_CIGAM);
 	env->isfattype = (*(uint32_t*)ptr == FAT_CIGAM || *(uint32_t*)ptr == FAT_MAGIC);
-	if (!env->is64bit && !env->isswap && !env->isfattype && *(uint32_t*)ptr != MH_MAGIC)
+	env->isarchive = check_ar_header(ptr);
+	if (!env->isarchive && !env->is64bit && !env->isswap && !env->isfattype && *(uint32_t*)ptr != MH_MAGIC)
 		failmessage("File not recognized");
 
 	env->list = NULL;
 	init_commands(env);
-	
-	order_cmds(env);
-	cmds = env->list;
-	while (cmds)
-	{
-		if (cmds->symbol != 'z' && cmds->symbol != 'Z')
-		{
-			print_hex(cmds->adr, true, env, cmds->symbol == 'U');
-			printf(" %c %s\n", cmds->symbol , cmds->name);
-		}
-		cmds = cmds->next;
-	}
 	return (env);
 }

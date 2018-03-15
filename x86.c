@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/14 10:18:59 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/15 11:03:18 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,6 @@ void	handle_32(t_env *env, char *adr, char* max, bool swap)
 		}
 		lc = (void*)lc + lc->cmdsize;
 	}
+	order_cmds(env);
+	print_cmds(env->list);
 }
