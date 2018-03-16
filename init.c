@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/15 10:59:06 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/16 10:05:30 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ t_env *make_env(char *ptr, char* end, char* name)
 	env->isarchive = check_ar_header(ptr);
 	if (!env->isarchive && !env->is64bit && !env->isswap && !env->isfattype && *(uint32_t*)ptr != MH_MAGIC)
 		failmessage("File not recognized");
-
 	env->list = NULL;
 	init_commands(env);
 	return (env);

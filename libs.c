@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/15 11:28:02 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/16 09:46:34 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,6 @@ void 	order_cmds(t_env *env)
 			break;
 	}
 }
-
 
 void	print_cmds(t_cmd *cmd, int n)
 {

@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/15 10:18:53 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/16 10:15:21 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,46 +72,77 @@ char				typing(uint32_t type, uint32_t n_sect, t_lsection *sec, int addr)
 
 
 
-void nm(char *ptr, char* end, char*name)
+static void nm(char *ptr, char* end, char*name)
 {
 	t_env *env;
 
 	env = make_env(ptr, end, name);
+	clearsections(env);
+	clearlist(env);
 }
 
-int main (int ac, char ** av)
+
+
+int handlefile(char *filename)
 {
 	int				fd;
 	char			*ptr;
 	struct stat 	buf;
 
-	if (ac != 2)
-	{	
-		printf("%s\n", "fail narg");
-		return (EXIT_FAILURE);
-	}
-	if ((fd = open(av[1], O_RDONLY)) < 0)
+
+	if ((fd = open(filename, O_RDONLY)) < 0)
 	{
-		printf("%s\n", "fail on open");
+		printf("Could not open file %s\n", filename);
 		return (EXIT_FAILURE);
 	}
 	if (fstat(fd, &buf) < 0)
 	{
-		printf("%s\n", "fstat");
+		printf("%s\n", "Could not access file informations, file on fstat().");
 		return (EXIT_FAILURE);
 	}
 	if ((ptr = mmap(0, buf.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
 	{
-		printf("%s\n", "mmap fail");
+		printf("%s\n", "Could not map file to ram.");
 		return (EXIT_FAILURE);
 	}
 	close(fd);
 
-	nm(ptr, ptr + buf.st_size, av[1]);
+	nm(ptr, ptr + buf.st_size, filename);
 	if (munmap(ptr, buf.st_size) < 0)
 	{
 		printf("%s\n", "unmmap fail");
 		return (EXIT_FAILURE);
 	}
+
 	return	(EXIT_SUCCESS);
+}
+
+
+int main (int ac, char ** av)
+{
+	int i;
+
+	if (ac == 1)
+	{
+		handlefile("./a.out");
+		return (EXIT_SUCCESS);
+	}
+	else
+	{
+		i = 1;
+		while (i < ac)
+		{
+			if (ac > 2)
+			{
+				write(1, "\n", 1);
+				write(1, av[i], strlen(av[i]));
+				write(1, ":\n", 3);
+			}
+
+			if (handlefile(av[i]) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
+			i++;
+		}
+	}
+	return (EXIT_SUCCESS);
 }
