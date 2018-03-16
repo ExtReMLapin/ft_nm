@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:49:33 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/15 12:08:43 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/16 10:23:31 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,6 @@ typedef struct				s_env
 	t_lsection				*section;
 	char*					file_name;
 }							t_env;
-
-
-
 
 void 						mlccmd(t_env *env, uint64_t n_value, char symbol, char *name);
 t_env						*make_env(char *ptr, char* end, char* name);
