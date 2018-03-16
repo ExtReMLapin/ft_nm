@@ -6,25 +6,22 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/16 10:15:21 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/16 11:32:58 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
 
-
 /*
 ** this project sucks, dont ask me to do things correctly
 */
 
-
 static char			secto(t_lsection *sec, unsigned int n_sect)
-{ 
+{
 	t_section		*tmp;
 
 	tmp = sec->first;
-
-	while (tmp) 
+	while (tmp)
 	{
 		if (tmp->nb == n_sect)
 		{
@@ -42,7 +39,8 @@ static char			secto(t_lsection *sec, unsigned int n_sect)
 	return ('S');
 }
 
-char				typing(uint32_t type, uint32_t n_sect, t_lsection *sec, int addr)
+char				typing(uint32_t type, uint32_t n_sect,
+	t_lsection *sec, int addr)
 {
 	char			ret;
 
@@ -69,32 +67,23 @@ char				typing(uint32_t type, uint32_t n_sect, t_lsection *sec, int addr)
 	return (ret);
 }
 
-
-
-
-static void nm(char *ptr, char* end, char*name)
+static void			nm(char *ptr, char *end, char *name)
 {
-	t_env *env;
+	t_env	*env;
 
 	env = make_env(ptr, end, name);
 	clearsections(env);
 	clearlist(env);
 }
 
-
-
-int handlefile(char *filename)
+int					handlefile(char *filename)
 {
 	int				fd;
 	char			*ptr;
-	struct stat 	buf;
-
+	struct stat		buf;
 
 	if ((fd = open(filename, O_RDONLY)) < 0)
-	{
-		printf("Could not open file %s\n", filename);
-		return (EXIT_FAILURE);
-	}
+		failmessage("Could not open file");
 	if (fstat(fd, &buf) < 0)
 	{
 		printf("%s\n", "Could not access file informations, file on fstat().");
@@ -106,19 +95,16 @@ int handlefile(char *filename)
 		return (EXIT_FAILURE);
 	}
 	close(fd);
-
 	nm(ptr, ptr + buf.st_size, filename);
 	if (munmap(ptr, buf.st_size) < 0)
 	{
 		printf("%s\n", "unmmap fail");
 		return (EXIT_FAILURE);
 	}
-
-	return	(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
-
-int main (int ac, char ** av)
+int					main (int ac, char **av)
 {
 	int i;
 
@@ -138,7 +124,6 @@ int main (int ac, char ** av)
 				write(1, av[i], strlen(av[i]));
 				write(1, ":\n", 3);
 			}
-
 			if (handlefile(av[i]) == EXIT_FAILURE)
 				return (EXIT_FAILURE);
 			i++;

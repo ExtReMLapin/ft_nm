@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 09:41:11 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/16 10:45:44 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/16 11:49:03 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ bool		check_ar_header(char *ptr)
 	int i ;
 
 	i = 0;
-
 	while (i++ < SARMAG-1)
 	{
 		if (ARMAG[i] != ptr[i])
@@ -38,7 +37,7 @@ static uint32_t	ar_size(char const *name)
 }
 
 
-bool isartablesorted(uint32_t* table, uint32_t nbr)
+static bool isartablesorted(uint32_t* table, uint32_t nbr)
 {
 	uint32_t i;
 	uint32_t cache;
@@ -60,21 +59,12 @@ bool isartablesorted(uint32_t* table, uint32_t nbr)
 	return (true);
 }
 
-
-static void		read_ranlib(char const *file, char *end, uint32_t nbr, t_env *env)
+static uint32_t *filtertable(uint32_t nbr, struct ranlib	*ranlib)
 {
-	struct ar_hdr	*ar;
-	void			*obj;
-	struct ranlib	*ranlib;
-	uint32_t		i;
-	uint32_t *artable;
-
-	
-	ar = (void*)file + SARMAG;
-	ranlib = (void*)ar + sizeof(struct ar_hdr) + ar_size(ar->ar_name) + 4;
+	uint32_t	i;
+	uint32_t	*artable;
 
 	artable = (uint32_t*)malloc(sizeof(uint32_t)*nbr);
-
 	i = 0;
 	while (i < nbr)
 	{
@@ -86,13 +76,29 @@ static void		read_ranlib(char const *file, char *end, uint32_t nbr, t_env *env)
 		if (isartablesorted(artable, nbr) == true)
 			break;
 	}
+	return (artable);
+}
 
+static void		read_ranlib(char const *file, char *end, uint32_t nbr, t_env *env)
+{
+	struct ar_hdr	*ar;
+	void			*obj;
+	struct ranlib	*ranlib;
+	uint32_t		i;
+	uint32_t *artable;
 
+	ar = (void*)file + SARMAG;
+	ranlib = (void*)ar + sizeof(struct ar_hdr) + ar_size(ar->ar_name) + 4;
+	artable = filtertable(nbr, ranlib);
 	i = 0;
 	while (i < nbr)
 	{
+		while (i != 0 && artable[i] == artable[i-1])
+			i++;
+		if (i >= nbr)
+			break;
+
 		ar = (void*)file + artable[i];
-		//printf("%i\n", ranlib[i].ran_off);
 		obj = (void*)ar + sizeof(struct ar_hdr) + ar_size(ar->ar_name);
 		printf("\n%s(%s):\n", env->file_name, ar->ar_name + sizeof(struct ar_hdr));
 		nm2(env, (char*)obj, end);
