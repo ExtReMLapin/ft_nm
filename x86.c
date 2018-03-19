@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/19 10:46:29 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/19 10:57:40 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,10 @@ static void add_output(int nsyms, void *symoff, void *stroff, t_env* env, bool s
 			failmessage("Please check file integrity");
 		if (swap)
 		{
-			//array[i].n_value = swap_uint32(array[i].n_value);
+			array[i].n_value = swap_uint32(array[i].n_value);
 			array[i].n_type = swap_uint32(array[i].n_type);
 			array[i].n_sect = swap_uint32(array[i].n_sect);
 			array[i].n_un.n_strx = swap_uint32(array[i].n_un.n_strx);
-			printf("array[i].n_type = 0x%08x\n", array[i].n_type);
-			printf("array[i].n_sect = 0x%08x\n", array[i].n_sect);
 		}
 		mlccmd(env, array[i].n_value, typing(array[i].n_type, array[i].n_sect, env->section, array[i].n_value), stringtable + array[i].n_un.n_strx);
 	}
