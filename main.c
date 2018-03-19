@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/16 11:32:58 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/19 10:43:46 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char				typing(uint32_t type, uint32_t n_sect,
 {
 	char			ret;
 
+	printf("type = %i\n",addr );
 	ret = '?';
 	if ((type & N_TYPE) == N_UNDF)
 	{

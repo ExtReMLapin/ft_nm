@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/15 11:28:14 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/19 10:25:17 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	handle_64(t_env *env, char *adr, char* max, bool swap)
 	for (i = 0; i < ncmds; ++i)
 	{
 		if (lc->cmd == LC_SEGMENT_64)
-			add_segment64((struct segment_command_64*)lc, env->section );
+			add_segment64((struct segment_command_64*)lc, env->section, swap );
 		lc = (void*)lc + lc->cmdsize;
 	}
 

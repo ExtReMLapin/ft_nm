@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 10:12:45 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/14 10:20:05 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/19 10:39:41 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void						add_list(char *name, t_lsection *list)
 }
 
 void						add_segment64(\
-									struct segment_command_64 *com, t_lsection *list)
+									struct segment_command_64 *com, t_lsection *list, bool swap)
 {
 	unsigned int				i;
 	struct section_64			*sec;
@@ -45,6 +45,7 @@ void						add_segment64(\
 
 	seg = (struct segment_command_64*)com;
 	sec = (struct section_64*)(seg + sizeof(seg) / sizeof(void*));
+	com ->nsects = (swap) ? swap_uint64(com ->nsects) : com ->nsects;
 	while (i < com->nsects)
 	{
 		add_list(sec->sectname, list);
@@ -54,7 +55,7 @@ void						add_segment64(\
 }
 
 void						add_segment32(\
-									struct segment_command *com, t_lsection *list)
+									struct segment_command *com, t_lsection *list, bool swap)
 {
 	unsigned int				i;
 	struct section			*sec;
@@ -64,6 +65,7 @@ void						add_segment32(\
 
 	seg = (struct segment_command*)com;
 	sec = (struct section*)(seg + sizeof(seg) / sizeof(void*));
+	com->nsects = (swap) ? swap_uint32(com->nsects) : com->nsects;
 	while (i < com->nsects)
 	{
 		add_list(sec->sectname, list);
