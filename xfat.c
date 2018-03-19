@@ -6,15 +6,12 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:23 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/19 11:09:19 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/19 11:18:45 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include <nm.h>
-
-
-
 
 static void	handle_fat32(t_env *env, bool swap)
 {
@@ -47,8 +44,7 @@ static void	handle_fat64(t_env *env, bool swap)
 
 	header = (struct fat_header*)env->ptr;	
 	arch = (struct fat_arch_64*)(header+1);
-	if (swap)
-		header->nfat_arch = swap_uint64(header->nfat_arch);
+	header->nfat_arch = (swap) ? swap_uint64(header->nfat_arch) : header->nfat_arch;
 	while (header->nfat_arch--)
 	{
 		arch->cputype = (swap) ? swap_uint64(arch->cputype) : arch->cputype;
@@ -58,10 +54,7 @@ static void	handle_fat64(t_env *env, bool swap)
 		arch->align = (swap) ? swap_uint64(arch->align) : arch->align;
 		header2 = (void*)env->ptr + arch->offset;
 		if (arch->cputype == CPU_TYPE_X86_64)
-		{
 			nm2(env, (char*)header2, (char*)((void*)header2 + arch->size));
-			break;
-		}
 		arch = (void*)arch + sizeof(struct fat_arch_64);
 	}	
 }
