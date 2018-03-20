@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/15 11:00:51 by pfichepo         ###   ########.fr       */
+/*   Created: 2018/03/20 12:26:16 by pfichepo          #+#    #+#             */
+/*   Updated: 2018/03/20 12:37:01 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
-
 
 size_t countcharhex(uint64_t hex)
 {
@@ -43,7 +42,7 @@ void	print_hex(uint64_t hex, bool first, int how_many_chars, bool blank)
 		else
 			c = '0';
 		while (i--)
-			putchar(c);
+			write(1, &c, 1);
 		if (hex == 0x0)
 			return;
 	}
@@ -54,5 +53,5 @@ void	print_hex(uint64_t hex, bool first, int how_many_chars, bool blank)
 		print_hex(hex % 16, false, 0, blank);
 	}
 	else
-		putchar(hex_chars[hex]);
+		write(1, &hex_chars[hex], 1);
 }

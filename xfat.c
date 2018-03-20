@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:23 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/20 11:39:22 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/20 12:44:29 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,16 @@ static void swapvars64(struct fat_arch_64 *arch, bool swap)
 }
 
 
-static void	handle_fat32(t_env *env, bool swap)
+void printarch(char *filename, char *arch)
+{
+	write(1, "\n", 1);
+	write(1, filename , strlen(filename));
+	write(1, " (for architecture ", 19);
+	write(1, arch, strlen(arch));
+	write(1, "):\n", 3);
+}
+
+void	handle_fat32(t_env *env, bool swap)
 {
 	struct fat_header	*header;
 	struct fat_arch 	*arch;
@@ -54,7 +63,7 @@ static void	handle_fat32(t_env *env, bool swap)
 		if (shouldprintcpu(arch->cputype, (struct fat_arch*)(header+1), cpucount))
 		{
 			if (how_many_cpu((struct fat_arch*)(header+1), cpucount) > 1)
-				printf("\n%s (for architecture %s):\n", env->file_name, get_cputype(arch->cputype));
+				printarch( env->file_name, get_cputype(arch->cputype));
 			env->in_ppc = arch->cputype == CPU_TYPE_POWERPC || arch->cputype == CPU_TYPE_POWERPC64;
 			nm2(env, (char*)header2, (char*)((void*)header2 + arch->size));
 		}
@@ -62,7 +71,7 @@ static void	handle_fat32(t_env *env, bool swap)
 	}	
 }
 
-static void	handle_fat64(t_env *env, bool swap)
+void	handle_fat64(t_env *env, bool swap)
 {
 	struct fat_header	*header;
 	struct fat_arch_64 	*arch;
@@ -79,17 +88,4 @@ static void	handle_fat64(t_env *env, bool swap)
 			nm2(env, (char*)header2, (char*)((void*)header2 + arch->size));
 		arch = (void*)arch + sizeof(struct fat_arch_64);
 	}	
-}
-
-void handle_fat(t_env *env, bool swap)
-{
-	struct fat_header	*header;
-
-	header = (struct fat_header*)env->ptr;
-	if ((void*)header > (void*)env->end)
-		failmessage("Fail header");
-	if (!env->is64bit)
-		handle_fat32(env, swap);
-	else
-		handle_fat64(env, swap);
 }

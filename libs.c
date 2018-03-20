@@ -6,82 +6,23 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/16 11:19:10 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/20 12:34:12 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
 
-
-/*
-** Pas copié collé, c'est pas vrai, zavé pa dpreuvs
-*/
-
-uint16_t	swap_uint16(uint16_t nb)
-{
-	nb = (nb << 8) | (nb >> 8);
-	return (nb);
-}
-
-uint32_t	swap_uint32(uint32_t nb)
-{
-	nb = ((nb & 0x000000FF) << 24 |
-				(nb & 0x0000FF00) << 8 |
-				(nb & 0x00FF0000) >> 8 |
-				(nb & 0xFF000000) >> 24);
-	return (nb);
-}
-
-uint64_t	swap_uint64(uint64_t nb)
-{
-	nb = ((nb & 0x00000000000000FF) << 56 |
-				(nb & 0x000000000000FF00) << 40 |
-				(nb & 0x0000000000FF0000) << 24 |
-				(nb & 0x00000000FF000000) << 8 |
-				(nb & 0x000000FF00000000) >> 8 |
-				(nb & 0x0000FF0000000000) >> 24 |
-				(nb & 0x00FF000000000000) >> 40 |
-				(nb & 0xFF00000000000000) >> 56);
-	return (nb);
-}
-
-
-void		failmessage(char *message)
-{
-	printf("%s\n",message);
-	exit(EXIT_FAILURE);
-}
-
-void 	swapcmds(t_cmd *a, t_cmd *b)
-{
-	uint64_t				adr;
-	char					symbol;
-	char					*name;
-
-	adr = a->adr;
-	symbol = a->symbol;
-	name = a->name;
-
-	a->adr = b->adr;
-	a->symbol = b->symbol;
-	a->name = b->name;
-
-	b->adr = adr;
-	b->symbol = symbol;
-	b->name = name;
-}
-
 /*
 ** Is in the ascii table, a > b ?
 */
 
-bool isstrbigger(char *a, char *b)
+bool		isstrbigger(char *a, char *b)
 {
-	int i = 0;
+	int i;
 
+	i = 0;
 	if (!b || !a)
 		failmessage("Attempt to cmp two string is bigger but one is invalid");
-
 	if (strcmp(a, b) == 0)
 		return (false);
 	while (a[i] && b[i])
@@ -102,7 +43,7 @@ bool isstrbigger(char *a, char *b)
 ** Fucking hell in-efficent code right after it, NSFW
 */
 
-t_cmd *has_fucked_up_order_cmds(t_env *env)
+t_cmd 		*has_fucked_up_order_cmds(t_env *env)
 {
 	t_cmd *cmds;
 
@@ -114,21 +55,19 @@ t_cmd *has_fucked_up_order_cmds(t_env *env)
 	{
 		if (isstrbigger(cmds->name, cmds->next->name))
 			return (cmds);
-
 		cmds = cmds->next;
 		i++;
 	}
 	return (NULL);
 }
 
-void 	order_cmds(t_env *env)
+void 		order_cmds(t_env *env)
 {
 	t_cmd	*cmds;
 
 	while(true)
 	{
 		cmds = has_fucked_up_order_cmds(env);
-
 		if (cmds)
 			swapcmds(cmds, cmds->next);
 		else
@@ -136,7 +75,7 @@ void 	order_cmds(t_env *env)
 	}
 }
 
-void	print_cmds(t_cmd *cmd, int n)
+void		print_cmds(t_cmd *cmd, int n)
 {
 	t_cmd *cmds;
 
@@ -146,7 +85,12 @@ void	print_cmds(t_cmd *cmd, int n)
 		if (cmds->symbol != 'z' && cmds->symbol != 'Z')
 		{
 			print_hex(cmds->adr, true, n, cmds->symbol == 'U');
-			printf(" %c %s\n", cmds->symbol, cmds->name);
+			//printf(" %c %s\n", cmds->symbol, cmds->name);
+			write(1, " ", 1);
+			write(1, &(cmds->symbol), 1);
+			write(1, " ", 1);
+			write(1, cmds->name, strlen(cmds->name));
+			write(1, "\n", 1);
 		}
 		cmds = cmds->next;
 	}

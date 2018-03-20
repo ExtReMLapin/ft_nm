@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/20 12:25:14 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/20 12:42:40 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,19 @@ void	init_commands(t_env *env)
 		handle_32(env, env->ptr, env->end, env->isswap);
 	else
 		handle_fat(env, env->isswap);
+}
+
+void handle_fat(t_env *env, bool swap)
+{
+	struct fat_header	*header;
+
+	header = (struct fat_header*)env->ptr;
+	if ((void*)header > (void*)env->end)
+		failmessage("Fail header");
+	if (!env->is64bit)
+		handle_fat32(env, swap);
+	else
+		handle_fat64(env, swap);
 }
 
 t_env	*make_env(char *ptr, char *end, char *name)

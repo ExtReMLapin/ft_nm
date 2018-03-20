@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 09:41:11 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/20 12:19:08 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/20 12:41:34 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,16 @@ static uint32_t	*filtertable(uint32_t nbr, struct ranlib	*ranlib)
 	return (artable);
 }
 
+static void printext(char* file_name, char* ar_name)
+{
+	write(1, "\n", 1);
+	write(1, file_name , strlen(file_name));
+	write(1, "(", 1);
+	write(1, ar_name, strlen(ar_name));
+	write(1, "):\n", 3);
+
+}
+
 static void		read_ranlib(char const *file, char *end, uint32_t nbr, t_env *env)
 {
 	struct ar_hdr	*ar;
@@ -96,7 +106,7 @@ static void		read_ranlib(char const *file, char *end, uint32_t nbr, t_env *env)
 			break ;
 		ar = (void*)file + artable[i];
 		obj = (void*)ar + sizeof(struct ar_hdr) + ar_size(ar->ar_name);
-		printf("\n%s(%s):\n", env->file_name, ar->ar_name + sizeof(struct ar_hdr));
+		printext(env->file_name, ar->ar_name + sizeof(struct ar_hdr));
 		nm2(env, (char*)obj, end);
 		i++;
 	}
