@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/19 11:07:58 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/20 11:13:06 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ t_env *make_env(char *ptr, char* end, char* name)
 	env->isswap = (*(uint32_t*)ptr == MH_CIGAM_64 || *(uint32_t*)ptr == MH_CIGAM || *(uint32_t*)ptr == FAT_CIGAM);
 	env->isfattype = (*(uint32_t*)ptr == FAT_CIGAM || *(uint32_t*)ptr == FAT_MAGIC);
 	env->isarchive = check_ar_header(ptr);
+	env->in_ppc = false;
 	if (!env->isarchive && !env->is64bit && !env->isswap && !env->isfattype && *(uint32_t*)ptr != MH_MAGIC)
 		failmessage("File not recognized");
 	env->list = NULL;

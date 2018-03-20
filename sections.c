@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 10:12:45 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/19 10:39:41 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/20 11:21:26 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void						add_segment32(\
 	seg = (struct segment_command*)com;
 	sec = (struct section*)(seg + sizeof(seg) / sizeof(void*));
 	com->nsects = (swap) ? swap_uint32(com->nsects) : com->nsects;
+
 	while (i < com->nsects)
 	{
 		add_list(sec->sectname, list);

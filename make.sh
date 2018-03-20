@@ -1,1 +1,1 @@
-clang -Wall -Werror -Wextra -I includes -g *c
+clang -Wall -Werror -Wextra -I includes  *c

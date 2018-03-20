@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:23 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/20 10:32:27 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/20 11:39:22 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void	handle_fat32(t_env *env, bool swap)
 		{
 			if (how_many_cpu((struct fat_arch*)(header+1), cpucount) > 1)
 				printf("\n%s (for architecture %s):\n", env->file_name, get_cputype(arch->cputype));
+			env->in_ppc = arch->cputype == CPU_TYPE_POWERPC || arch->cputype == CPU_TYPE_POWERPC64;
 			nm2(env, (char*)header2, (char*)((void*)header2 + arch->size));
 		}
 		arch = (void*)arch + sizeof(struct fat_arch);

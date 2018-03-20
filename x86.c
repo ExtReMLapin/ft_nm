@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/19 11:24:16 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/20 11:42:27 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ static void swaparray(struct nlist	*array, bool swap)
 	if (!swap)
 		return;
 	array->n_value = swap_uint32(array->n_value);
-	array->n_type = swap_uint32(array->n_type);
-	array->n_sect = swap_uint32(array->n_sect);
+	array->n_desc = swap_uint16(array->n_desc);
 	array->n_un.n_strx = swap_uint32(array->n_un.n_strx);
 }
 
