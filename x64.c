@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/20 11:58:17 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/20 12:52:17 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ static void browse_lc(int ncmds, bool swap, t_env *env, struct mach_header_64* h
 	{
 		lc->cmdsize = (swap) ? swap_uint32(lc->cmdsize) : lc->cmdsize;
 		lc->cmd = (swap) ? swap_uint32(lc->cmd) : lc->cmd;
-		if (lc->cmd == LC_SEGMENT)
-			add_segment32((struct segment_command*)lc, env->section, swap);
+		if (lc->cmd == LC_SEGMENT_64)
+			add_segment64((struct segment_command_64*)lc, env->section, swap);
 		lc = (void*)lc + lc->cmdsize;
 	}
 }

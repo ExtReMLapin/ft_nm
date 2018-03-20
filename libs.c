@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/20 12:34:12 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/20 12:47:10 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void		print_cmds(t_cmd *cmd, int n)
 		if (cmds->symbol != 'z' && cmds->symbol != 'Z')
 		{
 			print_hex(cmds->adr, true, n, cmds->symbol == 'U');
-			//printf(" %c %s\n", cmds->symbol, cmds->name);
 			write(1, " ", 1);
 			write(1, &(cmds->symbol), 1);
 			write(1, " ", 1);

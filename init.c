@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/20 12:42:40 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/20 12:52:37 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	init_commands(t_env *env)
 {
 	if ((env->section = (t_lsection*)malloc(sizeof(t_lsection))) == NULL)
 		return ;
-	env->section ->first = NULL;
-	env->section ->last = NULL;
+	env->section->first = NULL;
+	env->section->last = NULL;
 	if (env->isarchive)
 	{
 		handle_ar(env->ptr, env->end, env);
