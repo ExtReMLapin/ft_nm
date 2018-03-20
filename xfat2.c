@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 09:36:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/20 10:42:28 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/20 11:56:43 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ char*			get_cputype(cpu_type_t	cputype)
 		return ("hppa");
 	else if (cputype == CPU_TYPE_ARM)
 		return ("arm");
-	else if (cputype == CPU_TYPE_MC88000)
-		return ("mc880000");
 	else if (cputype == CPU_TYPE_SPARC)
 		return ("sparc");
 	else if (cputype == CPU_TYPE_I860)

@@ -6,12 +6,11 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 10:52:46 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/15 12:08:17 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/20 11:57:39 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
-
 
 /*
 ** NOT EFFICIENT BUT IDC

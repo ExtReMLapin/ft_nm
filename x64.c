@@ -6,13 +6,13 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/20 11:52:07 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/20 11:58:17 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
 
-static void swaparray(struct nlist_64	*array, bool swap)
+static void swaparray(struct nlist_64 *array, bool swap)
 {
 	if (!swap)
 		return;
@@ -46,11 +46,12 @@ static void add_output(int nsyms, void *symoff, void *stroff, t_env* env, bool s
 		if (((void*)&array[i] + sizeof(*array) > (void*)env->end) || (void*)stringtable > (void*)env->end)
 			failmessage("Please check file integrity");
 		swaparray(&array[i], swap);
-		mlccmd(env, array[i].n_value, typing(array[i].n_type, array[i].n_sect, env->section, array[i].n_value), stringtable + array[i].n_un.n_strx);
+		mlccmd(env, array[i].n_value, typing(array[i].n_type, array[i].n_sect,
+			env->section, array[i].n_value), stringtable + array[i].n_un.n_strx);
 	}
 }
 
-static void browse_lc(int 	ncmds, bool swap, t_env *env, struct mach_header_64* header)
+static void browse_lc(int ncmds, bool swap, t_env *env, struct mach_header_64* header)
 {
 	int i;
 

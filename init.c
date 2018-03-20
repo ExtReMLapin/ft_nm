@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/20 11:13:06 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/20 12:20:08 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ t_env *make_env(char *ptr, char* end, char* name)
 {
 	t_env *env;
 
-	env = (t_env*)malloc(sizeof(t_env));
+	if ((env = (t_env*)malloc(sizeof(t_env))) == NULL)
+		failmessage("FailMalloc");
 	env->file_name = name;
 	env->ptr = ptr;
 	env->end = end;
