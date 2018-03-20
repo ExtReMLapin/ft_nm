@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/20 10:52:13 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/20 11:52:07 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ static void swaparray(struct nlist_64	*array, bool swap)
 	if (!swap)
 		return;
 	array->n_value = swap_uint64(array->n_value);
-	array->n_type = swap_uint64(array->n_type);
-	array->n_sect = swap_uint64(array->n_sect);
-	array->n_un.n_strx = swap_uint64(array->n_un.n_strx);
+	array->n_desc = swap_uint16(array->n_desc);
+	array->n_un.n_strx = swap_uint32(array->n_un.n_strx);
 }
 
 static void swapsym(struct symtab_command *sym, bool swap)
@@ -28,7 +27,7 @@ static void swapsym(struct symtab_command *sym, bool swap)
 	{
 		sym->nsyms = swap_uint32(sym->nsyms);
 		sym->symoff = swap_uint32(sym->symoff);
-				sym->stroff = swap_uint32(sym->stroff);
+		sym->stroff = swap_uint32(sym->stroff);
 	}
 }
 
@@ -51,6 +50,23 @@ static void add_output(int nsyms, void *symoff, void *stroff, t_env* env, bool s
 	}
 }
 
+static void browse_lc(int 	ncmds, bool swap, t_env *env, struct mach_header_64* header)
+{
+	int i;
+
+
+	struct  load_command *lc;
+	lc = (struct  load_command*)(header+1);
+	for (i = 0; i < ncmds; ++i)
+	{
+		lc->cmdsize = (swap) ? swap_uint32(lc->cmdsize) : lc->cmdsize;
+		lc->cmd = (swap) ? swap_uint32(lc->cmd) : lc->cmd;
+		if (lc->cmd == LC_SEGMENT)
+			add_segment32((struct segment_command*)lc, env->section, swap);
+		lc = (void*)lc + lc->cmdsize;
+	}
+}
+
 void	handle_64(t_env *env, char *adr, char* max, bool swap)
 {
 	int 	ncmds;
@@ -63,15 +79,7 @@ void	handle_64(t_env *env, char *adr, char* max, bool swap)
 	if ((void*)header > (void*)max)
 		failmessage("Fail header");
 	ncmds = (swap) ? swap_uint32(header->ncmds) : header->ncmds;
-	lc = (struct  load_command*)(header+1);
-	for (i = 0; i < ncmds; ++i)
-	{
-		lc->cmdsize = (swap) ? swap_uint64(lc->cmdsize) : lc->cmdsize;
-		lc->cmd = (swap) ? swap_uint64(lc->cmd) : lc->cmd;
-		if (lc->cmd == LC_SEGMENT_64)
-			add_segment64((struct segment_command_64*)lc, env->section, swap);
-		lc = (void*)lc + lc->cmdsize;
-	}
+	browse_lc(ncmds, swap, env, header);
 	lc = (struct  load_command*)(header+1);
 	for (i = 0; i < ncmds; ++i)
 	{
