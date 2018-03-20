@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:49:33 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/19 10:28:28 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/20 10:12:27 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,11 @@ bool						check_ar_header(char *ptr);
 void						handle_ar(char const *file, char *max, t_env *env);
 void						clearlist(t_env *env);
 void						clearsections(t_env *env);
-#endif	
+char*						get_cputype(cpu_type_t	cputype);
+bool						shouldprintcpu(cpu_type_t cpu, struct fat_arch* arch, uint32_t n);
+unsigned int				how_many_cpu(struct fat_arch* arch, uint32_t n);
+
+#endif
+
+
+

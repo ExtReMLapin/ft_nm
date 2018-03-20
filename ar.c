@@ -6,12 +6,11 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 09:41:11 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/19 09:44:21 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/20 09:36:31 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
-#include <ar.h>
 
 bool			check_ar_header(char *ptr)
 {
