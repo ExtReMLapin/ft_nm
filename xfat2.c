@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 09:36:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/20 10:12:45 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/20 10:32:54 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static bool		hascpu(cpu_type_t cpu, struct fat_arch* arch, uint32_t n)
 {
 	while (n--)
 	{
-		if (arch->cputype == cpu)
+		if (arch->cputype == cpu || (cpu_type_t)swap_uint32(arch->cputype) == cpu)
 			return (true);
 		arch = (void*)arch + sizeof(struct fat_arch);
 	}
@@ -76,18 +76,19 @@ unsigned int	how_many_cpu(struct fat_arch* arch, uint32_t n)
 	has_i386 = false;
 	has_x86_x64 = false;
 	count = 0;
-
 	while (n--)
 	{
-		if (arch->cputype == CPU_TYPE_X86 || arch->cputype == CPU_TYPE_I386)
+		if (arch->cputype == CPU_TYPE_X86 || arch->cputype == CPU_TYPE_I386 ||
+			swap_uint32(arch->cputype) == CPU_TYPE_X86 || swap_uint32(arch->cputype) == CPU_TYPE_I386 )
+		{
 			has_i386 = true;
-		if (arch->cputype == CPU_TYPE_X86_64)
+		}
+		if (arch->cputype == CPU_TYPE_X86_64 || swap_uint32(arch->cputype) == CPU_TYPE_X86_64)
 			has_x86_x64 = true;
-		if (get_cputype(arch->cputype)[0] != '?')
+		if (get_cputype(arch->cputype)[0] != '?' || get_cputype(swap_uint32(arch->cputype))[0] != '?')
 			count++;
 		arch = (void*)arch + sizeof(struct fat_arch);
 	}
-	
 	if (has_x86_x64 && has_i386)
 		count--;
 	return (count);
