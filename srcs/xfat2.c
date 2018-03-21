@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 09:36:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/21 12:47:47 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/21 12:49:47 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ uint32_t	how_many_cpu(struct fat_arch *a, uint32_t n)
 	unsigned int	count;
 	cpu_type_t		c;
 
-	c = a->cputype;
 	has_i386 = false;
 	has_x86_x64 = false;
 	count = 0;
 	while (n--)
 	{
+		c = a->cputype;
 		if (c == CPU_TYPE_X86 || c == CPU_TYPE_I386 ||
 			swap_uint32(c) == CPU_TYPE_X86 || swap_uint32(c) == CPU_TYPE_I386)
 		{

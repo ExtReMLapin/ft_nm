@@ -88,97 +88,55 @@
 	"buffers":
 	[
 		{
-			"contents": "Searching 206 files for \"printf\"\n\n/Users/pfichepo/Desktop/ft_nm/1.txt:\n  106  00005010 c _pointer_to__darwin_gcc3_preregister_frame_info\n  107  00000000 u _pow\n  108: 00000000 u _printf$LDBL128\n  109  00000000 u _puts\n  110  000051bc c _receive_samples\n  ...\n  217           U _objc_msgSend_fpret\n  218           U _pow\n  219:          U _printf\n  220           U _puts\n  221  00005148 S _receive_samples\n\n/Users/pfichepo/Desktop/ft_nm/2.txt:\n  106  00005010 d _pointer_to__darwin_gcc3_preregister_frame_info\n  107           U _pow\n  108:          U _printf$LDBL128\n  109           U _puts\n  110  000051bc S _receive_samples\n  ...\n  217           U _objc_msgSend_fpret\n  218           U _pow\n  219:          U _printf\n  220           U _puts\n  221  00005148 S _receive_samples\n\n/Users/pfichepo/Desktop/ft_nm/a.out:\n    <binary>\n\n/Users/pfichepo/Desktop/ft_nm/a2.out:\n    ERROR: Unable to open file\n\n/Users/pfichepo/Desktop/ft_nm/ar.c:\n   97  \t\tar = (void*)file + artable[i];\n   98  \t\tobj = (void*)ar + sizeof(struct ar_hdr) + ar_size(ar->ar_name);\n   99: \t\tprintf(\"\\n%s(%s):\\n\", env->file_name, ar->ar_name + sizeof(struct ar_hdr));\n  100  \t\tnm2(env, (char*)obj, end);\n  101  \t\ti++;\n\n/Users/pfichepo/Desktop/ft_nm/libs.c:\n   86  \t\t{\n   87  \t\t\tprint_hex(cmds->adr, true, n, cmds->symbol == 'U');\n   88: \t\t\t//printf(\" %c %s\\n\", cmds->symbol, cmds->name);\n   89  \t\t\twrite(1, \" \", 1);\n   90  \t\t\twrite(1, &(cmds->symbol), 1);\n\n/Users/pfichepo/Desktop/ft_nm/main.c:\n   87  \tif (fstat(fd, &buf) < 0)\n   88  \t{\n   89: \t\tprintf(\"%s\\n\", \"Could not access file informations, file on fstat().\");\n   90  \t\treturn (EXIT_FAILURE);\n   91  \t}\n   92  \tif ((ptr = mmap(0, buf.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0)) == MAP_FAILED)\n   93  \t{\n   94: \t\tprintf(\"%s\\n\", \"Could not map file to ram.\");\n   95  \t\treturn (EXIT_FAILURE);\n   96  \t}\n   ..\n   99  \tif (munmap(ptr, buf.st_size) < 0)\n  100  \t{\n  101: \t\tprintf(\"%s\\n\", \"unmmap fail\");\n  102  \t\treturn (EXIT_FAILURE);\n  103  \t}\n\n/Users/pfichepo/Desktop/ft_nm/xfat.c:\n   55  \t\t{\n   56  \t\t\tif (how_many_cpu((struct fat_arch*)(header+1), cpucount) > 1)\n   57: \t\t\t\tprintf(\"\\n%s (for architecture %s):\\n\", env->file_name, get_cputype(arch->cputype));\n   58  \t\t\tenv->in_ppc = arch->cputype == CPU_TYPE_POWERPC || arch->cputype == CPU_TYPE_POWERPC64;\n   59  \t\t\tnm2(env, (char*)header2, (char*)((void*)header2 + arch->size));\n\n/Users/pfichepo/Desktop/ft_nm/ar/audiodevice:\n    <binary>\n\n/Users/pfichepo/Desktop/ft_nm/ar/audiodevice.txt:\n  106  00005010 d _pointer_to__darwin_gcc3_preregister_frame_info\n  107           U _pow\n  108:          U _printf$LDBL128\n  109           U _puts\n  110  000051bc S _receive_samples\n  ...\n  217           U _objc_msgSend_fpret\n  218           U _pow\n  219:          U _printf\n  220           U _puts\n  221  00005148 S _receive_samples\n\n/Users/pfichepo/Desktop/ft_nm/ar/libftprintf32.a.txt:\n    1  \n    2: libftprintf32.a(ft_printf.o):\n    3  00000120 s EH_frame1\n    4           U _count_flags\n    5           U _free\n    6: 000000db T _ft_printf\n    7:          U _ft_printf_dispatch\n    8  00000000 t _parse_args\n    9:          U _parse_printf_attr\n   10           U _write$UNIX2003\n   11  \n   12: libftprintf32.a(check_flag.o):\n   13  000000c0 s EH_frame1\n   14  00000000 T _is_char\n   ..\n   18  0000004c T _is_string\n   19  \n   20: libftprintf32.a(check_more_flag.o):\n   21  00000028 s EH_frame1\n   22  00000000 T _is_uint\n   23  \n   24: libftprintf32.a(attr.o):\n   25  0000034c s EH_frame1\n   26  00000000 t _check_correct\n   ..\n   30           U _get_cond_mfnh\n   31           U _get_cond_spsc\n   32:          U _init_printfv\n   33           U _is_conversion\n   34           U _is_flag\n   ..\n   43           U _manage_special_char\n   44  00000111 t _parse_int\n   45: 000002b7 T _parse_printf_attr\n   46  \n   47: libftprintf32.a(attr_check.o):\n   48  0000021c s EH_frame1\n   49  00000000 T _authorized_conversions\n   ..\n   53  000000ed T _is_special_char\n   54  \n   55: libftprintf32.a(attr_conversion.o):\n   56  00000218 s EH_frame1\n   57  00000212 S ___x86.get_pc_thunk.bx\n   ..\n   63  00000147 T _is_conversion\n   64  \n   65: libftprintf32.a(attr_mgmt.o):\n   66  000001f0 s EH_frame1\n   67           U _authorized_conversions\n   ..\n   75  0000007a T _manage_special_char\n   76  \n   77: libftprintf32.a(attr_conditions.o):\n   78  000001ec s EH_frame1\n   79  00000000 T _get_cond_ciip\n   ..\n   88           U _is_uint\n   89  \n   90: libftprintf32.a(dispatch_helper.o):\n   91  00000268 s EH_frame1\n   92  00000000 t _arg_option\n   ..\n  101           U _dispatch_wchar\n  102           U _dispatch_wstring\n  103: 00000138 T _ft_printf_dispatch\n  104           U _multi_int_init\n  105           U _multi_set\n  106  \n  107: libftprintf32.a(dispatch.o):\n  108  00000650 s EH_frame1\n  109  000000e6 T _dispatch_int\n  ...\n  119           U _put_widestring\n  120  \n  121: libftprintf32.a(dispatch_next.o):\n  122  00000320 s EH_frame1\n  123  00000208 T _dispatch_char\n  ...\n  129           U _put_widechar\n  130  \n  131: libftprintf32.a(secondary_call.o):\n  132  00000274 s EH_frame1\n  133           U _char_tos\n  ...\n  152           U _wchar_tos\n  153  \n  154: libftprintf32.a(wstr_call.o):\n  155  0000027c s EH_frame1\n  156  00000278 S ___x86.get_pc_thunk.bx\n  ...\n  169           U _wstring_fill\n  170  \n  171: libftprintf32.a(str_call.o):\n  172  0000027c s EH_frame1\n  173  00000278 S ___x86.get_pc_thunk.bx\n  ...\n  186  00000000 t _sub_str\n  187  \n  188: libftprintf32.a(hex_call.o):\n  189  00000528 s EH_frame1\n  190  00000521 S ___x86.get_pc_thunk.bx\n  ...\n  204  00000000 t _transform_hex\n  205  \n  206: libftprintf32.a(oct_call.o):\n  207  0000027c s EH_frame1\n  208  00000275 S ___x86.get_pc_thunk.bx\n  ...\n  220           U _string_fill\n  221  \n  222: libftprintf32.a(uintmax_call.o):\n  223  0000024c s EH_frame1\n  224  00000246 S ___x86.get_pc_thunk.bx\n  ...\n  235  00000000 t _sub_umaxint\n  236  \n  237: libftprintf32.a(intmax_call.o):\n  238  00000524 s EH_frame1\n  239  0000051f S ___x86.get_pc_thunk.bx\n  ...\n  257           U _string_fill\n  258  \n  259: libftprintf32.a(intmax_call_helper.o):\n  260  000001d0 s EH_frame1\n  261  000001cb S ___x86.get_pc_thunk.bx\n  ...\n  268  000000df T _pos_joinprec_neg_int\n  269  \n  270: libftprintf32.a(string_helper.o):\n  271  000001d0 s EH_frame1\n  272  000000bb T _char_tos\n  ...\n  281           U _write$UNIX2003\n  282  \n  283: libftprintf32.a(int_helper.o):\n  284  000002b0 s EH_frame1\n  285           U ___divdi3\n  ...\n  294           U _rev\n  295  \n  296: libftprintf32.a(ustr_helper.o):\n  297  00000194 s EH_frame1\n  298           U _ft_memalloc\n  ...\n  306  00000068 T _ustring_fill\n  307  \n  308: libftprintf32.a(ustr_next_helper.o):\n  309  000000f0 s EH_frame1\n  310           U _ft_memcpy\n  ...\n  315           U _write$UNIX2003\n  316  \n  317: libftprintf32.a(wstr_helper.o):\n  318  00000254 s EH_frame1\n  319           U _count_wchar\n  ...\n  327  000001ea T _wstring_fill\n  328  \n  329: libftprintf32.a(wstr_next_helper.o):\n  330  000000f0 s EH_frame1\n  331           U _ft_memcpy\n  ...\n  334           U _malloc\n  335  \n  336: libftprintf32.a(wstr_size_helper.o):\n  337  00000150 s EH_frame1\n  338  00000024 T _count_bits\n  ...\n  342  00000045 T _wsizeof\n  343  \n  344: libftprintf32.a(wstr_byte_helper.o):\n  345  00000288 s EH_frame1\n  346  000000d5 T _copy_bytes\n  ...\n  350  000001c9 T _parse_bytes\n  351  \n  352: libftprintf32.a(wstr_display_helper.o):\n  353  00000348 s EH_frame1\n  354           U _copy_bytes\n  ...\n  367  0000004a t _wstr_bml\n  368  \n  369: libftprintf32.a(conversion_helper.o):\n  370  00000230 s EH_frame1\n  371  0000013e t _conversion_maj\n  ...\n  376           U _rev\n  377  \n  378: libftprintf32.a(multi_init.o):\n  379  000000dc s EH_frame1\n  380: 0000002d T _init_printfv\n  381           U _malloc\n  382  00000000 T _multi_int_init\n\n/Users/pfichepo/Desktop/ft_nm/ar/libmlx.a.txt:\n 1169  0000000000000c4d s L_.str98\n 1170  0000000000000c5b s L_.str99\n 1171:                  U ___snprintf_chk\n 1172                   U ___stack_chk_fail\n 1173                   U ___stack_chk_guard\n\n/Users/pfichepo/Desktop/ft_nm/ar/libtprintf.a.txt:\n    1  \n    2: libftprintf.a(ft_printf.o):\n    3  0000000000000208 s EH_frame1\n    4                   U _count_flags\n    5                   U _free\n    6: 000000000000012a T _ft_printf\n    7:                  U _ft_printf_dispatch\n    8  0000000000000000 t _parse_args\n    9:                  U _parse_printf_attr\n   10                   U _write\n   11  \n   12: libftprintf.a(check_flag.o):\n   13  00000000000000b0 s EH_frame1\n   14  0000000000000000 T _is_char\n   ..\n   18  0000000000000046 T _is_string\n   19  \n   20: libftprintf.a(check_more_flag.o):\n   21  0000000000000028 s EH_frame1\n   22  0000000000000000 T _is_uint\n   23  \n   24: libftprintf.a(attr.o):\n   25  00000000000003c0 s EH_frame1\n   26  0000000000000000 t _check_correct\n   ..\n   30                   U _get_cond_mfnh\n   31                   U _get_cond_spsc\n   32:                  U _init_printfv\n   33                   U _is_conversion\n   34                   U _is_flag\n   ..\n   43                   U _manage_special_char\n   44  0000000000000118 t _parse_int\n   45: 0000000000000313 T _parse_printf_attr\n   46  \n   47: libftprintf.a(attr_check.o):\n   48  0000000000000240 s EH_frame1\n   49  0000000000000000 T _authorized_conversions\n   ..\n   53  00000000000000e7 T _is_special_char\n   54  \n   55: libftprintf.a(attr_conversion.o):\n   56  0000000000000230 s EH_frame1\n   57  000000000000021c s LC0\n   ..\n   68  0000000000000148 T _is_conversion\n   69  \n   70: libftprintf.a(attr_mgmt.o):\n   71  0000000000000268 s EH_frame1\n   72                   U _authorized_conversions\n   ..\n   80  000000000000008e T _manage_special_char\n   81  \n   82: libftprintf.a(attr_conditions.o):\n   83  00000000000001f8 s EH_frame1\n   84  0000000000000000 T _get_cond_ciip\n   ..\n   93                   U _is_uint\n   94  \n   95: libftprintf.a(dispatch_helper.o):\n   96  0000000000000340 s EH_frame1\n   97  0000000000000000 t _arg_option\n   ..\n  106                   U _dispatch_wchar\n  107                   U _dispatch_wstring\n  108: 00000000000001dd T _ft_printf_dispatch\n  109                   U _multi_int_init\n  110                   U _multi_set\n  111  \n  112: libftprintf.a(dispatch.o):\n  113  0000000000000c98 s EH_frame1\n  114  00000000000001be T _dispatch_int\n  ...\n  124                   U _put_widestring\n  125  \n  126: libftprintf.a(dispatch_next.o):\n  127  00000000000005c0 s EH_frame1\n  128  00000000000003db T _dispatch_char\n  ...\n  134                   U _put_widechar\n  135  \n  136: libftprintf.a(secondary_call.o):\n  137  00000000000002a0 s EH_frame1\n  138                   U _char_tos\n  ...\n  157                   U _wchar_tos\n  158  \n  159: libftprintf.a(wstr_call.o):\n  160  00000000000002c8 s EH_frame1\n  161  0000000000000196 t _fill_wstr\n  ...\n  173                   U _wstring_fill\n  174  \n  175: libftprintf.a(str_call.o):\n  176  00000000000002d0 s EH_frame1\n  177  00000000000002c6 s LC0\n  ...\n  191  0000000000000000 t _sub_str\n  192  \n  193: libftprintf.a(hex_call.o):\n  194  0000000000000530 s EH_frame1\n  195  0000000000000527 s LC0\n  ...\n  212  0000000000000000 t _transform_hex\n  213  \n  214: libftprintf.a(oct_call.o):\n  215  0000000000000280 s EH_frame1\n  216  0000000000000278 s LC0\n  ...\n  228                   U _string_fill\n  229  \n  230: libftprintf.a(uintmax_call.o):\n  231  0000000000000248 s EH_frame1\n  232  000000000000023e s LC0\n  ...\n  245  0000000000000000 t _sub_umaxint\n  246  \n  247: libftprintf.a(intmax_call.o):\n  248  0000000000000508 s EH_frame1\n  249  00000000000004fe s LC0\n  ...\n  269                   U _string_fill\n  270  \n  271: libftprintf.a(intmax_call_helper.o):\n  272  00000000000001e8 s EH_frame1\n  273  00000000000001e5 s LC0\n  ...\n  280  00000000000000f1 T _pos_joinprec_neg_int\n  281  \n  282: libftprintf.a(string_helper.o):\n  283  0000000000000228 s EH_frame1\n  284  00000000000000dd T _char_tos\n  ...\n  293                   U _write\n  294  \n  295: libftprintf.a(int_helper.o):\n  296  0000000000000288 s EH_frame1\n  297  0000000000000178 T _ft_imtoa\n  ...\n  302                   U _rev\n  303  \n  304: libftprintf.a(ustr_helper.o):\n  305  00000000000001d0 s EH_frame1\n  306                   U _ft_memalloc\n  ...\n  314  0000000000000080 T _ustring_fill\n  315  \n  316: libftprintf.a(ustr_next_helper.o):\n  317  0000000000000128 s EH_frame1\n  318                   U _ft_memcpy\n  ...\n  323                   U _write\n  324  \n  325: libftprintf.a(wstr_helper.o):\n  326  00000000000002c8 s EH_frame1\n  327                   U _count_wchar\n  ...\n  335  0000000000000244 T _wstring_fill\n  336  \n  337: libftprintf.a(wstr_next_helper.o):\n  338  0000000000000128 s EH_frame1\n  339                   U _ft_memcpy\n  ...\n  342                   U _malloc\n  343  \n  344: libftprintf.a(wstr_size_helper.o):\n  345  0000000000000180 s EH_frame1\n  346  0000000000000028 T _count_bits\n  ...\n  350  000000000000004a T _wsizeof\n  351  \n  352: libftprintf.a(wstr_byte_helper.o):\n  353  0000000000000300 s EH_frame1\n  354  0000000000000123 T _copy_bytes\n  ...\n  358  0000000000000233 T _parse_bytes\n  359  \n  360: libftprintf.a(wstr_display_helper.o):\n  361  00000000000003c8 s EH_frame1\n  362                   U _copy_bytes\n  ...\n  375  0000000000000063 t _wstr_bml\n  376  \n  377: libftprintf.a(conversion_helper.o):\n  378  00000000000001f0 s EH_frame1\n  379  0000000000000106 t _conversion_maj\n  ...\n  384                   U _rev\n  385  \n  386: libftprintf.a(multi_init.o):\n  387  0000000000000110 s EH_frame1\n  388: 000000000000004f T _init_printfv\n  389                   U _malloc\n  390  0000000000000000 T _multi_int_init\n\n/Users/pfichepo/Desktop/ft_nm/backup_macos/zcat:\n    <binary>\n\n/Users/pfichepo/Desktop/ft_nm/includes/mach/mach_init.h:\n  100  \n  101  /*\n  102:  *\tfprintf_stderr uses vprintf_stderr_func to produce\n  103   *\terror messages, this can be overridden by a user\n  104   *\tapplication to point to a user-specified output function\n  105   */\n  106: extern int (*vprintf_stderr_func)(const char *format, va_list ap);\n  107  \n  108  __END_DECLS\n\n103 matches across 14 files\n\n\nSearching 206 files for \"for archi\"\n\n/Users/pfichepo/Desktop/ft_nm/1.txt:\n    1  \n    2: /usr/bin/audiodevice (for architecture ppc):\n    3  00002fc0 c +[SSAudioDeviceCenter initialize]\n    4  00002d84 c -[SSAudioDevice canBeDefaultDevice]\n    .\n  114  00001ff0 c start\n  115  \n  116: /usr/bin/audiodevice (for architecture i386):\n  117  000033a6 t +[SSAudioDeviceCenter initialize]\n  118  000031a4 t -[SSAudioDevice canBeDefaultDevice]\n\n/Users/pfichepo/Desktop/ft_nm/2.txt:\n    1  \n    2: /usr/bin/audiodevice (for architecture ppc):\n    3  00002fc0 t +[SSAudioDeviceCenter initialize]\n    4  00002d84 t -[SSAudioDevice canBeDefaultDevice]\n    .\n  114  00001ff0 T start\n  115  \n  116: /usr/bin/audiodevice (for architecture i386):\n  117  000033a6 t +[SSAudioDeviceCenter initialize]\n  118  000031a4 t -[SSAudioDevice canBeDefaultDevice]\n\n/Users/pfichepo/Desktop/ft_nm/a.out:\n    <binary>\n\n/Users/pfichepo/Desktop/ft_nm/a2.out:\n    ERROR: Unable to open file\n\n/Users/pfichepo/Desktop/ft_nm/xfat.c:\n   55  \t\t{\n   56  \t\t\tif (how_many_cpu((struct fat_arch*)(header+1), cpucount) > 1)\n   57: \t\t\t\tprintf(\"\\n%s (for architecture %s):\\n\", env->file_name, get_cputype(arch->cputype));\n   58  \t\t\tenv->in_ppc = arch->cputype == CPU_TYPE_POWERPC || arch->cputype == CPU_TYPE_POWERPC64;\n   59  \t\t\tnm2(env, (char*)header2, (char*)((void*)header2 + arch->size));\n\n/Users/pfichepo/Desktop/ft_nm/ar/audiodevice.txt:\n    1  \n    2: audiodevice (for architecture ppc):\n    3  00002fc0 t +[SSAudioDeviceCenter initialize]\n    4  00002d84 t -[SSAudioDevice canBeDefaultDevice]\n    .\n  114  00001ff0 T start\n  115  \n  116: audiodevice (for architecture i386):\n  117  000033a6 t +[SSAudioDeviceCenter initialize]\n  118  000031a4 t -[SSAudioDevice canBeDefaultDevice]\n\n/Users/pfichepo/Desktop/ft_nm/includes/mach/machine.h:\n   84   * Capability bits used in the definition of cpu_type.\n   85   */\n   86: #define\tCPU_ARCH_MASK\t0xff000000\t\t/* mask for architecture bits */\n   87  #define CPU_ARCH_ABI64\t0x01000000\t\t/* 64 bit ABI */\n   88  \n\n/Users/pfichepo/Desktop/ft_nm/includes/mach-o/ranlib.h:\n   29  \n   30  /*\n   31:  * There are two known orders of table of contents for archives.  The first is\n   32   * the order ranlib(1) originally produced and still produces without any\n   33   * options.  This table of contents has the archive member name \"__.SYMDEF\"\n\n10 matches across 7 files\n\n\nSearching 208 files for \"printf\"\n\n/Users/pfichepo/Desktop/ft_nm/1.txt:\n  106  00005010 c _pointer_to__darwin_gcc3_preregister_frame_info\n  107  00000000 u _pow\n  108: 00000000 u _printf$LDBL128\n  109  00000000 u _puts\n  110  000051bc c _receive_samples\n  ...\n  217           U _objc_msgSend_fpret\n  218           U _pow\n  219:          U _printf\n  220           U _puts\n  221  00005148 S _receive_samples\n\n/Users/pfichepo/Desktop/ft_nm/2.txt:\n  106  00005010 d _pointer_to__darwin_gcc3_preregister_frame_info\n  107           U _pow\n  108:          U _printf$LDBL128\n  109           U _puts\n  110  000051bc S _receive_samples\n  ...\n  217           U _objc_msgSend_fpret\n  218           U _pow\n  219:          U _printf\n  220           U _puts\n  221  00005148 S _receive_samples\n\n/Users/pfichepo/Desktop/ft_nm/a.out:\n    <binary>\n\n/Users/pfichepo/Desktop/ft_nm/a2.out:\n    ERROR: Unable to open file\n\n/Users/pfichepo/Desktop/ft_nm/libs.c:\n   86  \t\t{\n   87  \t\t\tprint_hex(cmds->adr, true, n, cmds->symbol == 'U');\n   88: \t\t\t//printf(\" %c %s\\n\", cmds->symbol, cmds->name);\n   89  \t\t\twrite(1, \" \", 1);\n   90  \t\t\twrite(1, &(cmds->symbol), 1);\n\n/Users/pfichepo/Desktop/ft_nm/main.c:\n   87  \tif (fstat(fd, &buf) < 0)\n   88  \t{\n   89: \t\tprintf(\"%s\\n\", \"Could not access file informations, file on fstat().\");\n   90  \t\treturn (EXIT_FAILURE);\n   91  \t}\n   92  \tif ((ptr = mmap(0, buf.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0)) == MAP_FAILED)\n   93  \t{\n   94: \t\tprintf(\"%s\\n\", \"Could not map file to ram.\");\n   95  \t\treturn (EXIT_FAILURE);\n   96  \t}\n   ..\n   99  \tif (munmap(ptr, buf.st_size) < 0)\n  100  \t{\n  101: \t\tprintf(\"%s\\n\", \"unmmap fail\");\n  102  \t\treturn (EXIT_FAILURE);\n  103  \t}\n\n/Users/pfichepo/Desktop/ft_nm/ar/audiodevice:\n    <binary>\n\n/Users/pfichepo/Desktop/ft_nm/ar/audiodevice.txt:\n  106  00005010 d _pointer_to__darwin_gcc3_preregister_frame_info\n  107           U _pow\n  108:          U _printf$LDBL128\n  109           U _puts\n  110  000051bc S _receive_samples\n  ...\n  217           U _objc_msgSend_fpret\n  218           U _pow\n  219:          U _printf\n  220           U _puts\n  221  00005148 S _receive_samples\n\n/Users/pfichepo/Desktop/ft_nm/ar/libftprintf32.a.txt:\n    1  \n    2: libftprintf32.a(ft_printf.o):\n    3  00000120 s EH_frame1\n    4           U _count_flags\n    5           U _free\n    6: 000000db T _ft_printf\n    7:          U _ft_printf_dispatch\n    8  00000000 t _parse_args\n    9:          U _parse_printf_attr\n   10           U _write$UNIX2003\n   11  \n   12: libftprintf32.a(check_flag.o):\n   13  000000c0 s EH_frame1\n   14  00000000 T _is_char\n   ..\n   18  0000004c T _is_string\n   19  \n   20: libftprintf32.a(check_more_flag.o):\n   21  00000028 s EH_frame1\n   22  00000000 T _is_uint\n   23  \n   24: libftprintf32.a(attr.o):\n   25  0000034c s EH_frame1\n   26  00000000 t _check_correct\n   ..\n   30           U _get_cond_mfnh\n   31           U _get_cond_spsc\n   32:          U _init_printfv\n   33           U _is_conversion\n   34           U _is_flag\n   ..\n   43           U _manage_special_char\n   44  00000111 t _parse_int\n   45: 000002b7 T _parse_printf_attr\n   46  \n   47: libftprintf32.a(attr_check.o):\n   48  0000021c s EH_frame1\n   49  00000000 T _authorized_conversions\n   ..\n   53  000000ed T _is_special_char\n   54  \n   55: libftprintf32.a(attr_conversion.o):\n   56  00000218 s EH_frame1\n   57  00000212 S ___x86.get_pc_thunk.bx\n   ..\n   63  00000147 T _is_conversion\n   64  \n   65: libftprintf32.a(attr_mgmt.o):\n   66  000001f0 s EH_frame1\n   67           U _authorized_conversions\n   ..\n   75  0000007a T _manage_special_char\n   76  \n   77: libftprintf32.a(attr_conditions.o):\n   78  000001ec s EH_frame1\n   79  00000000 T _get_cond_ciip\n   ..\n   88           U _is_uint\n   89  \n   90: libftprintf32.a(dispatch_helper.o):\n   91  00000268 s EH_frame1\n   92  00000000 t _arg_option\n   ..\n  101           U _dispatch_wchar\n  102           U _dispatch_wstring\n  103: 00000138 T _ft_printf_dispatch\n  104           U _multi_int_init\n  105           U _multi_set\n  106  \n  107: libftprintf32.a(dispatch.o):\n  108  00000650 s EH_frame1\n  109  000000e6 T _dispatch_int\n  ...\n  119           U _put_widestring\n  120  \n  121: libftprintf32.a(dispatch_next.o):\n  122  00000320 s EH_frame1\n  123  00000208 T _dispatch_char\n  ...\n  129           U _put_widechar\n  130  \n  131: libftprintf32.a(secondary_call.o):\n  132  00000274 s EH_frame1\n  133           U _char_tos\n  ...\n  152           U _wchar_tos\n  153  \n  154: libftprintf32.a(wstr_call.o):\n  155  0000027c s EH_frame1\n  156  00000278 S ___x86.get_pc_thunk.bx\n  ...\n  169           U _wstring_fill\n  170  \n  171: libftprintf32.a(str_call.o):\n  172  0000027c s EH_frame1\n  173  00000278 S ___x86.get_pc_thunk.bx\n  ...\n  186  00000000 t _sub_str\n  187  \n  188: libftprintf32.a(hex_call.o):\n  189  00000528 s EH_frame1\n  190  00000521 S ___x86.get_pc_thunk.bx\n  ...\n  204  00000000 t _transform_hex\n  205  \n  206: libftprintf32.a(oct_call.o):\n  207  0000027c s EH_frame1\n  208  00000275 S ___x86.get_pc_thunk.bx\n  ...\n  220           U _string_fill\n  221  \n  222: libftprintf32.a(uintmax_call.o):\n  223  0000024c s EH_frame1\n  224  00000246 S ___x86.get_pc_thunk.bx\n  ...\n  235  00000000 t _sub_umaxint\n  236  \n  237: libftprintf32.a(intmax_call.o):\n  238  00000524 s EH_frame1\n  239  0000051f S ___x86.get_pc_thunk.bx\n  ...\n  257           U _string_fill\n  258  \n  259: libftprintf32.a(intmax_call_helper.o):\n  260  000001d0 s EH_frame1\n  261  000001cb S ___x86.get_pc_thunk.bx\n  ...\n  268  000000df T _pos_joinprec_neg_int\n  269  \n  270: libftprintf32.a(string_helper.o):\n  271  000001d0 s EH_frame1\n  272  000000bb T _char_tos\n  ...\n  281           U _write$UNIX2003\n  282  \n  283: libftprintf32.a(int_helper.o):\n  284  000002b0 s EH_frame1\n  285           U ___divdi3\n  ...\n  294           U _rev\n  295  \n  296: libftprintf32.a(ustr_helper.o):\n  297  00000194 s EH_frame1\n  298           U _ft_memalloc\n  ...\n  306  00000068 T _ustring_fill\n  307  \n  308: libftprintf32.a(ustr_next_helper.o):\n  309  000000f0 s EH_frame1\n  310           U _ft_memcpy\n  ...\n  315           U _write$UNIX2003\n  316  \n  317: libftprintf32.a(wstr_helper.o):\n  318  00000254 s EH_frame1\n  319           U _count_wchar\n  ...\n  327  000001ea T _wstring_fill\n  328  \n  329: libftprintf32.a(wstr_next_helper.o):\n  330  000000f0 s EH_frame1\n  331           U _ft_memcpy\n  ...\n  334           U _malloc\n  335  \n  336: libftprintf32.a(wstr_size_helper.o):\n  337  00000150 s EH_frame1\n  338  00000024 T _count_bits\n  ...\n  342  00000045 T _wsizeof\n  343  \n  344: libftprintf32.a(wstr_byte_helper.o):\n  345  00000288 s EH_frame1\n  346  000000d5 T _copy_bytes\n  ...\n  350  000001c9 T _parse_bytes\n  351  \n  352: libftprintf32.a(wstr_display_helper.o):\n  353  00000348 s EH_frame1\n  354           U _copy_bytes\n  ...\n  367  0000004a t _wstr_bml\n  368  \n  369: libftprintf32.a(conversion_helper.o):\n  370  00000230 s EH_frame1\n  371  0000013e t _conversion_maj\n  ...\n  376           U _rev\n  377  \n  378: libftprintf32.a(multi_init.o):\n  379  000000dc s EH_frame1\n  380: 0000002d T _init_printfv\n  381           U _malloc\n  382  00000000 T _multi_int_init\n\n/Users/pfichepo/Desktop/ft_nm/ar/libmlx.a.txt:\n 1169  0000000000000c4d s L_.str98\n 1170  0000000000000c5b s L_.str99\n 1171:                  U ___snprintf_chk\n 1172                   U ___stack_chk_fail\n 1173                   U ___stack_chk_guard\n\n/Users/pfichepo/Desktop/ft_nm/ar/libtprintf.a.txt:\n    1  \n    2: libftprintf.a(ft_printf.o):\n    3  0000000000000208 s EH_frame1\n    4                   U _count_flags\n    5                   U _free\n    6: 000000000000012a T _ft_printf\n    7:                  U _ft_printf_dispatch\n    8  0000000000000000 t _parse_args\n    9:                  U _parse_printf_attr\n   10                   U _write\n   11  \n   12: libftprintf.a(check_flag.o):\n   13  00000000000000b0 s EH_frame1\n   14  0000000000000000 T _is_char\n   ..\n   18  0000000000000046 T _is_string\n   19  \n   20: libftprintf.a(check_more_flag.o):\n   21  0000000000000028 s EH_frame1\n   22  0000000000000000 T _is_uint\n   23  \n   24: libftprintf.a(attr.o):\n   25  00000000000003c0 s EH_frame1\n   26  0000000000000000 t _check_correct\n   ..\n   30                   U _get_cond_mfnh\n   31                   U _get_cond_spsc\n   32:                  U _init_printfv\n   33                   U _is_conversion\n   34                   U _is_flag\n   ..\n   43                   U _manage_special_char\n   44  0000000000000118 t _parse_int\n   45: 0000000000000313 T _parse_printf_attr\n   46  \n   47: libftprintf.a(attr_check.o):\n   48  0000000000000240 s EH_frame1\n   49  0000000000000000 T _authorized_conversions\n   ..\n   53  00000000000000e7 T _is_special_char\n   54  \n   55: libftprintf.a(attr_conversion.o):\n   56  0000000000000230 s EH_frame1\n   57  000000000000021c s LC0\n   ..\n   68  0000000000000148 T _is_conversion\n   69  \n   70: libftprintf.a(attr_mgmt.o):\n   71  0000000000000268 s EH_frame1\n   72                   U _authorized_conversions\n   ..\n   80  000000000000008e T _manage_special_char\n   81  \n   82: libftprintf.a(attr_conditions.o):\n   83  00000000000001f8 s EH_frame1\n   84  0000000000000000 T _get_cond_ciip\n   ..\n   93                   U _is_uint\n   94  \n   95: libftprintf.a(dispatch_helper.o):\n   96  0000000000000340 s EH_frame1\n   97  0000000000000000 t _arg_option\n   ..\n  106                   U _dispatch_wchar\n  107                   U _dispatch_wstring\n  108: 00000000000001dd T _ft_printf_dispatch\n  109                   U _multi_int_init\n  110                   U _multi_set\n  111  \n  112: libftprintf.a(dispatch.o):\n  113  0000000000000c98 s EH_frame1\n  114  00000000000001be T _dispatch_int\n  ...\n  124                   U _put_widestring\n  125  \n  126: libftprintf.a(dispatch_next.o):\n  127  00000000000005c0 s EH_frame1\n  128  00000000000003db T _dispatch_char\n  ...\n  134                   U _put_widechar\n  135  \n  136: libftprintf.a(secondary_call.o):\n  137  00000000000002a0 s EH_frame1\n  138                   U _char_tos\n  ...\n  157                   U _wchar_tos\n  158  \n  159: libftprintf.a(wstr_call.o):\n  160  00000000000002c8 s EH_frame1\n  161  0000000000000196 t _fill_wstr\n  ...\n  173                   U _wstring_fill\n  174  \n  175: libftprintf.a(str_call.o):\n  176  00000000000002d0 s EH_frame1\n  177  00000000000002c6 s LC0\n  ...\n  191  0000000000000000 t _sub_str\n  192  \n  193: libftprintf.a(hex_call.o):\n  194  0000000000000530 s EH_frame1\n  195  0000000000000527 s LC0\n  ...\n  212  0000000000000000 t _transform_hex\n  213  \n  214: libftprintf.a(oct_call.o):\n  215  0000000000000280 s EH_frame1\n  216  0000000000000278 s LC0\n  ...\n  228                   U _string_fill\n  229  \n  230: libftprintf.a(uintmax_call.o):\n  231  0000000000000248 s EH_frame1\n  232  000000000000023e s LC0\n  ...\n  245  0000000000000000 t _sub_umaxint\n  246  \n  247: libftprintf.a(intmax_call.o):\n  248  0000000000000508 s EH_frame1\n  249  00000000000004fe s LC0\n  ...\n  269                   U _string_fill\n  270  \n  271: libftprintf.a(intmax_call_helper.o):\n  272  00000000000001e8 s EH_frame1\n  273  00000000000001e5 s LC0\n  ...\n  280  00000000000000f1 T _pos_joinprec_neg_int\n  281  \n  282: libftprintf.a(string_helper.o):\n  283  0000000000000228 s EH_frame1\n  284  00000000000000dd T _char_tos\n  ...\n  293                   U _write\n  294  \n  295: libftprintf.a(int_helper.o):\n  296  0000000000000288 s EH_frame1\n  297  0000000000000178 T _ft_imtoa\n  ...\n  302                   U _rev\n  303  \n  304: libftprintf.a(ustr_helper.o):\n  305  00000000000001d0 s EH_frame1\n  306                   U _ft_memalloc\n  ...\n  314  0000000000000080 T _ustring_fill\n  315  \n  316: libftprintf.a(ustr_next_helper.o):\n  317  0000000000000128 s EH_frame1\n  318                   U _ft_memcpy\n  ...\n  323                   U _write\n  324  \n  325: libftprintf.a(wstr_helper.o):\n  326  00000000000002c8 s EH_frame1\n  327                   U _count_wchar\n  ...\n  335  0000000000000244 T _wstring_fill\n  336  \n  337: libftprintf.a(wstr_next_helper.o):\n  338  0000000000000128 s EH_frame1\n  339                   U _ft_memcpy\n  ...\n  342                   U _malloc\n  343  \n  344: libftprintf.a(wstr_size_helper.o):\n  345  0000000000000180 s EH_frame1\n  346  0000000000000028 T _count_bits\n  ...\n  350  000000000000004a T _wsizeof\n  351  \n  352: libftprintf.a(wstr_byte_helper.o):\n  353  0000000000000300 s EH_frame1\n  354  0000000000000123 T _copy_bytes\n  ...\n  358  0000000000000233 T _parse_bytes\n  359  \n  360: libftprintf.a(wstr_display_helper.o):\n  361  00000000000003c8 s EH_frame1\n  362                   U _copy_bytes\n  ...\n  375  0000000000000063 t _wstr_bml\n  376  \n  377: libftprintf.a(conversion_helper.o):\n  378  00000000000001f0 s EH_frame1\n  379  0000000000000106 t _conversion_maj\n  ...\n  384                   U _rev\n  385  \n  386: libftprintf.a(multi_init.o):\n  387  0000000000000110 s EH_frame1\n  388: 000000000000004f T _init_printfv\n  389                   U _malloc\n  390  0000000000000000 T _multi_int_init\n\n/Users/pfichepo/Desktop/ft_nm/backup_macos/zcat:\n    <binary>\n\n/Users/pfichepo/Desktop/ft_nm/includes/mach/mach_init.h:\n  100  \n  101  /*\n  102:  *\tfprintf_stderr uses vprintf_stderr_func to produce\n  103   *\terror messages, this can be overridden by a user\n  104   *\tapplication to point to a user-specified output function\n  105   */\n  106: extern int (*vprintf_stderr_func)(const char *format, va_list ap);\n  107  \n  108  __END_DECLS\n\n101 matches across 12 files\n\n\nSearching 206 files for \"64 = \"\n\n/Users/pfichepo/Desktop/ft_nm/a.out:\n    <binary>\n\n/Users/pfichepo/Desktop/ft_nm/a2.out:\n    ERROR: Unable to open file\n\n/Users/pfichepo/Desktop/ft_nm/init.c:\n   41  {\n   42  \n   43: \tprintf(\"64 = %i, fat = %i ar = %i swap = %i\\n\", env->is64bit, env->isfattype, env->isarchive, env->isswap);\n   44  \tif ((env->section = (t_lsection*)malloc(sizeof(t_lsection))) == NULL)\n   45  \t\treturn ;\n\n/Users/pfichepo/Desktop/ft_nm/xfat2.c:\n   73  \n   74  \thas_i386 = false;\n   75: \thas_x86_x64 = false;\n   76  \tcount = 0;\n   77  \twhile (n--)\n   ..\n   83  \t\t}\n   84  \t\tif (arch->cputype == CPU_TYPE_X86_64 || swap_uint32(arch->cputype) == CPU_TYPE_X86_64)\n   85: \t\t\thas_x86_x64 = true;\n   86  \t\tif (get_cputype(arch->cputype)[0] != '?' || get_cputype(swap_uint32(arch->cputype))[0] != '?')\n   87  \t\t\tcount++;\n\n/Users/pfichepo/Desktop/ft_nm/includes/mach/std_types.defs:\n   81  type int32 = int32_t;\n   82  type unsigned32 = uint32_t;\n   83: type int64 = int64_t;\n   84: type unsigned64 = uint64_t;\n   85  \n   86  /*\n\n6 matches across 4 files\n",
+			"file": "srcs/x64.c",
 			"settings":
 			{
-				"buffer_size": 30978,
+				"buffer_size": 3106,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "srcs/xfat.c",
+			"settings":
+			{
+				"buffer_size": 3080,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "srcs/xfat2.c",
+			"settings":
+			{
+				"buffer_size": 2822,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "srcs/x86.c",
+			"settings":
+			{
+				"buffer_size": 3085,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "static void\tadd_output(int nsyms, void *symoff,\n\tvoid *stroff, t_env *env, bool swap)\n{\n\tint\t\t\t\ti;\n\tchar\t\t\t*stringtable;\n\tstruct nlist_64\t*array;\n\tt_cmd\t\t\t*cmd;\n\t\n\tarray = (void*)symoff;\n\tstringtable = (void*)stroff;\n\tcmd = NULL;\n\ti = 0;\n\twhile (i++ < nsyms)\n\t{\n\t\tswaparray(&array[i], swap);\n\t\tsegfaultcheck((char*)(&array[i]), env->end, AT);\n\t\tsegfaultcheck(stringtable, env->end, AT);\n\t\tmlccmd(env, array[i].n_value, typing(array[i].n_type, array[i].n_sect,\n\t\t\tenv->section, array[i].n_value),\n\t\tstringtable + array[i].n_un.n_strx);\n\t}\n}",
+			"settings":
+			{
+				"buffer_size": 539,
 				"line_ending": "Unix",
-				"name": "Find Results",
-				"scratch": true
+				"name": "static void\tadd_output(int nsyms, void *symoff,"
 			}
 		},
 		{
-			"file": "libs.c",
+			"contents": "static void add_output(int nsyms, void *symoff,\n\tvoid *stroff, t_env *env, bool swap)\n{\n\tint\t\t\t\ti;\n\tchar\t\t\t*stringtable;\n\tstruct nlist_64\t*array;\n\tt_cmd\t\t\t*cmd;\n\n\tarray = (void*)symoff;\n\tstringtable = (void*)stroff;\n\tcmd = NULL;\n\tfor (i = 0; i < nsyms; ++i)\n\t{\n\t\tswaparray(&array[i], swap);\n\t\tsegfaultcheck((char*)(&array[i]), env->end, AT);\n\t\tsegfaultcheck(stringtable, env->end, AT);\n\t\tmlccmd(env, array[i].n_value, typing(array[i].n_type, array[i].n_sect,\n\t\t\tenv->section, array[i].n_value), stringtable + array[i].n_un.n_strx);\n\t}\n}",
 			"settings":
 			{
-				"buffer_size": 2187,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "xfat.c",
-			"settings":
-			{
-				"buffer_size": 3152,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "nm.c",
-			"settings":
-			{
-				"buffer_size": 1389,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "x64.c",
-			"settings":
-			{
-				"buffer_size": 3110,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "x86.c",
-			"settings":
-			{
-				"buffer_size": 3088,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "init.c",
-			"settings":
-			{
-				"buffer_size": 2778,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "ar.c",
-			"settings":
-			{
-				"buffer_size": 2961,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "includes/mach/machine.h",
-			"settings":
-			{
-				"buffer_size": 13237,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "includes/mach-o/fat.h",
-			"settings":
-			{
-				"buffer_size": 3390,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "includes/ar.h",
-			"settings":
-			{
-				"buffer_size": 2901,
+				"buffer_size": 536,
 				"line_ending": "Unix"
 			}
 		},
@@ -191,18 +149,19 @@
 			}
 		},
 		{
-			"file": "includes/mach-o/nlist.h",
+			"file": "includes/nm.h",
 			"settings":
 			{
-				"buffer_size": 13793,
+				"buffer_size": 3473,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "includes/nm.h",
+			"file": "Makefile",
 			"settings":
 			{
-				"buffer_size": 3200,
+				"buffer_size": 1412,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -283,10 +242,14 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 392.0,
-		"last_filter": "",
+		"height": 149.0,
+		"last_filter": "head",
 		"selected_items":
 		[
+			[
+				"head",
+				"42 headers: toggle"
+			],
 			[
 				"",
 				"42 headers: toggle"
@@ -341,29 +304,49 @@
 	"expanded_folders":
 	[
 		"/Users/pfichepo/Desktop/ft_nm",
-		"/Users/pfichepo/Desktop/ft_nm/backup_macos"
+		"/Users/pfichepo/Desktop/ft_nm/backup_macos",
+		"/Users/pfichepo/Desktop/ft_nm/includes",
+		"/Users/pfichepo/Desktop/ft_nm/includes/mach-o",
+		"/Users/pfichepo/Desktop/ft_nm/srcs"
 	],
 	"file_history":
 	[
-		"/Users/pfichepo/Desktop/ft_nm/x86.c",
-		"/Users/pfichepo/Desktop/ft_nm/x64.c",
-		"/Users/pfichepo/Desktop/ft_nm/xfat2.c",
-		"/Users/pfichepo/Desktop/ft_nm/ar.c",
-		"/Users/pfichepo/Desktop/ft_nm/libs.c",
-		"/Users/pfichepo/Desktop/ft_nm/lists.c",
+		"/Users/pfichepo/Desktop/ft_nm/srcs/main.c",
+		"/Users/pfichepo/Desktop/ft_nm/srcs/nm.c",
+		"/Users/pfichepo/Desktop/ft_nm/srcs/sections.c",
+		"/Users/pfichepo/Desktop/ft_nm/srcs/x86.c",
+		"/Users/pfichepo/Desktop/ft_nm/srcs/lib2.c",
+		"/Users/pfichepo/Desktop/ft_nm/srcs/ar.c",
+		"/Users/pfichepo/Desktop/ft_nm/srcs/x64.c",
+		"/Users/pfichepo/Desktop/ft_nm/srcs/init.c",
+		"/Users/pfichepo/Desktop/ft_nm/srcs/libs.c",
+		"/Users/pfichepo/Desktop/ft_nm/srcs/lists.c",
+		"/Users/pfichepo/Desktop/ft_nm/ft_nm2",
+		"/Users/pfichepo/Desktop/ft_nm/ft_nm",
 		"/Users/pfichepo/Desktop/ft_nm/init.c",
+		"/Users/pfichepo/Desktop/ft_nm/libs.c",
+		"/Users/pfichepo/Desktop/ft_nm/xfat.c",
+		"/Users/pfichepo/Desktop/ft_nm/nm.c",
+		"/Users/pfichepo/Desktop/ft_nm/x64.c",
+		"/Users/pfichepo/Desktop/ft_nm/ar.c",
+		"/Users/pfichepo/Desktop/ft_nm/includes/mach/machine.h",
+		"/Users/pfichepo/Desktop/ft_nm/includes/mach-o/fat.h",
+		"/Users/pfichepo/Desktop/ft_nm/includes/ar.h",
+		"/Users/pfichepo/Desktop/ft_nm/includes/mach-o/loader.h",
+		"/Users/pfichepo/Desktop/ft_nm/includes/mach-o/nlist.h",
+		"/Users/pfichepo/Desktop/ft_nm/includes/nm.h",
+		"/Users/pfichepo/Desktop/ft_nm/x86.c",
+		"/Users/pfichepo/Desktop/ft_nm/xfat2.c",
+		"/Users/pfichepo/Desktop/ft_nm/lists.c",
 		"/Users/pfichepo/Desktop/ft_nm/lib2.c",
 		"/Users/pfichepo/Desktop/ft_nm/libs2.c",
 		"/Users/pfichepo/Desktop/ft_nm/sections.c",
-		"/Users/pfichepo/Desktop/ft_nm/nm.c",
-		"/Users/pfichepo/Desktop/ft_nm/xfat.c",
 		"/Users/pfichepo/Desktop/ft_nm/2.txt",
 		"/Users/pfichepo/Desktop/ft_nm/1.txt",
 		"/Users/pfichepo/Desktop/ft_nm/main.c",
 		"/Users/pfichepo/Desktop/ft_nm/a.txt",
 		"/Users/pfichepo/Desktop/ft_nm/caca.c",
 		"/Users/pfichepo/Desktop/ft_nm/ar2.c",
-		"/Users/pfichepo/Desktop/ft_nm/includes/mach/machine.h",
 		"/Users/pfichepo/Desktop/ft_nm/includes/mach-o/arch.h",
 		"/Users/pfichepo/Desktop/ft_nm/nm.txt",
 		"/Users/pfichepo/Desktop/ft_nm/includes/mach-o/ranlib.h",
@@ -372,11 +355,8 @@
 		"/Users/pfichepo/Desktop/ft_nm/mine.txt",
 		"/Users/pfichepo/Desktop/ft_nm/his.txt",
 		"/Users/pfichepo/Desktop/ft_nm/untitled.sublime-project",
-		"/Users/pfichepo/Desktop/ft_nm/includes/ar.h",
 		"/Users/pfichepo/Desktop/ft_nm/man.txt",
-		"/Users/pfichepo/Desktop/ft_nm/includes/mach-o/fat.h",
 		"/usr/include/mach-o/nlist.h",
-		"/Users/pfichepo/Desktop/ft_nm/includes/nm.h",
 		"/usr/include/mach-o/loader.h",
 		"/usr/include/mach-o/fat.h",
 		"/Users/pfichepo/Downloads/Nm-Otool-master 2/nm-otool/nm/srcs/handle_64.c",
@@ -468,6 +448,17 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"how",
+			"nsyms",
+			"add_output",
+			"printf",
+			"\");\n",
+			"segfault",
+			"no cmd",
+			"order_cmds",
+			"isstrbigger",
+			"printf",
+			"puts",
 			"64 = ",
 			"_64",
 			"symtab_command",
@@ -561,887 +552,29 @@
 	"groups":
 	[
 		{
-			"selected": 6,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
+					"file": "srcs/x64.c",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 30978,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										179,
-										185
-									],
-									[
-										339,
-										345
-									],
-									[
-										551,
-										557
-									],
-									[
-										711,
-										717
-									],
-									[
-										1057,
-										1063
-									],
-									[
-										1307,
-										1313
-									],
-									[
-										1512,
-										1518
-									],
-									[
-										1745,
-										1751
-									],
-									[
-										1900,
-										1906
-									],
-									[
-										2106,
-										2112
-									],
-									[
-										2582,
-										2588
-									],
-									[
-										2742,
-										2748
-									],
-									[
-										2883,
-										2889
-									],
-									[
-										2897,
-										2903
-									],
-									[
-										3013,
-										3019
-									],
-									[
-										3042,
-										3048
-									],
-									[
-										3113,
-										3119
-									],
-									[
-										3179,
-										3185
-									],
-									[
-										3315,
-										3321
-									],
-									[
-										3421,
-										3427
-									],
-									[
-										3598,
-										3604
-									],
-									[
-										3765,
-										3771
-									],
-									[
-										3797,
-										3803
-									],
-									[
-										3954,
-										3960
-									],
-									[
-										4113,
-										4119
-									],
-									[
-										4273,
-										4279
-									],
-									[
-										4418,
-										4424
-									],
-									[
-										4605,
-										4611
-									],
-									[
-										4704,
-										4710
-									],
-									[
-										4848,
-										4854
-									],
-									[
-										4996,
-										5002
-									],
-									[
-										5137,
-										5143
-									],
-									[
-										5289,
-										5295
-									],
-									[
-										5435,
-										5441
-									],
-									[
-										5587,
-										5593
-									],
-									[
-										5737,
-										5743
-									],
-									[
-										5891,
-										5897
-									],
-									[
-										6044,
-										6050
-									],
-									[
-										6213,
-										6219
-									],
-									[
-										6358,
-										6364
-									],
-									[
-										6489,
-										6495
-									],
-									[
-										6633,
-										6639
-									],
-									[
-										6782,
-										6788
-									],
-									[
-										6926,
-										6932
-									],
-									[
-										7067,
-										7073
-									],
-									[
-										7210,
-										7216
-									],
-									[
-										7357,
-										7363
-									],
-									[
-										7504,
-										7510
-									],
-									[
-										7648,
-										7654
-									],
-									[
-										7726,
-										7732
-									],
-									[
-										7943,
-										7949
-									],
-									[
-										8115,
-										8121
-									],
-									[
-										8127,
-										8133
-									],
-									[
-										8275,
-										8281
-									],
-									[
-										8312,
-										8318
-									],
-									[
-										8399,
-										8405
-									],
-									[
-										8464,
-										8470
-									],
-									[
-										8622,
-										8628
-									],
-									[
-										8742,
-										8748
-									],
-									[
-										8957,
-										8963
-									],
-									[
-										9164,
-										9170
-									],
-									[
-										9196,
-										9202
-									],
-									[
-										9375,
-										9381
-									],
-									[
-										9537,
-										9543
-									],
-									[
-										9719,
-										9725
-									],
-									[
-										9886,
-										9892
-									],
-									[
-										10111,
-										10117
-									],
-									[
-										10226,
-										10232
-									],
-									[
-										10392,
-										10398
-									],
-									[
-										10562,
-										10568
-									],
-									[
-										10725,
-										10731
-									],
-									[
-										10887,
-										10893
-									],
-									[
-										11036,
-										11042
-									],
-									[
-										11191,
-										11197
-									],
-									[
-										11344,
-										11350
-									],
-									[
-										11501,
-										11507
-									],
-									[
-										11657,
-										11663
-									],
-									[
-										11829,
-										11835
-									],
-									[
-										11987,
-										11993
-									],
-									[
-										12140,
-										12146
-									],
-									[
-										12306,
-										12312
-									],
-									[
-										12468,
-										12474
-									],
-									[
-										12634,
-										12640
-									],
-									[
-										12797,
-										12803
-									],
-									[
-										12962,
-										12968
-									],
-									[
-										13131,
-										13137
-									],
-									[
-										13300,
-										13306
-									],
-									[
-										13466,
-										13472
-									],
-									[
-										13558,
-										13564
-									],
-									[
-										13792,
-										13798
-									],
-									[
-										13812,
-										13818
-									],
-									[
-										14000,
-										14006
-									],
-									[
-										14222,
-										14231
-									],
-									[
-										14418,
-										14427
-									],
-									[
-										14623,
-										14632
-									],
-									[
-										14819,
-										14828
-									],
-									[
-										15217,
-										15226
-									],
-									[
-										15539,
-										15548
-									],
-									[
-										15726,
-										15735
-									],
-									[
-										16034,
-										16043
-									],
-									[
-										16259,
-										16268
-									],
-									[
-										16659,
-										16665
-									],
-									[
-										16819,
-										16825
-									],
-									[
-										17031,
-										17037
-									],
-									[
-										17191,
-										17197
-									],
-									[
-										17502,
-										17508
-									],
-									[
-										17707,
-										17713
-									],
-									[
-										17940,
-										17946
-									],
-									[
-										18095,
-										18101
-									],
-									[
-										18387,
-										18393
-									],
-									[
-										18547,
-										18553
-									],
-									[
-										18688,
-										18694
-									],
-									[
-										18702,
-										18708
-									],
-									[
-										18818,
-										18824
-									],
-									[
-										18847,
-										18853
-									],
-									[
-										18918,
-										18924
-									],
-									[
-										18984,
-										18990
-									],
-									[
-										19120,
-										19126
-									],
-									[
-										19226,
-										19232
-									],
-									[
-										19403,
-										19409
-									],
-									[
-										19570,
-										19576
-									],
-									[
-										19602,
-										19608
-									],
-									[
-										19759,
-										19765
-									],
-									[
-										19918,
-										19924
-									],
-									[
-										20078,
-										20084
-									],
-									[
-										20223,
-										20229
-									],
-									[
-										20410,
-										20416
-									],
-									[
-										20509,
-										20515
-									],
-									[
-										20653,
-										20659
-									],
-									[
-										20801,
-										20807
-									],
-									[
-										20942,
-										20948
-									],
-									[
-										21094,
-										21100
-									],
-									[
-										21240,
-										21246
-									],
-									[
-										21392,
-										21398
-									],
-									[
-										21542,
-										21548
-									],
-									[
-										21696,
-										21702
-									],
-									[
-										21849,
-										21855
-									],
-									[
-										22018,
-										22024
-									],
-									[
-										22163,
-										22169
-									],
-									[
-										22294,
-										22300
-									],
-									[
-										22438,
-										22444
-									],
-									[
-										22587,
-										22593
-									],
-									[
-										22731,
-										22737
-									],
-									[
-										22872,
-										22878
-									],
-									[
-										23015,
-										23021
-									],
-									[
-										23162,
-										23168
-									],
-									[
-										23309,
-										23315
-									],
-									[
-										23453,
-										23459
-									],
-									[
-										23531,
-										23537
-									],
-									[
-										23748,
-										23754
-									],
-									[
-										23920,
-										23926
-									],
-									[
-										23932,
-										23938
-									],
-									[
-										24080,
-										24086
-									],
-									[
-										24117,
-										24123
-									],
-									[
-										24204,
-										24210
-									],
-									[
-										24269,
-										24275
-									],
-									[
-										24427,
-										24433
-									],
-									[
-										24547,
-										24553
-									],
-									[
-										24762,
-										24768
-									],
-									[
-										24969,
-										24975
-									],
-									[
-										25001,
-										25007
-									],
-									[
-										25180,
-										25186
-									],
-									[
-										25342,
-										25348
-									],
-									[
-										25524,
-										25530
-									],
-									[
-										25691,
-										25697
-									],
-									[
-										25916,
-										25922
-									],
-									[
-										26031,
-										26037
-									],
-									[
-										26197,
-										26203
-									],
-									[
-										26367,
-										26373
-									],
-									[
-										26530,
-										26536
-									],
-									[
-										26692,
-										26698
-									],
-									[
-										26841,
-										26847
-									],
-									[
-										26996,
-										27002
-									],
-									[
-										27149,
-										27155
-									],
-									[
-										27306,
-										27312
-									],
-									[
-										27462,
-										27468
-									],
-									[
-										27634,
-										27640
-									],
-									[
-										27792,
-										27798
-									],
-									[
-										27945,
-										27951
-									],
-									[
-										28111,
-										28117
-									],
-									[
-										28273,
-										28279
-									],
-									[
-										28439,
-										28445
-									],
-									[
-										28602,
-										28608
-									],
-									[
-										28767,
-										28773
-									],
-									[
-										28936,
-										28942
-									],
-									[
-										29105,
-										29111
-									],
-									[
-										29271,
-										29277
-									],
-									[
-										29363,
-										29369
-									],
-									[
-										29597,
-										29603
-									],
-									[
-										29617,
-										29623
-									],
-									[
-										29805,
-										29811
-									],
-									[
-										30141,
-										30146
-									],
-									[
-										30428,
-										30433
-									],
-									[
-										30611,
-										30616
-									],
-									[
-										30885,
-										30890
-									],
-									[
-										30919,
-										30924
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								30155,
-								30155
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"line_numbers": false,
-							"output_tag": 4,
-							"result_base_dir": "",
-							"result_file_regex": "^([^ \t].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 15945.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "libs.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2187,
+						"buffer_size": 3106,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2014,
-								2014
+								3106,
+								3106
 							]
 						],
 						"settings":
 						{
-							"SL.112.region_keys":
-							[
-							],
-							"syntax": "Packages/C++/C.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 198.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "xfat.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3152,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2465,
-								2468
-							]
-						],
-						"settings":
-						{
-							"SL.83.region_keys":
+							"SL.78.region_keys":
 							[
 								"sublime_linter.protected_regions"
 							],
@@ -1449,35 +582,131 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 96.0,
+						"translation.y": 302.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "nm.c",
+					"buffer": 1,
+					"file": "srcs/xfat.c",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1389,
+						"buffer_size": 3080,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								937,
-								937
+								2216,
+								2228
 							]
 						],
 						"settings":
 						{
-							"SL.116.region_keys":
+							"SL.103.region_keys":
 							[
+								"sublime_linter.protected_regions"
 							],
 							"syntax": "Packages/C++/C.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 108.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "srcs/xfat2.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2822,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2396,
+								2396
+							]
+						],
+						"settings":
+						{
+							"SL.104.region_keys":
+							[
+								"sublime_linter.protected_regions"
+							],
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 153.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "srcs/x86.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3085,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3055,
+								3055
+							]
+						],
+						"settings":
+						{
+							"SL.102.region_keys":
+							[
+								"sublime_linter.protected_regions"
+							],
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 303.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 539,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								162,
+								162
+							]
+						],
+						"settings":
+						{
+							"auto_name": "static void\tadd_output(int nsyms, void *symoff,",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -1488,244 +717,49 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "x64.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3110,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2327,
-								2327
-							]
-						],
-						"settings":
-						{
-							"SL.117.region_keys":
-							[
-								"sublime_linter.protected_regions"
-							],
-							"syntax": "Packages/C++/C.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 213.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
 					"buffer": 5,
-					"file": "x86.c",
-					"semi_transient": true,
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3088,
+						"buffer_size": 536,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								536,
+								536
 							]
 						],
 						"settings":
 						{
-							"SL.118.region_keys":
+							"SL.101.region_keys":
 							[
+								"SL.clang.Gutter.region.yellowish markup.changed.sublime_linter markup.warning.sublime_linter.dot",
+								"SL.clang.Highlights.|region.yellowish markup.changed.sublime_linter markup.warning.sublime_linter|32",
+								"SL.clang.Gutter.region.redish markup.deleted.sublime_linter markup.error.sublime_linter.dot",
+								"sublime_linter.protected_regions",
+								"SL.clang.Highlights.|region.redish markup.deleted.sublime_linter markup.error.sublime_linter|32"
 							],
 							"syntax": "Packages/C++/C.sublime-syntax",
 							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 213.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "init.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2778,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1360,
-								1360
-							]
-						],
-						"settings":
-						{
-							"SL.84.region_keys":
-							[
-								"sublime_linter.protected_regions"
-							],
-							"syntax": "Packages/C++/C.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 183.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "ar.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2961,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2365,
-								2365
-							]
-						],
-						"settings":
-						{
-							"SL.82.region_keys":
-							[
-								"sublime_linter.protected_regions"
-							],
-							"syntax": "Packages/C++/C.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 618.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 3,
-			"sheets":
-			[
-				{
-					"buffer": 8,
-					"file": "includes/mach/machine.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 13237,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3761,
-								3775
-							]
-						],
-						"settings":
-						{
-							"SL.33.region_keys":
-							[
-							],
-							"syntax": "Packages/C++/C++.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 998.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "includes/mach-o/fat.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3390,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2621,
-								2626
-							]
-						],
-						"settings":
-						{
-							"SL.17.region_keys":
-							[
-							],
-							"SL.31.region_keys":
-							[
-							],
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 93.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "includes/ar.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2901,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1470,
-								1470
-							]
-						],
-						"settings":
-						{
-							"SL.18.region_keys":
-							[
-							],
-							"SL.57.region_keys":
-							[
-							],
-							"syntax": "Packages/C++/C++.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 7,
 					"type": "text"
-				},
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
 				{
-					"buffer": 11,
+					"buffer": 6,
 					"file": "includes/mach-o/loader.h",
 					"semi_transient": false,
 					"settings":
@@ -1737,107 +771,85 @@
 						"selection":
 						[
 							[
-								12539,
-								12552
+								64071,
+								64071
 							]
 						],
 						"settings":
 						{
-							"SL.19.region_keys":
-							[
-							],
-							"SL.21.region_keys":
+							"SL.80.region_keys":
 							[
 							],
 							"syntax": "Packages/C++/C++.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3643.0,
+						"translation.y": 20047.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
-					"file": "includes/mach-o/nlist.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 13793,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3882,
-								3882
-							]
-						],
-						"settings":
-						{
-							"SL.20.region_keys":
-							[
-							],
-							"SL.45.region_keys":
-							[
-							],
-							"SL.56.region_keys":
-							[
-							],
-							"syntax": "Packages/C++/C++.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 733.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
+					"buffer": 7,
 					"file": "includes/nm.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3200,
+						"buffer_size": 3473,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1569,
-								1569
+								3101,
+								3101
 							]
 						],
 						"settings":
 						{
-							"SL.21.region_keys":
+							"SL.63.region_keys":
 							[
 								"sublime_linter.protected_regions"
 							],
-							"SL.22.region_keys":
-							[
-								"sublime_linter.protected_regions"
-							],
-							"SL.23.region_keys":
-							[
-							],
-							"SL.46.region_keys":
-							[
-								"sublime_linter.protected_regions"
-							],
+							"history_list_is_closing": true,
 							"syntax": "Packages/C++/C++.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 168.0,
+						"translation.y": 258.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "Makefile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1412,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1052,
+								1052
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
 					"type": "text"
 				}
 			]
