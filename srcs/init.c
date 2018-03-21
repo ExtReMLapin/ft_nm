@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/20 12:52:37 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/21 11:23:13 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	mlccmd(t_env *env, uint64_t n_value, char symbol, char *name)
 	cmd = (t_cmd*)malloc(sizeof(t_cmd));
 	cmd->adr = n_value;
 	cmd->symbol = symbol;
+	segfaultcheck(name, env->end, AT);
 	cmd->name = name;
 	cmd->next = NULL;
 	if (env->list == NULL)
@@ -56,7 +57,7 @@ void	init_commands(t_env *env)
 		handle_fat(env, env->isswap);
 }
 
-void handle_fat(t_env *env, bool swap)
+void	handle_fat(t_env *env, bool swap)
 {
 	struct fat_header	*header;
 

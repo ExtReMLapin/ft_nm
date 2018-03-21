@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/20 10:55:37 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/21 10:36:12 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,19 +86,19 @@ int					handlefile(char *filename)
 		failmessage("Could not open file");
 	if (fstat(fd, &buf) < 0)
 	{
-		printf("%s\n", "Could not access file informations, file on fstat().");
+		write(1, "Could not access file informations, file on fstat().", 52);
 		return (EXIT_FAILURE);
 	}
 	if ((ptr = mmap(0, buf.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
 	{
-		printf("%s\n", "Could not map file to ram.");
+		write(1, "Could not map file to ram.", 26);
 		return (EXIT_FAILURE);
 	}
 	close(fd);
 	nm(ptr, ptr + buf.st_size, filename);
 	if (munmap(ptr, buf.st_size) < 0)
 	{
-		printf("%s\n", "unmmap fail");
+		write(1, "unmmap fail", 11);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

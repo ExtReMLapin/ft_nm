@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/20 12:52:17 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/21 11:07:29 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,12 @@ static void add_output(int nsyms, void *symoff, void *stroff, t_env* env, bool s
 	cmd = NULL;
 	for (i = 0; i < nsyms; ++i)
 	{
-		if (((void*)&array[i] + sizeof(*array) > (void*)env->end) || (void*)stringtable > (void*)env->end)
-			failmessage("Please check file integrity");
+
+		/*if (((void*)&array[i] + sizeof(*array) > (void*)env->end) || (void*)stringtable > (void*)env->end)
+			failmessage("Please check file integrity");*/
 		swaparray(&array[i], swap);
+		segfaultcheck((char*)(&array[i]), env->end, AT);
+		segfaultcheck(stringtable, env->end, AT);
 		mlccmd(env, array[i].n_value, typing(array[i].n_type, array[i].n_sect,
 			env->section, array[i].n_value), stringtable + array[i].n_un.n_strx);
 	}
@@ -60,6 +63,7 @@ static void browse_lc(int ncmds, bool swap, t_env *env, struct mach_header_64* h
 	lc = (struct  load_command*)(header+1);
 	for (i = 0; i < ncmds; ++i)
 	{
+		segfaultcheck((char*)lc, env->end, AT);
 		lc->cmdsize = (swap) ? swap_uint32(lc->cmdsize) : lc->cmdsize;
 		lc->cmd = (swap) ? swap_uint32(lc->cmd) : lc->cmd;
 		if (lc->cmd == LC_SEGMENT_64)

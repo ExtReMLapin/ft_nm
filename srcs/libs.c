@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/20 12:47:10 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/21 11:09:57 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool		isstrbigger(char *a, char *b)
 
 	i = 0;
 	if (!b || !a)
-		failmessage("Attempt to cmp two string is bigger but one is invalid");
+		failmessage("Attempt to cmp two string is bigger but one is invalid\n");
 	if (strcmp(a, b) == 0)
 		return (false);
 	while (a[i] && b[i])
@@ -49,10 +49,12 @@ t_cmd 		*has_fucked_up_order_cmds(t_env *env)
 
 	cmds = env->list;
 	if (cmds == NULL)
-		failmessage("no cmds found");
+		failmessage("no cmds found\n");
 	int i = 0;
 	while (cmds->next)
 	{
+		segfaultcheck(cmds->name, env->end, AT);
+		segfaultcheck(cmds->next->name, env->end, AT);
 		if (isstrbigger(cmds->name, cmds->next->name))
 			return (cmds);
 		cmds = cmds->next;
