@@ -6,15 +6,14 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 09:36:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/20 11:56:43 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/21 12:47:47 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
 
-char*			get_cputype(cpu_type_t	cputype)
+char		*get_cputype(cpu_type_t cputype)
 {
-
 	if (cputype == CPU_TYPE_VAX)
 		return ("vax");
 	else if (cputype == CPU_TYPE_MC680x0)
@@ -41,13 +40,13 @@ char*			get_cputype(cpu_type_t	cputype)
 		return ("?");
 }
 
-static bool		hascpu(cpu_type_t cpu, struct fat_arch* arch, uint32_t n)
+static bool	hascpu(cpu_type_t cpu, struct fat_arch *a, uint32_t n)
 {
 	while (n--)
 	{
-		if (arch->cputype == cpu || (cpu_type_t)swap_uint32(arch->cputype) == cpu)
+		if (a->cputype == cpu || (cpu_type_t)swap_uint32(a->cputype) == cpu)
 			return (true);
-		arch = (void*)arch + sizeof(struct fat_arch);
+		a = (void*)a + sizeof(struct fat_arch);
 	}
 	return (false);
 }
@@ -56,36 +55,38 @@ static bool		hascpu(cpu_type_t cpu, struct fat_arch* arch, uint32_t n)
 ** Could make a get_cputype in bool to get faster result but im lazy
 */
 
-bool			shouldprintcpu(cpu_type_t cpu, struct fat_arch* arch, uint32_t n)
+bool		shouldprintcpu(cpu_type_t cpu, struct fat_arch *arch, uint32_t n)
 {
 	if (get_cputype(cpu)[0] == '?')
-		return (false); 
+		return (false);
 	if (cpu == CPU_TYPE_X86 || cpu == CPU_TYPE_I386)
 		return (!hascpu(CPU_TYPE_X86_64, arch, n));
 	return (true);
 }
 
-unsigned int	how_many_cpu(struct fat_arch* arch, uint32_t n)
+uint32_t	how_many_cpu(struct fat_arch *a, uint32_t n)
 {
-	bool has_i386;
-	bool has_x86_x64;
-	unsigned int count;
+	bool			has_i386;
+	bool			has_x86_x64;
+	unsigned int	count;
+	cpu_type_t		c;
 
+	c = a->cputype;
 	has_i386 = false;
 	has_x86_x64 = false;
 	count = 0;
 	while (n--)
 	{
-		if (arch->cputype == CPU_TYPE_X86 || arch->cputype == CPU_TYPE_I386 ||
-			swap_uint32(arch->cputype) == CPU_TYPE_X86 || swap_uint32(arch->cputype) == CPU_TYPE_I386 )
+		if (c == CPU_TYPE_X86 || c == CPU_TYPE_I386 ||
+			swap_uint32(c) == CPU_TYPE_X86 || swap_uint32(c) == CPU_TYPE_I386)
 		{
 			has_i386 = true;
 		}
-		if (arch->cputype == CPU_TYPE_X86_64 || swap_uint32(arch->cputype) == CPU_TYPE_X86_64)
+		if (c == CPU_TYPE_X86_64 || swap_uint32(c) == CPU_TYPE_X86_64)
 			has_x86_x64 = true;
-		if (get_cputype(arch->cputype)[0] != '?' || get_cputype(swap_uint32(arch->cputype))[0] != '?')
+		if (get_cputype(c)[0] != '?' || get_cputype(swap_uint32(c))[0] != '?')
 			count++;
-		arch = (void*)arch + sizeof(struct fat_arch);
+		a = (void*)a + sizeof(struct fat_arch);
 	}
 	if (has_x86_x64 && has_i386)
 		count--;
