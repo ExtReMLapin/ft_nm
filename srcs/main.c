@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/21 10:36:12 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/21 11:39:03 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ int					handlefile(char *filename)
 		write(1, "Could not access file informations, file on fstat().", 52);
 		return (EXIT_FAILURE);
 	}
-	if ((ptr = mmap(0, buf.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
+	if ((ptr = mmap(0, buf.st_size, PROT_READ |
+		PROT_WRITE, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
 	{
 		write(1, "Could not map file to ram.", 26);
 		return (EXIT_FAILURE);
@@ -104,7 +105,7 @@ int					handlefile(char *filename)
 	return (EXIT_SUCCESS);
 }
 
-int					main (int ac, char **av)
+int					main(int ac, char **av)
 {
 	int i;
 

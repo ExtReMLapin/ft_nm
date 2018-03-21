@@ -6,13 +6,13 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 11:20:20 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/21 11:20:53 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/21 11:39:25 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
 
-void	nm2(t_env *env, char *ptr, char* max)
+void			nm2(t_env *env, char *ptr, char *max)
 {
 	uint32_t head;
 
@@ -31,7 +31,7 @@ void	nm2(t_env *env, char *ptr, char* max)
 		failmessage("ohohoh, pas normal");
 }
 
-void	segfaultcheck(char *ptr, char *end, char *mess)
+void			segfaultcheck(char *ptr, char *end, char *mess)
 {
 	if (ptr > end)
 	{
@@ -41,7 +41,7 @@ void	segfaultcheck(char *ptr, char *end, char *mess)
 	}
 }
 
-bool	check_ar_header(char *ptr)
+bool			check_ar_header(char *ptr)
 {
 	int i;
 
@@ -54,7 +54,7 @@ bool	check_ar_header(char *ptr)
 	return (true);
 }
 
-void	handle_ar(char const *file, char *max, t_env *env)
+void			handle_ar(char const *file, char *max, t_env *env)
 {
 	struct ar_hdr	*ar;
 	int				nobj;

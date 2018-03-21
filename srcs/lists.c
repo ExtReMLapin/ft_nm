@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 10:52:46 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/20 11:57:39 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/21 11:32:47 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		clearlist(t_env *env)
 	t_cmd *curnext;
 
 	if (!env->list)
-		return;
+		return ;
 	while (env->list->next)
 	{
 		cur = env->list;
@@ -38,18 +38,17 @@ void		clearlist(t_env *env)
 	env->list = NULL;
 }
 
-void 	clearsections(t_env *env)
+void		clearsections(t_env *env)
 {
 	t_section *sec;
 	t_section *sec2;
 
-
 	env->section->last = NULL;
 	if (env->section->first == NULL)
-		return;
+		return ;
 	while (env->section->first->next)
 	{
-		sec = env->section->first; 
+		sec = env->section->first;
 		while (sec->next)
 		{
 			sec2 = sec;
@@ -57,8 +56,7 @@ void 	clearsections(t_env *env)
 		}
 		free(sec);
 		sec2->next = NULL;
-
-	} 
+	}
 	free(env->section->first);
 	env->section->first = NULL;
 }

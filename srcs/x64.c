@@ -6,62 +6,63 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/21 11:07:29 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/21 12:17:40 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
 
-static void swaparray(struct nlist_64 *array, bool swap)
+static void	swaparray(struct nlist_64 *array, bool swap)
 {
 	if (!swap)
-		return;
+		return ;
 	array->n_value = swap_uint64(array->n_value);
 	array->n_desc = swap_uint16(array->n_desc);
 	array->n_un.n_strx = swap_uint32(array->n_un.n_strx);
 }
 
-static void swapsym(struct symtab_command *sym, bool swap)
+static void	swapsym(struct symtab_command *sym, bool swap)
 {
-	if (swap)
-	{
-		sym->nsyms = swap_uint32(sym->nsyms);
-		sym->symoff = swap_uint32(sym->symoff);
-		sym->stroff = swap_uint32(sym->stroff);
-	}
+	if (!swap)
+		return ;
+	sym->nsyms = swap_uint32(sym->nsyms);
+	sym->symoff = swap_uint32(sym->symoff);
+	sym->stroff = swap_uint32(sym->stroff);
 }
 
-static void add_output(int nsyms, void *symoff, void *stroff, t_env* env, bool swap)
+static void	add_output(int nsyms, void *symoff,
+	void *stroff, t_env *env, bool swap)
 {
 	int				i;
 	char			*stringtable;
 	struct nlist_64	*array;
 	t_cmd			*cmd;
+	
 
 	array = (void*)symoff;
 	stringtable = (void*)stroff;
 	cmd = NULL;
-	for (i = 0; i < nsyms; ++i)
+	i = 0;
+	while (i++ < nsyms)
 	{
-
-		/*if (((void*)&array[i] + sizeof(*array) > (void*)env->end) || (void*)stringtable > (void*)env->end)
-			failmessage("Please check file integrity");*/
 		swaparray(&array[i], swap);
 		segfaultcheck((char*)(&array[i]), env->end, AT);
 		segfaultcheck(stringtable, env->end, AT);
 		mlccmd(env, array[i].n_value, typing(array[i].n_type, array[i].n_sect,
-			env->section, array[i].n_value), stringtable + array[i].n_un.n_strx);
+			env->section, array[i].n_value),
+		stringtable + array[i].n_un.n_strx);
 	}
 }
 
-static void browse_lc(int ncmds, bool swap, t_env *env, struct mach_header_64* header)
+static void	browse_lc(int ncmds, bool swap, t_env *env,
+	struct mach_header_64 *header)
 {
-	int i;
+	int					i;
+	struct load_command	*lc;
 
-
-	struct  load_command *lc;
-	lc = (struct  load_command*)(header+1);
-	for (i = 0; i < ncmds; ++i)
+	lc = (struct load_command*)(header + 1);
+	i = 0;
+	while (i++ < ncmds)
 	{
 		segfaultcheck((char*)lc, env->end, AT);
 		lc->cmdsize = (swap) ? swap_uint32(lc->cmdsize) : lc->cmdsize;
@@ -72,27 +73,28 @@ static void browse_lc(int ncmds, bool swap, t_env *env, struct mach_header_64* h
 	}
 }
 
-void	handle_64(t_env *env, char *adr, char* max, bool swap)
+void		handle_64(t_env *env, char *adr, char *max, bool swap)
 {
-	int 	ncmds;
-	struct	mach_header_64 *header;
-	struct  load_command *lc;
-	int		i;
-	struct symtab_command *sym;
+	int						ncmds;
+	struct mach_header_64	*header;
+	struct load_command		*lc;
+	int						i;
+	struct symtab_command	*sym;
 
 	header = (struct mach_header_64*)adr;
-	if ((void*)header > (void*)max)
-		failmessage("Fail header");
+	segfaultcheck((char*)header, max, AT);
 	ncmds = (swap) ? swap_uint32(header->ncmds) : header->ncmds;
 	browse_lc(ncmds, swap, env, header);
-	lc = (struct  load_command*)(header+1);
-	for (i = 0; i < ncmds; ++i)
+	lc = (struct load_command*)(header + 1);
+	i = 0;
+	while (i++ < ncmds)
 	{
 		if (lc->cmd == LC_SYMTAB)
 		{
 			sym = (struct symtab_command *)lc;
 			swapsym(sym, swap);
-			add_output(sym->nsyms, (void*)adr + sym->symoff, (void*)adr + sym->stroff, env, swap);
+			add_output(sym->nsyms, (void*)adr + sym->symoff,
+				(void*)adr + sym->stroff, env, swap);
 		}
 		lc = (void*)lc + lc->cmdsize;
 	}
