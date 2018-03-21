@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/21 12:18:18 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/21 12:33:33 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	add_output(int nsyms, void *symoff,
 	stringtable = (void*)stroff;
 	cmd = NULL;
 	i = 0;
-	while (i++ < nsyms)
+	while (i < nsyms)
 	{
 		swaparray(&array[i], swap);
 		segfaultcheck((char*)(&array[i]), env->end, AT);
@@ -50,6 +50,7 @@ static void	add_output(int nsyms, void *symoff,
 		mlccmd(env, array[i].n_value, typing(array[i].n_type, array[i].n_sect,
 			env->section, array[i].n_value),
 		stringtable + array[i].n_un.n_strx);
+		i++;
 	}
 }
 

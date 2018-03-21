@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/21 12:25:47 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/21 12:33:24 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static void	add_output(int nsyms, void *symoff,
 	char			*stringtable;
 	struct nlist_64	*array;
 	t_cmd			*cmd;
-	
 
 	array = (void*)symoff;
 	stringtable = (void*)stroff;
