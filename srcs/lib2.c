@@ -5,16 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/20 12:26:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/20 12:37:01 by pfichepo         ###   ########.fr       */
+/*   Created: 2018/03/21 11:28:35 by pfichepo          #+#    #+#             */
+/*   Updated: 2018/03/21 11:29:29 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
 
-size_t countcharhex(uint64_t hex)
+size_t	countcharhex(uint64_t hex)
 {
-
 	int i;
 
 	i = (hex > 0x0);
@@ -30,9 +29,9 @@ size_t countcharhex(uint64_t hex)
 
 void	print_hex(uint64_t hex, bool first, int how_many_chars, bool blank)
 {
-	char 	hex_chars[16];
-	char c;
-	int i;
+	char	hex_chars[16];
+	char	c;
+	int		i;
 
 	if (first)
 	{
@@ -44,7 +43,7 @@ void	print_hex(uint64_t hex, bool first, int how_many_chars, bool blank)
 		while (i--)
 			write(1, &c, 1);
 		if (hex == 0x0)
-			return;
+			return ;
 	}
 	memcpy(hex_chars, "0123456789abcdef", sizeof(char) * 16);
 	if (hex > 15)

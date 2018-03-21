@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/21 11:09:57 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/21 11:31:13 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 bool		isstrbigger(char *a, char *b)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!b || !a)
@@ -43,14 +43,15 @@ bool		isstrbigger(char *a, char *b)
 ** Fucking hell in-efficent code right after it, NSFW
 */
 
-t_cmd 		*has_fucked_up_order_cmds(t_env *env)
+t_cmd		*has_fucked_up_order_cmds(t_env *env)
 {
-	t_cmd *cmds;
+	t_cmd	*cmds;
+	int		i;
 
 	cmds = env->list;
 	if (cmds == NULL)
 		failmessage("no cmds found\n");
-	int i = 0;
+	i = 0;
 	while (cmds->next)
 	{
 		segfaultcheck(cmds->name, env->end, AT);
@@ -63,23 +64,23 @@ t_cmd 		*has_fucked_up_order_cmds(t_env *env)
 	return (NULL);
 }
 
-void 		order_cmds(t_env *env)
+void		order_cmds(t_env *env)
 {
 	t_cmd	*cmds;
 
-	while(true)
+	while (true)
 	{
 		cmds = has_fucked_up_order_cmds(env);
 		if (cmds)
 			swapcmds(cmds, cmds->next);
 		else
-			break;
+			break ;
 	}
 }
 
 void		print_cmds(t_cmd *cmd, int n)
 {
-	t_cmd *cmds;
+	t_cmd	*cmds;
 
 	cmds = cmd;
 	while (cmds)
