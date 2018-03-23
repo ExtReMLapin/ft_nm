@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/21 11:39:03 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/23 09:33:24 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int					handlefile(char *filename)
 	struct stat		buf;
 
 	if ((fd = open(filename, O_RDONLY)) < 0)
-		failmessage("Could not open file");
+		failmessage("Could not open file\n");
 	if (fstat(fd, &buf) < 0)
 	{
 		write(1, "Could not access file informations, file on fstat().", 52);

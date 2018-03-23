@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/21 11:23:13 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/23 09:33:52 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	handle_fat(t_env *env, bool swap)
 
 	header = (struct fat_header*)env->ptr;
 	if ((void*)header > (void*)env->end)
-		failmessage("Fail header");
+		failmessage("Fail header\n");
 	if (!env->is64bit)
 		handle_fat32(env, swap);
 	else
@@ -75,7 +75,7 @@ t_env	*make_env(char *ptr, char *end, char *name)
 	t_env *env;
 
 	if ((env = (t_env*)malloc(sizeof(t_env))) == NULL)
-		failmessage("FailMalloc");
+		failmessage("FailMalloc\n");
 	env->file_name = name;
 	env->ptr = ptr;
 	env->end = end;
@@ -89,7 +89,7 @@ t_env	*make_env(char *ptr, char *end, char *name)
 	env->in_ppc = false;
 	if (!env->isarchive && !env->is64bit && !env->isswap &&
 		!env->isfattype && *(uint32_t*)ptr != MH_MAGIC)
-		failmessage("File not recognized");
+		failmessage("File not recognized\n");
 	env->list = NULL;
 	init_commands(env);
 	return (env);

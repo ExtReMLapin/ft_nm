@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/21 12:34:04 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/23 09:42:28 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	swapsym(struct symtab_command *sym, bool swap)
 }
 
 static void	add_output(int nsyms, void *symoff,
-	void *stroff, t_env *env, bool swap)
+	void *stroff, t_env *env)
 {
 	int				i;
 	char			*stringtable;
@@ -44,7 +44,7 @@ static void	add_output(int nsyms, void *symoff,
 	i = 0;
 	while (i < nsyms)
 	{
-		swaparray(&array[i], swap);
+		swaparray(&array[i], env->tmp_swap);
 		segfaultcheck((char*)(&array[i]), env->end, AT);
 		segfaultcheck(stringtable, env->end, AT);
 		mlccmd(env, array[i].n_value, typing(array[i].n_type, array[i].n_sect,
@@ -62,6 +62,7 @@ static void	browse_lc(int ncmds, bool swap, t_env *env,
 
 	lc = (struct load_command*)(header + 1);
 	i = 0;
+	env->tmp_swap = swap;
 	while (i++ < ncmds)
 	{
 		segfaultcheck((char*)lc, env->end, AT);
@@ -94,7 +95,7 @@ void		handle_64(t_env *env, char *adr, char *max, bool swap)
 			sym = (struct symtab_command *)lc;
 			swapsym(sym, swap);
 			add_output(sym->nsyms, (void*)adr + sym->symoff,
-				(void*)adr + sym->stroff, env, swap);
+				(void*)adr + sym->stroff, env);
 		}
 		lc = (void*)lc + lc->cmdsize;
 	}

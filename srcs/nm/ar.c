@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 09:41:11 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/21 11:22:52 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/23 09:33:32 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static uint32_t	*filtertable(uint32_t nbr, struct ranlib *ranlib)
 	uint32_t	*artable;
 
 	if ((artable = (uint32_t*)malloc(sizeof(uint32_t) * nbr)) == NULL)
-		failmessage("FailMalloc");
+		failmessage("FailMalloc\n");
 	i = 0;
 	while (i < nbr)
 	{
