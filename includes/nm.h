@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:49:33 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/23 09:40:17 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/23 10:27:50 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void						handle_fat64(t_env *env, bool swap);
 void						segfaultcheck(char *ptr, char *end, char *mess);
 uint32_t					ar_size(char const *name);
 void						read_ranlib(char const *file, char *end, uint32_t nbr, t_env *env);
-
+void						ft_putstr(const char *s);
+void						ft_putchar(char c);
+size_t						ft_strlen(const char *s);
 #endif
 

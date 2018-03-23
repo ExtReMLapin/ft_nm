@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/23 09:33:24 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/23 10:30:20 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,58 +16,7 @@
 ** this project sucks, dont ask me to do things correctly
 */
 
-static char			secto(t_lsection *sec, unsigned int n_sect)
-{
-	t_section		*tmp;
-
-	tmp = sec->first;
-	while (tmp)
-	{
-		if (tmp->nb == n_sect)
-		{
-			if (!strcmp(tmp->name, SECT_DATA))
-				return ('D');
-			else if (!strcmp(tmp->name, SECT_BSS))
-				return ('B');
-			else if (!strcmp(tmp->name, SECT_TEXT))
-				return ('T');
-			else
-				return ('S');
-		}
-		tmp = tmp->next;
-	}
-	return ('S');
-}
-
-char				typing(uint32_t type, uint32_t n_sect,
-	t_lsection *sec, int addr)
-{
-	char			ret;
-
-	ret = '?';
-	if ((type & N_TYPE) == N_UNDF)
-	{
-		if (addr)
-			ret = 'C';
-		else
-			ret = 'U';
-	}
-	else if ((type & N_TYPE) == N_ABS)
-		ret = 'A';
-	else if ((type & N_TYPE) == N_PBUD)
-		ret = 'U';
-	else if ((type & N_TYPE) == N_SECT)
-		ret = secto(sec, n_sect);
-	else if ((type & N_TYPE) == N_INDR)
-		ret = 'I';
-	if ((type & N_STAB) != 0)
-		ret = 'Z';
-	if ((type & N_EXT) == 0 && ret != '?')
-		ret += 32;
-	return (ret);
-}
-
-static void			nm(char *ptr, char *end, char *name)
+static void				nm(char *ptr, char *end, char *name)
 {
 	t_env	*env;
 
@@ -76,42 +25,54 @@ static void			nm(char *ptr, char *end, char *name)
 	clearlist(env);
 }
 
-int					handlefile(char *filename)
+static void				printerror(int type, char **av, char *filename)
+{
+	ft_putstr(av[0]);
+	ft_putstr(": ");
+	ft_putstr(filename);
+	if (type == 1)
+		ft_putstr(": No such file or directory.");
+	else if (type == 2)
+		ft_putstr(" The file was not recognized as a valid object file\n");
+	else if (type == 3)
+		ft_putstr(": Is a directory.");
+	else if (type == 4)
+		ft_putstr(": No such file or directory/Permission denied.");
+	failmessage("\n");
+}
+
+void					handlefile(char *filename, char **av)
 {
 	int				fd;
 	char			*ptr;
 	struct stat		buf;
 
-	if ((fd = open(filename, O_RDONLY)) < 0)
-		failmessage("Could not open file\n");
-	if (fstat(fd, &buf) < 0)
-	{
-		write(1, "Could not access file informations, file on fstat().", 52);
-		return (EXIT_FAILURE);
-	}
+	fd = open(filename, O_RDONLY);
+	fstat(fd, &buf);
+	if (S_ISDIR(buf.st_mode))
+		printerror(3, av, filename);
+	if ((buf.st_mode & S_IRUSR) == 0)
+		printerror(4, av, filename);
+	if (fd < 0)
+		printerror(1, av, filename);
 	if ((ptr = mmap(0, buf.st_size, PROT_READ |
 		PROT_WRITE, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
 	{
-		write(1, "Could not map file to ram.", 26);
-		return (EXIT_FAILURE);
+		failmessage("Could not map file to ram.");
 	}
 	close(fd);
 	nm(ptr, ptr + buf.st_size, filename);
 	if (munmap(ptr, buf.st_size) < 0)
-	{
-		write(1, "unmmap fail", 11);
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
+		failmessage("unmmap fail");
 }
 
-int					main(int ac, char **av)
+int						main(int ac, char **av)
 {
 	int i;
 
 	if (ac == 1)
 	{
-		handlefile("./a.out");
+		handlefile("./a.out", av);
 		return (EXIT_SUCCESS);
 	}
 	else
@@ -125,8 +86,7 @@ int					main(int ac, char **av)
 				write(1, av[i], strlen(av[i]));
 				write(1, ":\n", 3);
 			}
-			if (handlefile(av[i]) == EXIT_FAILURE)
-				return (EXIT_FAILURE);
+			handlefile(av[i], av);
 			i++;
 		}
 	}

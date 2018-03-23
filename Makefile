@@ -6,7 +6,7 @@
 #    By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/21 10:28:45 by pfichepo          #+#    #+#              #
-#    Updated: 2018/03/23 09:32:46 by pfichepo         ###   ########.fr        #
+#    Updated: 2018/03/23 10:23:10 by pfichepo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRCS = 	ar.c \
 		x64.c \
 		x86.c \
 		xfat.c \
-		xfat2.c
+		xfat2.c \
+		libft.c
 
 SRCF = ./srcs/nm/
 OBJS = $(addprefix $(SRCF), $(SRCS:.c=.o))
