@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:49:33 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/23 10:27:50 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/23 10:34:47 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,24 @@ typedef struct				s_env
 {
 	bool					is64bit;
 	bool					isswap;
-	bool					isfattype;	
-	bool					isarchive;				
+	bool					isfattype;
+	bool					isarchive;
 	char					*ptr;
 	char					*end;
-	t_cmd 					*list;
+	t_cmd					*list;
 	t_lsection				*section;
 	char					*file_name;
 	bool					in_ppc;
 	bool					tmp_swap;
 }							t_env;
 
-void 						mlccmd(t_env *env, uint64_t n_value, char symbol, char *name);
+void						mlccmd(t_env *env, uint64_t n_value, char symbol,
+	char *name);
 t_env						*make_env(char *ptr, char *end, char *name);
-void						handle_64(t_env *env, char *adr, char* max, bool swap);
-void						handle_32(t_env *env, char *adr, char* max, bool swap);
+void						handle_64(t_env *env, char *adr, char *max,
+	bool swap);
+void						handle_32(t_env *env, char *adr, char *max,
+	bool swap);
 void						handle_fat(t_env *env, bool swap);
 void						failmessage(char *message);
 void						order_cmds(t_env *env);
@@ -78,26 +81,32 @@ void						print_cmds(t_cmd *cmd, int n);
 uint16_t					swap_uint16(uint16_t nb);
 uint32_t					swap_uint32(uint32_t nb);
 uint64_t					swap_uint64(uint64_t nb);
-void						print_hex(uint64_t hex, bool first, int how_many_chars, bool blank);
+void						print_hex(uint64_t hex, bool first,
+	int how_many_chars, bool blank);
 void						nm2(t_env *env, char *ptr, char *max);
-void						add_segment64(struct segment_command_64 *com, t_lsection *list, bool swap);
-void						add_segment32(struct segment_command *com, t_lsection *list, bool swap);
-char						typing(uint32_t type, uint32_t n_sect, t_lsection *sec, int addr);
+void						add_segment64(struct segment_command_64 *com,
+	t_lsection *list, bool swap);
+void						add_segment32(struct segment_command *com,
+	t_lsection *list, bool swap);
+char						typing(uint32_t type, uint32_t n_sect,
+	t_lsection *sec, int addr);
 bool						check_ar_header(char *ptr);
-void						handle_ar(char const *file, char *max, t_env *env);
+void						handle_ar(char const *file, char *max,
+	t_env *env);
 void						clearlist(t_env *env);
 void						clearsections(t_env *env);
-char*						get_cputype(cpu_type_t	cputype);
-bool						shouldprintcpu(cpu_type_t cpu, struct fat_arch *arch, uint32_t n);
+char						*get_cputype(cpu_type_t cputype);
+bool						shouldprintcpu(cpu_type_t cpu,
+	struct fat_arch *arch, uint32_t n);
 uint32_t					how_many_cpu(struct fat_arch *arch, uint32_t n);
 void						swapcmds(t_cmd *a, t_cmd *b);
 void						handle_fat32(t_env *env, bool swap);
 void						handle_fat64(t_env *env, bool swap);
 void						segfaultcheck(char *ptr, char *end, char *mess);
 uint32_t					ar_size(char const *name);
-void						read_ranlib(char const *file, char *end, uint32_t nbr, t_env *env);
+void						read_ranlib(char const *file, char *end,
+	uint32_t nbr, t_env *env);
 void						ft_putstr(const char *s);
 void						ft_putchar(char c);
 size_t						ft_strlen(const char *s);
 #endif
-
