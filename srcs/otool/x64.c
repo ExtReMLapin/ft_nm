@@ -6,13 +6,11 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/23 11:42:23 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/23 11:45:23 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <otool.h>
-
-
 
 static int	print_section(struct section_64 *s, char const *h)
 {
