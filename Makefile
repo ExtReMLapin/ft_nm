@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+         #
+#    By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/21 10:28:45 by pfichepo          #+#    #+#              #
-#    Updated: 2018/03/23 10:23:10 by pfichepo         ###   ########.fr        #
+#    Updated: 2018/03/23 23:50:15 by anonymous        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_nm
 CC = clang
-CFLAGS = -O0 -g -Wall -Wextra -Werror -arch x86_64 -I ./includes
+CFLAGS = -O0 -g -Wall -Wextra -Werror -I ./includes
 SRCS = 	ar.c \
 		init.c \
 		lib2.c \

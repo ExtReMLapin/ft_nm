@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/23 10:49:16 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/26 12:49:36 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,17 @@
 
 void	init_commands(t_env *env)
 {
+	ft_putstr(env->file_name);
+	ft_putstr(":\n");
 	if (env->isarchive)
 	{
 		handle_ar(env->ptr, env->end, env);
 		return ;
 	}
 	if (env->is64bit)
-		handle_64(env, env->ptr, env->end, env->isswap);
+		handle_64(env->ptr, env->end, env->isswap);
 	else if (!env->isfattype)
-		handle_32(env, env->ptr, env->end, env->isswap);
+		handle_32(env->ptr, env->end, env->isswap);
 	else
 		handle_fat(env, env->isswap);
 }

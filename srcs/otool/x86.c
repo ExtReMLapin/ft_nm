@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   x86.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/23 10:52:21 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/26 11:26:56 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 
-void		handle_32(t_env *env, char *adr, char *max, bool swap)
+void		handle_32(char *adr, char *max, bool swap)
 {
 	int						ncmds;
 	struct mach_header		*header;

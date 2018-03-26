@@ -1,20 +1,22 @@
 {
+	"SublimeLinter":
+	{
+		"linters":
+		{
+			"clang":
+			{
+				"extra_flags": " -I includes/",
+				"include_dirs":
+				[
+					"${project_folder}/includes"
+				]
+			}
+		}
+	},
 	"folders":
 	[
 		{
 			"path": "."
 		}
-	],
-	"SublimeLinter":
-	{
-	    "linters":
-	    {
-	        "clang": {
-	            "extra_flags": " -I includes/",
-	            "include_dirs": [
-	                "${project_folder}/includes",
-	            ]
-	        }
-	    }
-	},
-} 
+	]
+}

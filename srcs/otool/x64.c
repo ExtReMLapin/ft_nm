@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   x64.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/23 11:45:23 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/26 11:26:42 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	print_section(struct section_64 *s, char const *h)
 	while (i < s->size)
 	{
 		j = 0;
-		printf("%0.16llx\t", addr);
+		printf("%0.16lx\t", addr);
 		while (j < 16 && i + j < s->size)
 		{
 			printf("%.2hhx ", *(h + off));
@@ -61,7 +61,7 @@ static int	lc_seg_64(struct segment_command_64 *sc, char const *h)
 	return (1);
 }
 
-void		handle_64(t_env *env, char *adr, char *max, bool swap)
+void		handle_64(char *adr, char *max, bool swap)
 {
 	int						ncmds;
 	struct mach_header_64	*header;
