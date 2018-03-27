@@ -6,7 +6,7 @@
 #    By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/21 10:28:45 by pfichepo          #+#    #+#              #
-#    Updated: 2018/03/27 10:32:08 by pfichepo         ###   ########.fr        #
+#    Updated: 2018/03/27 11:16:43 by pfichepo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME_NM = ft_nm
 NAME_OTOOL = ft_otool
 
 CC = clang
-CFLAGS = -O0 -g -Wall -Wextra -Werror -I ./includes
+CFLAGS = -Ofast -g -Wall -Wextra -Werror -I ./includes
 SRCSNM 	= ar.c \
 		init.c \
 		lib2.c \

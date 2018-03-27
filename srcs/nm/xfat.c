@@ -58,7 +58,7 @@ void			handle_fat32(t_env *env, bool swap)
 	{
 		swapvars32(arch, swap);
 		header2 = (void*)env->ptr + arch->offset;
-		if (shouldprintcpu(arch->cputype, (struct fat_arch*)(h + 1), cpucount))
+		if (shouldprintcpu(arch, (struct fat_arch*)(h + 1), cpucount))
 		{
 			if (how_many_cpu((struct fat_arch*)(h + 1), cpucount) > 1)
 				printarch(env->file_name, get_cputype(arch->cputype));
