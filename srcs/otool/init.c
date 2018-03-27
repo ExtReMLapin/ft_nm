@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/27 09:57:59 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/27 10:09:08 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 void	init_commands(t_env *env)
 {
-	if (!env->isfattype && !env->isarchive)
+	if (!env->isfattype || !env->isarchive)
 	{
 		ft_putstr(env->file_name);
 		ft_putstr(":\n");

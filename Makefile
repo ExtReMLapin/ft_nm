@@ -3,17 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+         #
+#    By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/21 10:28:45 by pfichepo          #+#    #+#              #
-#    Updated: 2018/03/23 23:50:15 by anonymous        ###   ########.fr        #
+#    Updated: 2018/03/27 10:30:28 by pfichepo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ft_nm
+NAME_NM = ft_nm
+NAME_OTOOL = ft_otool
+
 CC = clang
 CFLAGS = -O0 -g -Wall -Wextra -Werror -I ./includes
-SRCS = 	ar.c \
+SRCSNM 	= ar.c \
 		init.c \
 		lib2.c \
 		libs.c \
@@ -28,25 +30,44 @@ SRCS = 	ar.c \
 		xfat2.c \
 		libft.c
 
-SRCF = ./srcs/nm/
-OBJS = $(addprefix $(SRCF), $(SRCS:.c=.o))
-	
-all : $(NAME)
+SRCSOTOOL	= ar.c \
+		init.c \
+		lib2.c \
+		libs.c \
+		libs2.c \
+		lists.c \
+		main.c \
+		otool.c \
+		x64.c \
+		x86.c \
+		xfat.c \
+		xfat2.c \
+		libft.c
 
-$(NAME): $(OBJS)
-	@echo Compiling $(NAME) ...
-	@$(CC) -o $(NAME) $(OBJS)
+SRCNM = ./srcs/nm/
+OBJNM = $(addprefix $(SRCNM), $(SRCSNM:.c=.o))
+
+SRCOTOOL = ./srcs/otool/
+OBJOTOOL = $(addprefix $(SRCOTOOL), $(SRCSOTOOL:.c=.o))
 	
+all: $(NAME_NM) $(NAME_OTOOL)
+
+$(NAME_NM): $(OBJNM)
+	@echo Compiling $(NAME_NM) ...
+	@$(CC) -o $(NAME_NM) $(OBJNM)
+	
+$(NAME_OTOOL): $(OBJOTOOL)
+	@echo Compiling $(NAME_OTOOL) ...
+	@$(CC) -o $(NAME_OTOOL) $(OBJOTOOL)
 
 clean:
-	@rm -f $(OBJS)
+	@rm -f $(OBJNM)
+	@rm -f $(OBJOTOOL)
 
 fclean: clean
-	@rm -f $(NAME)
+	@rm -f $(NAME_NM)
+	@rm -f $(NAME_OTOOL)
 
 re: fclean all
 
-start:
-	./$(NAME)
-
-.PHONY: clean fclean all re $(NAME) start
+.PHONY: clean fclean all re $(NAME_NM) $(NAME_OTOOL)

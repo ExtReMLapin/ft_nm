@@ -6,13 +6,21 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/27 09:53:18 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/27 10:20:28 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <otool.h>
 
-static int	print_section(struct section_64 *s, char const *h, bool swap, t_env *env)
+uint64_t void nique_la_norme(uint64_t j, uint64_t off, char* h)
+{
+	print_hex(*(h + off) & 0xff, true, 2, false);
+	if (j%4 == 3 || !env->in_ppc)
+		ft_putchar(' ');
+	return (j++);
+}
+
+static int	print_section(struct section_64 *s, char *h, bool swap, t_env *env)
 {
 	uint64_t	i;
 	uint64_t	j;
@@ -30,11 +38,8 @@ static int	print_section(struct section_64 *s, char const *h, bool swap, t_env *
 		ft_putchar('\t');
 		while (j < 16 && i + j < s->size)
 		{
-			print_hex(*(h + off) & 0xff, true, 2, false);
-			if (j%4 == 3 || !env->in_ppc)
-				ft_putchar(' ');
-			off++;
-			j++;
+			j = nique_la_norme(j, off, h);
+			off++;	
 		}
 		ft_putchar('\n');
 		i += j;
@@ -43,7 +48,7 @@ static int	print_section(struct section_64 *s, char const *h, bool swap, t_env *
 	return (1);
 }
 
-static int	lc_seg_64(struct segment_command_64 *sc, char const *h, bool swap, t_env *env)
+static int	lc_seg_64(struct segment_command_64 *sc, char *h, bool swap, t_env *env)
 {
 	uint64_t			i;
 	struct section_64	*s;
