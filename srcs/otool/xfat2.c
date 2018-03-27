@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 09:36:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/27 12:47:09 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/27 12:51:13 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char		*get_cputype(cpu_type_t cputype)
 		return ("?");
 }
 
-static struct fat_arch *firstfoundcpu(struct fat_arch *a, cpu_type_t cpu, uint32_t n)
+static struct fat_arch	*ffcpu(struct fat_arch *a, cpu_type_t cpu, uint32_t n)
 {
 	struct fat_arch *ret;
 
@@ -58,18 +58,18 @@ static struct fat_arch *firstfoundcpu(struct fat_arch *a, cpu_type_t cpu, uint32
 ** Could make a get_cputype in bool to get faster result but im lazy
 */
 
-bool		shouldprintcpu(struct fat_arch *c, struct fat_arch *arch, uint32_t n)
+bool					shouldprintcpu(struct fat_arch *c, struct fat_arch *arch, uint32_t n)
 {
 	if (get_cputype(c->cputype)[0] == '?')
 		return (false);
-	if (firstfoundcpu(arch, c->cputype, n) != c)
+	if (ffcpu(arch, c->cputype, n) != c)
 		return (false);
 	if (c->cputype == CPU_TYPE_X86 || c->cputype == CPU_TYPE_I386)
-		return (firstfoundcpu(arch, CPU_TYPE_X86_64, n) == NULL);
+		return (ffcpu(arch, CPU_TYPE_X86_64, n) == NULL);
 	return (true);
 }
 
-bool check_var_cpu(cpu_type_t c, bool one, bool current)
+bool					check_var_cpu(cpu_type_t c, bool one, bool current)
 {
 	if (one)
 	{
@@ -89,7 +89,7 @@ bool check_var_cpu(cpu_type_t c, bool one, bool current)
 	}
 }
 
-uint32_t	how_many_cpu(struct fat_arch *a, uint32_t n)
+uint32_t				how_many_cpu(struct fat_arch *a, uint32_t n)
 {
 	bool			has_i386;
 	bool			has_x86_x64;
@@ -109,7 +109,7 @@ uint32_t	how_many_cpu(struct fat_arch *a, uint32_t n)
 		has_i386 = check_var_cpu(c, true, has_i386);
 		has_x86_x64 = check_var_cpu(c, false, has_x86_x64);
 		if ((get_cputype(c)[0] != '?' || get_cputype(swap_uint32(c))[0] != '?')
-			&& firstfoundcpu(original, c, noriginal) == a)
+			&& ffcpu(original, c, noriginal) == a)
 		{
 			count++;
 		}
