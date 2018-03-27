@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/21 11:31:13 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/27 12:09:59 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Is in the ascii table, a > b ?
 */
 
-bool		isstrbigger(char *a, char *b)
+int		isstrbigger(char *a, char *b)
 {
 	int	i;
 
@@ -24,19 +24,19 @@ bool		isstrbigger(char *a, char *b)
 	if (!b || !a)
 		failmessage("Attempt to cmp two string is bigger but one is invalid\n");
 	if (strcmp(a, b) == 0)
-		return (false);
+		return (-1);
 	while (a[i] && b[i])
 	{
 		if (a[i] > b[i])
-			return (true);
+			return (1);
 		if (a[i] < b[i])
-			return (false);
+			return (0);
 		i++;
 	}
 	if (b[i] == '\0')
-		return (true);
+		return (1);
 	else
-		return (false);
+		return (0);
 }
 
 /*
@@ -47,6 +47,7 @@ t_cmd		*has_fucked_up_order_cmds(t_env *env)
 {
 	t_cmd	*cmds;
 	int		i;
+	int		strbigger;
 
 	cmds = env->list;
 	if (cmds == NULL)
@@ -56,7 +57,8 @@ t_cmd		*has_fucked_up_order_cmds(t_env *env)
 	{
 		segfaultcheck(cmds->name, env->end, AT);
 		segfaultcheck(cmds->next->name, env->end, AT);
-		if (isstrbigger(cmds->name, cmds->next->name))
+		strbigger = isstrbigger(cmds->name, cmds->next->name);
+		if (strbigger == 1 || (strbigger == -1 && cmds->adr > cmds->next->adr))
 			return (cmds);
 		cmds = cmds->next;
 		i++;
