@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:23 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/27 11:32:53 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/27 12:25:34 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ void			handle_fat32(t_env *env, bool swap)
 		{
 			if (how_many_cpu((struct fat_arch*)(h + 1), cpucount) > 1)
 				printarch(env->file_name, get_cputype(arch->cputype));
+			else
+			{
+				ft_putstr(env->file_name);
+				ft_putstr(":\n");
+			}
 			env->in_ppc = arch->cputype == CPU_TYPE_POWERPC ||
 			arch->cputype == CPU_TYPE_POWERPC64;
 			otool2(env, (char*)header2, (char*)((void*)header2 + arch->size));
