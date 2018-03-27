@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 09:36:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/27 12:43:06 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/27 12:47:14 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ uint32_t	how_many_cpu(struct fat_arch *a, uint32_t n)
 	bool			has_x86_x64;
 	unsigned int	count;
 	cpu_type_t		c;
-	struct fat_arch *original;
-	uint32_t noriginal;
+	struct fat_arch	*original;
+	uint32_t		noriginal;
 
 	noriginal = n;
 	original = a;
