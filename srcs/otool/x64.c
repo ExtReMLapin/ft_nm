@@ -6,18 +6,18 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/27 10:20:28 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/27 10:34:21 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <otool.h>
 
-uint64_t void nique_la_norme(uint64_t j, uint64_t off, char* h)
+static uint64_t nique_la_norme(uint64_t j, uint64_t off, char* h, t_env *env)
 {
 	print_hex(*(h + off) & 0xff, true, 2, false);
 	if (j%4 == 3 || !env->in_ppc)
 		ft_putchar(' ');
-	return (j++);
+	return (++j);
 }
 
 static int	print_section(struct section_64 *s, char *h, bool swap, t_env *env)
@@ -38,7 +38,7 @@ static int	print_section(struct section_64 *s, char *h, bool swap, t_env *env)
 		ft_putchar('\t');
 		while (j < 16 && i + j < s->size)
 		{
-			j = nique_la_norme(j, off, h);
+			j = nique_la_norme(j, off, h, env);
 			off++;	
 		}
 		ft_putchar('\n');

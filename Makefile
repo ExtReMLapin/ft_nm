@@ -6,7 +6,7 @@
 #    By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/21 10:28:45 by pfichepo          #+#    #+#              #
-#    Updated: 2018/03/27 10:30:28 by pfichepo         ###   ########.fr        #
+#    Updated: 2018/03/27 10:32:08 by pfichepo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,6 @@ SRCSOTOOL	= ar.c \
 		lib2.c \
 		libs.c \
 		libs2.c \
-		lists.c \
 		main.c \
 		otool.c \
 		x64.c \
