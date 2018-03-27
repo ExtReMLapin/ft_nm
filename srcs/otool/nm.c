@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nm.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 11:20:20 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/26 11:27:35 by anonymous        ###   ########.fr       */
+/*   Updated: 2018/03/27 09:41:04 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void			otool2(t_env *env, char *ptr, char *max)
 	head = *(uint32_t*)ptr;
 
 	if (head == MH_MAGIC_64)
-		handle_64(ptr, max, false || env->in_ppc);
+		handle_64(ptr, max, false || env->in_ppc, env);
 	else if (head == MH_CIGAM_64)
-		handle_64(ptr, max, true);
+		handle_64(ptr, max, true, env);
 	else if (head == MH_MAGIC)
-		handle_32(ptr, max, false || env->in_ppc);
+		handle_32(ptr, max, false || env->in_ppc, env);
 	else if (head == MH_CIGAM)
-		handle_32(ptr, max, true);
+		handle_32(ptr, max, true, env);
 	else
 		failmessage("ohohoh, pas normal\n");
 }

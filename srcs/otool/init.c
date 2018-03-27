@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/26 12:49:36 by anonymous        ###   ########.fr       */
+/*   Updated: 2018/03/27 09:57:59 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,25 @@
 ** Put the cmd data at the end of the existing list
 */
 
-
-
 void	init_commands(t_env *env)
 {
-	ft_putstr(env->file_name);
-	ft_putstr(":\n");
+	if (!env->isfattype && !env->isarchive)
+	{
+		ft_putstr(env->file_name);
+		ft_putstr(":\n");
+	}
 	if (env->isarchive)
 	{
+		ft_putstr("Archive : ");
+		ft_putstr(env->file_name);
+		ft_putchar('\n');
 		handle_ar(env->ptr, env->end, env);
 		return ;
 	}
 	if (env->is64bit)
-		handle_64(env->ptr, env->end, env->isswap);
+		handle_64(env->ptr, env->end, env->isswap, env);
 	else if (!env->isfattype)
-		handle_32(env->ptr, env->end, env->isswap);
+		handle_32(env->ptr, env->end, env->isswap, env);
 	else
 		handle_fat(env, env->isswap);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ar.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 09:41:11 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/26 12:52:56 by anonymous        ###   ########.fr       */
+/*   Updated: 2018/03/27 09:56:51 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static uint32_t	*filtertable(uint32_t nbr, struct ranlib *ranlib)
 
 static void		printext(char *file_name, char *ar_name)
 {
-	write(1, "\n", 1);
 	write(1, file_name, strlen(file_name));
 	write(1, "(", 1);
 	write(1, ar_name, strlen(ar_name));

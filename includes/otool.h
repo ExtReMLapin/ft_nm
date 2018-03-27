@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   otool.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:49:33 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/26 11:27:02 by anonymous        ###   ########.fr       */
+/*   Updated: 2018/03/27 09:41:23 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void						mlccmd(t_env *env, uint64_t n_value, char symbol,
 	char *name);
 t_env						*make_env(char *ptr, char *end, char *name);
 void						handle_64(char *adr, char *max,
-	bool swap);
+	bool swap, t_env *env);
 void						handle_32(char *adr, char *max,
-	bool swap);
+	bool swap, t_env *env);
 void						handle_fat(t_env *env, bool swap);
 void						failmessage(char *message);
 uint16_t					swap_uint16(uint16_t nb);

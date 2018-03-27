@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   x64.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:07 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/26 11:26:42 by anonymous        ###   ########.fr       */
+/*   Updated: 2018/03/27 09:53:18 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <otool.h>
 
-static int	print_section(struct section_64 *s, char const *h)
+static int	print_section(struct section_64 *s, char const *h, bool swap, t_env *env)
 {
 	uint64_t	i;
 	uint64_t	j;
@@ -20,26 +20,30 @@ static int	print_section(struct section_64 *s, char const *h)
 	uint64_t	off;
 
 	i = 0;
-	addr = s->addr;
-	off = s->offset;
+	addr = (swap) ? swap_uint32(s->addr): s->addr;
+	off = (swap) ? swap_uint32(s->offset) : s->offset;
+	s->size = (swap) ? swap_uint32(s->size) : s->size;
 	while (i < s->size)
 	{
 		j = 0;
-		printf("%0.16lx\t", addr);
+		print_hex(addr, true, 16, false);
+		ft_putchar('\t');
 		while (j < 16 && i + j < s->size)
 		{
-			printf("%.2hhx ", *(h + off));
+			print_hex(*(h + off) & 0xff, true, 2, false);
+			if (j%4 == 3 || !env->in_ppc)
+				ft_putchar(' ');
 			off++;
 			j++;
 		}
-		printf("\n");
+		ft_putchar('\n');
 		i += j;
 		addr += j;
 	}
 	return (1);
 }
 
-static int	lc_seg_64(struct segment_command_64 *sc, char const *h)
+static int	lc_seg_64(struct segment_command_64 *sc, char const *h, bool swap, t_env *env)
 {
 	uint64_t			i;
 	struct section_64	*s;
@@ -48,20 +52,24 @@ static int	lc_seg_64(struct segment_command_64 *sc, char const *h)
 	i = 0;
 	s = (struct section_64*)(sc + 1);
 	str = SECT_TEXT;
+	sc->nsects = (swap) ? swap_uint32(sc->nsects) : sc->nsects;
 	while (i < sc->nsects)
 	{
-		if (strequ(s[i].segname, SEG_TEXT)
-			&& strequ(s[i].sectname, SECT_TEXT))
+		if (strequ(s[i].segname, SEG_TEXT) && strequ(s[i].sectname, SECT_TEXT))
 		{
-			printf("Contents of (%s,%s) section\n", SEG_TEXT, SECT_TEXT);
-			print_section(s + i, h);
+			ft_putstr("Contents of (");
+			ft_putstr(SEG_TEXT);
+			ft_putchar(',');
+			ft_putstr(SECT_TEXT);
+			ft_putstr(") section\n");
+			print_section(s + i, h, swap, env);
 		}
 		i++;
 	}
 	return (1);
 }
 
-void		handle_64(char *adr, char *max, bool swap)
+void		handle_64(char *adr, char *max, bool swap, t_env *env)
 {
 	int						ncmds;
 	struct mach_header_64	*header;
@@ -76,11 +84,12 @@ void		handle_64(char *adr, char *max, bool swap)
 	i = 0;
 	while (i++ < ncmds)
 	{
+		lc->cmdsize = (swap) ? swap_uint32(lc->cmdsize) : lc->cmdsize;
+		lc->cmd = (swap) ? swap_uint32(lc->cmd) : lc->cmd;
 		if (lc->cmd == LC_SEGMENT_64)
 		{
 			sym = (struct symtab_command_64 *)lc;
-			lc_seg_64((struct segment_command_64*)lc, adr);
-			
+			lc_seg_64((struct segment_command_64*)lc, adr, swap, env);
 		}
 		lc = (void*)lc + lc->cmdsize;
 	}
