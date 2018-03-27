@@ -1,5 +1,3 @@
-# ft_nm
-recoding nm command
-dear powerpc executables
+recoding nm and otool command
 
-#u can suk my dik
+following the mac os syntax only
