@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:23 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/27 11:17:47 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/27 11:32:53 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void			handle_fat32(t_env *env, bool swap)
 	{
 		swapvars32(arch, swap);
 		header2 = (void*)env->ptr + arch->offset;
-		if (shouldprintcpu(arch->cputype, (struct fat_arch*)(h + 1), cpucount))
+		if (shouldprintcpu(arch, (struct fat_arch*)(h + 1), cpucount))
 		{
 			if (how_many_cpu((struct fat_arch*)(h + 1), cpucount) > 1)
 				printarch(env->file_name, get_cputype(arch->cputype));

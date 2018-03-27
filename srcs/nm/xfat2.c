@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 09:36:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/27 11:27:35 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/27 11:42:27 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,11 @@ uint32_t	how_many_cpu(struct fat_arch *a, uint32_t n)
 	bool			has_x86_x64;
 	unsigned int	count;
 	cpu_type_t		c;
+	struct fat_arch *original;
+	uint32_t noriginal;
 
+	noriginal = n;
+	original = a;
 	has_i386 = false;
 	has_x86_x64 = false;
 	count = 0;
@@ -89,7 +93,7 @@ uint32_t	how_many_cpu(struct fat_arch *a, uint32_t n)
 		}
 		if (c == CPU_TYPE_X86_64 || swap_uint32(c) == CPU_TYPE_X86_64)
 			has_x86_x64 = true;
-		if ((get_cputype(c)[0] != '?' || get_cputype(swap_uint32(c))[0] != '?') && firstfoundcpu(a, c, n) == a)
+		if ((get_cputype(c)[0] != '?' || get_cputype(swap_uint32(c))[0] != '?') && firstfoundcpu(original, c, noriginal) == a)
 			count++;
 		a = (void*)a + sizeof(struct fat_arch);
 	}
