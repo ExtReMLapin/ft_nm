@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 11:28:35 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/23 10:49:23 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 11:19:35 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		print_hex(uint64_t hex, bool first, int how_many_chars, bool blank)
 		if (hex == 0x0)
 			return ;
 	}
-	memcpy(hex_chars, "0123456789abcdef", sizeof(char) * 16);
+	ft_memcpy(hex_chars, "0123456789abcdef", sizeof(char) * 16);
 	if (hex > 15)
 	{
 		print_hex(hex / 16, false, 0, blank);
@@ -64,11 +64,11 @@ static char	secto(t_lsection *sec, unsigned int n_sect)
 	{
 		if (tmp->nb == n_sect)
 		{
-			if (!strcmp(tmp->name, SECT_DATA))
+			if (!ft_strcmp(tmp->name, SECT_DATA))
 				return ('D');
-			else if (!strcmp(tmp->name, SECT_BSS))
+			else if (!ft_strcmp(tmp->name, SECT_BSS))
 				return ('B');
-			else if (!strcmp(tmp->name, SECT_TEXT))
+			else if (!ft_strcmp(tmp->name, SECT_TEXT))
 				return ('T');
 			else
 				return ('S');

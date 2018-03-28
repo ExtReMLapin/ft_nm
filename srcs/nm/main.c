@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/23 10:30:20 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 11:25:16 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int						main(int ac, char **av)
 			if (ac > 2)
 			{
 				write(1, "\n", 1);
-				write(1, av[i], strlen(av[i]));
+				write(1, av[i], ft_strlen(av[i]));
 				write(1, ":\n", 3);
 			}
 			handlefile(av[i], av);
@@ -91,4 +91,22 @@ int						main(int ac, char **av)
 		}
 	}
 	return (EXIT_SUCCESS);
+}
+
+char					*ft_strchr(const char *s, int c)
+{
+	char a;
+	char *ptr;
+
+	ptr = NULL;
+	a = (char)(c);
+	while (s && (*s != a) && (*s != '\0'))
+		s++;
+	if (s && (a != '\0') && (*s == '\0'))
+		return (NULL);
+	else
+	{
+		ptr = (char *)(s);
+		return (ptr);
+	}
 }

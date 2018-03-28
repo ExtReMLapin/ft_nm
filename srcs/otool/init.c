@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 09:34:25 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 11:23:47 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,24 @@ t_env	*make_env(char *ptr, char *end, char *name)
 		failmessage("File not recognized\n");
 	init_commands(env);
 	return (env);
+}
+
+void	*ft_memcpy(void *dst,
+	const void *src, size_t n)
+{
+	unsigned int	i;
+	char			*dest;
+	const char		*sourc;
+
+	if (src == NULL || dst == NULL)
+		return (NULL);
+	dest = dst;
+	sourc = src;
+	i = 0;
+	while (i < n)
+	{
+		dest[i] = sourc[i];
+		i++;
+	}
+	return (dst);
 }

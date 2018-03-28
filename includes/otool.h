@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:49:33 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 11:00:42 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 11:20:32 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,9 @@ size_t						ft_strlen(const char *s);
 int							strequ(char const *s1, char const *s2);
 struct fat_arch_64			*ffcpu(struct fat_arch_64 *a,
 	cpu_type_t cpu, uint32_t n);
+int							ft_atoi(const char *str);
+char						*ft_strchr(const char *s, int c);
+int							ft_strcmp(const char *s1, const char *s2);
+void						*ft_memcpy(void *dst,
+	const void *src, size_t n);
 #endif

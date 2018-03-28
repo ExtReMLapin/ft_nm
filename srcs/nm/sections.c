@@ -6,11 +6,30 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 10:12:45 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/21 11:40:39 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 11:23:18 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
+
+char						*ft_strdup(char *src)
+{
+	int		i;
+	int		len;
+	char	*str;
+
+	len = 0;
+	while (src[len])
+		len++;
+	str = (char*)malloc(sizeof(*str) * (len + 1));
+	i = 0;
+	while (i < len)
+	{
+		str[i] = src[i];
+		i++;
+	}
+	return (str);
+}
 
 void						add_list(char *name, t_lsection *list)
 {
@@ -18,7 +37,7 @@ void						add_list(char *name, t_lsection *list)
 
 	if ((add = (t_section*)malloc(sizeof(t_section))) == NULL)
 		return ;
-	add->name = strdup(name);
+	add->name = ft_strdup(name);
 	add->next = NULL;
 	if (list->first == NULL)
 	{
@@ -70,4 +89,24 @@ void						add_segment32(\
 		sec = (struct section *)(((void*)sec) + sizeof(struct section));
 		i++;
 	}
+}
+
+void						*ft_memcpy(void *dst,
+	const void *src, size_t n)
+{
+	unsigned int	i;
+	char			*dest;
+	const char		*sourc;
+
+	if (src == NULL || dst == NULL)
+		return (NULL);
+	dest = dst;
+	sourc = src;
+	i = 0;
+	while (i < n)
+	{
+		dest[i] = sourc[i];
+		i++;
+	}
+	return (dst);
 }

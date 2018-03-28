@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 09:41:11 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/27 09:56:51 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 11:24:03 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ static uint32_t	*filtertable(uint32_t nbr, struct ranlib *ranlib)
 
 static void		printext(char *file_name, char *ar_name)
 {
-	write(1, file_name, strlen(file_name));
+	write(1, file_name, ft_strlen(file_name));
 	write(1, "(", 1);
-	write(1, ar_name, strlen(ar_name));
+	write(1, ar_name, ft_strlen(ar_name));
 	write(1, "):\n", 3);
 }
 
@@ -88,4 +88,14 @@ void			read_ranlib(char const *file, char *end,
 		otool2(env, (char*)obj, end);
 		i++;
 	}
+}
+
+int				ft_strcmp(const char *s1, const char *s2)
+{
+	int		i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

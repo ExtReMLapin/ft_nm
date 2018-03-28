@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 10:45:05 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 11:19:04 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool				isstrbigger(char *a, char *b)
 	i = 0;
 	if (!b || !a)
 		failmessage("Attempt to cmp two string is bigger but one is invalid\n");
-	if (strcmp(a, b) == 0)
+	if (ft_strcmp(a, b) == 0)
 		return (false);
 	while (a[i] && b[i])
 	{

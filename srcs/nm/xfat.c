@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:23 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 10:24:39 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 11:06:52 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ static void		swapvars64(struct fat_arch_64 *arch, bool swap)
 void			printarch(char *filename, char *arch)
 {
 	write(1, "\n", 1);
-	write(1, filename, strlen(filename));
+	write(1, filename, ft_strlen(filename));
 	write(1, " (for architecture ", 19);
-	write(1, arch, strlen(arch));
+	write(1, arch, ft_strlen(arch));
 	write(1, "):\n", 3);
 }
 

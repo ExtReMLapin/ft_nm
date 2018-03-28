@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 12:27:47 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/23 11:33:17 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 11:24:11 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,24 @@ uint64_t	swap_uint64(uint64_t nb)
 
 void		failmessage(char *message)
 {
-	write(1, message, strlen(message));
+	write(1, message, ft_strlen(message));
 	exit(EXIT_FAILURE);
+}
+
+char		*ft_strchr(const char *s, int c)
+{
+	char a;
+	char *ptr;
+
+	ptr = NULL;
+	a = (char)(c);
+	while (s && (*s != a) && (*s != '\0'))
+		s++;
+	if (s && (a != '\0') && (*s == '\0'))
+		return (NULL);
+	else
+	{
+		ptr = (char *)(s);
+		return (ptr);
+	}
 }

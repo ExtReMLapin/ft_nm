@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 11:20:20 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 10:48:20 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 11:09:19 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void			segfaultcheck(char *ptr, char *end, char *mess)
 	if (ptr > end)
 	{
 		write(1, "Antisegfault at ", 16);
-		write(1, mess, strlen(mess));
+		write(1, mess, ft_strlen(mess));
 		failmessage(".\n");
 	}
 }
@@ -74,6 +74,6 @@ uint32_t		ar_size(char const *name)
 {
 	char *size;
 
-	size = strchr(name, '/');
-	return (atoi(size + 1));
+	size = ft_strchr(name, '/');
+	return (ft_atoi(size + 1));
 }
