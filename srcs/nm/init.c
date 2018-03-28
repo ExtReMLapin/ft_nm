@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:24:38 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/23 09:33:52 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 17:30:21 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,13 @@ void	handle_fat(t_env *env, bool swap)
 		handle_fat64(env, swap);
 }
 
-t_env	*make_env(char *ptr, char *end, char *name)
+t_env	*make_env(char *ptr, char *end, char *name, bool reverse)
 {
 	t_env *env;
 
 	if ((env = (t_env*)malloc(sizeof(t_env))) == NULL)
 		failmessage("FailMalloc\n");
+	env->reverse = reverse;
 	env->file_name = name;
 	env->ptr = ptr;
 	env->end = end;

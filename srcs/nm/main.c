@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 11:25:16 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 17:35:32 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 ** this project sucks, dont ask me to do things correctly
 */
 
-static void				nm(char *ptr, char *end, char *name)
+static void				nm(char *ptr, char *end, char *name, bool reverse)
 {
 	t_env	*env;
 
-	env = make_env(ptr, end, name);
+	env = make_env(ptr, end, name, reverse);
 	clearsections(env);
 	clearlist(env);
 }
@@ -41,12 +41,14 @@ static void				printerror(int type, char **av, char *filename)
 	failmessage("\n");
 }
 
-void					handlefile(char *filename, char **av)
+static void				handlefile(char *filename, char **av, bool reverse)
 {
 	int				fd;
 	char			*ptr;
 	struct stat		buf;
 
+	if (filename[0] == '-')
+		return ;
 	fd = open(filename, O_RDONLY);
 	fstat(fd, &buf);
 	if (S_ISDIR(buf.st_mode))
@@ -61,18 +63,20 @@ void					handlefile(char *filename, char **av)
 		failmessage("Could not map file to ram.");
 	}
 	close(fd);
-	nm(ptr, ptr + buf.st_size, filename);
+	nm(ptr, ptr + buf.st_size, filename, reverse);
 	if (munmap(ptr, buf.st_size) < 0)
 		failmessage("unmmap fail");
 }
 
 int						main(int ac, char **av)
 {
-	int i;
+	int		i;
+	bool	reverse;
 
+	reverse = search_reverse(ac, av);
 	if (ac == 1)
 	{
-		handlefile("./a.out", av);
+		handlefile("./a.out", av, reverse);
 		return (EXIT_SUCCESS);
 	}
 	else
@@ -80,14 +84,13 @@ int						main(int ac, char **av)
 		i = 1;
 		while (i < ac)
 		{
-			if (ac > 2)
+			if (ac > 2 && av[i][0] != '-')
 			{
 				write(1, "\n", 1);
 				write(1, av[i], ft_strlen(av[i]));
 				write(1, ":\n", 3);
 			}
-			handlefile(av[i], av);
-			i++;
+			handlefile(av[i++], av, reverse);
 		}
 	}
 	return (EXIT_SUCCESS);
