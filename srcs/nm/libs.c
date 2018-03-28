@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 11:18:18 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 12:35:49 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,18 @@ void				print_cmds(t_cmd *cmd, int n)
 		if (cmds->symbol != 'z' && cmds->symbol != 'Z')
 		{
 			print_hex(cmds->adr, true, n, cmds->symbol == 'U');
-			write(1, " ", 1);
-			write(1, &(cmds->symbol), 1);
-			write(1, " ", 1);
-			write(1, cmds->name, ft_strlen(cmds->name));
-			write(1, "\n", 1);
+			ft_putchar(' ');
+			if (COLORS == 1)
+			{
+				if (cmds->symbol == 'U')
+					ft_putstr("\e[101m");
+			}
+			ft_putchar(cmds->symbol);
+			if (COLORS == 1)
+				ft_putstr("\e[0m");
+			ft_putchar(' ');
+			ft_putstr(cmds->name);
+			ft_putchar('\n');
 		}
 		cmds = cmds->next;
 	}
