@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 12:35:49 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 17:31:44 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Is in the ascii table, a > b ?
 */
 
-int					isstrbigger(char *a, char *b)
+static int			isstrbigger(char *a, char *b)
 {
 	int	i;
 
@@ -57,7 +57,7 @@ t_cmd				*has_fucked_up_order_cmds(t_env *env)
 	{
 		segfaultcheck(cmds->name, env->end, AT);
 		segfaultcheck(cmds->next->name, env->end, AT);
-		strbigger = isstrbigger(cmds->name, cmds->next->name);
+		strbigger = isstrbigger(cmds->name, cmds->next->name) != env->reverse;
 		if (strbigger == 1 || (strbigger == -1 && cmds->adr > cmds->next->adr))
 			return (cmds);
 		cmds = cmds->next;

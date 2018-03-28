@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 11:28:35 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 11:19:29 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 17:26:46 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,19 @@ char		typing(uint32_t type, uint32_t n_sect,
 	if ((type & N_EXT) == 0 && ret != '?')
 		ret += 32;
 	return (ret);
+}
+
+bool		search_reverse(int ac, char **av)
+{
+	int i;
+
+	i = 0;
+
+	while (i < ac)
+	{
+		if (ft_strcmp(av[i], "-r") == 0)
+			return (true);
+		i++;
+	}
+	return (false);
 }
