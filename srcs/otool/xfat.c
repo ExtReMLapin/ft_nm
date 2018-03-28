@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:23 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 09:37:39 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 10:58:28 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,14 @@ static void		swapvars64(struct fat_arch_64 *arch, bool swap)
 	arch->align = swap_uint64(arch->align);
 }
 
-void			printarch(char *filename, char *arch)
+static void		printarch(char *filename, char *arch, bool bite)
 {
+	if (bite)
+	{
+		ft_putstr(filename);
+		ft_putstr(":\n");
+		return ;
+	}
 	ft_putstr(filename);
 	ft_putstr(" (architecture ");
 	ft_putstr(arch);
@@ -57,15 +63,12 @@ void			handle_fat32(t_env *env, bool swap)
 	{
 		swapvars32(arch, swap);
 		header2 = (void*)env->ptr + arch->offset;
-		if (shouldprintcpu(arch, (struct fat_arch*)(h + 1), cpucount))
+		if (spcpu(arch, (struct fat_arch*)(h + 1), cpucount))
 		{
 			if (how_many_cpu((struct fat_arch*)(h + 1), cpucount) > 1)
-				printarch(env->file_name, get_cputype(arch->cputype));
+				printarch(env->file_name, get_cputype(arch->cputype), false);
 			else if (check_ar_header((char*)header2) == false)
-			{
-				ft_putstr(env->file_name);
-				ft_putstr(":\n");
-			}
+				printarch(env->file_name, 0x0, true);
 			env->in_ppc = arch->cputype == CPU_TYPE_POWERPC ||
 			arch->cputype == CPU_TYPE_POWERPC64;
 			otool2(env, (char*)header2, (char*)((void*)header2 + arch->size));
@@ -79,8 +82,7 @@ void			handle_fat64(t_env *env, bool swap)
 	struct fat_header		*h;
 	struct fat_arch_64		*arch;
 	struct mach_header_64	*header2;
-
-	unsigned int		cpucount;
+	unsigned int			cpucount;
 
 	h = (struct fat_header*)env->ptr;
 	arch = (struct fat_arch_64*)(h + 1);
@@ -90,15 +92,12 @@ void			handle_fat64(t_env *env, bool swap)
 	{
 		swapvars64(arch, swap);
 		header2 = (void*)env->ptr + arch->offset;
-		if (shouldprintcpu64(arch, (struct fat_arch_64*)(h + 1), cpucount))
+		if (spcpu64(arch, (struct fat_arch_64*)(h + 1), cpucount))
 		{
 			if (how_many_cpu((struct fat_arch*)(h + 1), cpucount) > 1)
-				printarch(env->file_name, get_cputype(arch->cputype));
+				printarch(env->file_name, get_cputype(arch->cputype), false);
 			else
-			{
-				ft_putstr(env->file_name);
-				ft_putstr(":\n");
-			}
+				printarch(env->file_name, 0x0, true);
 			env->in_ppc = arch->cputype == CPU_TYPE_POWERPC ||
 			arch->cputype == CPU_TYPE_POWERPC64;
 			otool2(env, (char*)header2, (char*)((void*)header2 + arch->size));

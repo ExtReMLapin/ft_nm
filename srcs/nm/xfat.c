@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:23 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 09:15:33 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 10:24:39 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void			handle_fat32(t_env *env, bool swap)
 	{
 		swapvars32(arch, swap);
 		header2 = (void*)env->ptr + arch->offset;
-		if (shouldprintcpu(arch, (struct fat_arch*)(h + 1), cpucount))
+		if (spcpu(arch, (struct fat_arch*)(h + 1), cpucount))
 		{
 			if (how_many_cpu((struct fat_arch*)(h + 1), cpucount) > 1)
 				printarch(env->file_name, get_cputype(arch->cputype));
@@ -75,7 +75,7 @@ void			handle_fat64(t_env *env, bool swap)
 	struct fat_header		*h;
 	struct fat_arch_64		*arch;
 	struct mach_header_64	*header2;
-	unsigned int		cpucount;
+	unsigned int			cpucount;
 
 	h = (struct fat_header*)env->ptr;
 	arch = (struct fat_arch_64*)(h + 1);
@@ -85,7 +85,7 @@ void			handle_fat64(t_env *env, bool swap)
 	{
 		swapvars64(arch, swap);
 		header2 = (void*)env->ptr + arch->offset;
-		if (shouldprintcpu64(arch, (struct fat_arch_64*)(h + 1), cpucount))
+		if (spcpu64(arch, (struct fat_arch_64*)(h + 1), cpucount))
 		{
 			if (how_many_cpu64((struct fat_arch_64*)(h + 1), cpucount) > 1)
 				printarch(env->file_name, get_cputype(arch->cputype));

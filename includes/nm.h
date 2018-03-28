@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:49:33 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 09:15:10 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 11:00:33 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,18 @@ typedef struct				s_cmd
 
 }							t_cmd;
 
+typedef struct				s_pack
+{
+	struct fat_arch			*original;
+	uint32_t				noriginal;
+}							t_pack;
+
+typedef struct				s_pack64
+{
+	struct fat_arch_64		*original;
+	uint32_t				noriginal;
+}							t_pack64;
+
 typedef struct				s_env
 {
 	bool					is64bit;
@@ -96,10 +108,13 @@ void						handle_ar(char const *file, char *max,
 void						clearlist(t_env *env);
 void						clearsections(t_env *env);
 char						*get_cputype(cpu_type_t cputype);
-bool						shouldprintcpu(struct fat_arch *c, struct fat_arch *arch, uint32_t n);
+bool						spcpu(struct fat_arch *c,
+	struct fat_arch *arch, uint32_t n);
 uint32_t					how_many_cpu(struct fat_arch *arch, uint32_t n);
-bool						shouldprintcpu64(struct fat_arch_64 *c, struct fat_arch_64 *arch, uint32_t n);
-uint32_t					how_many_cpu64(struct fat_arch_64 *arch, uint32_t n);
+bool						spcpu64(struct fat_arch_64 *c,
+	struct fat_arch_64 *arch, uint32_t n);
+uint32_t					how_many_cpu64(struct fat_arch_64 *arch,
+	uint32_t n);
 void						swapcmds(t_cmd *a, t_cmd *b);
 void						handle_fat32(t_env *env, bool swap);
 void						handle_fat64(t_env *env, bool swap);
@@ -110,4 +125,6 @@ void						read_ranlib(char const *file, char *end,
 void						ft_putstr(const char *s);
 void						ft_putchar(char c);
 size_t						ft_strlen(const char *s);
+struct fat_arch_64			*ffcpu(struct fat_arch_64 *a,
+	cpu_type_t cpu, uint32_t n);
 #endif

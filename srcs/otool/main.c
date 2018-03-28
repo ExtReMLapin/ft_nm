@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/23 10:50:40 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 10:48:01 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void				otool(char *ptr, char *end, char *name)
 	t_env	*env;
 
 	env = make_env(ptr, end, name);
-
 }
 
 static void				printerror(int type, char **av, char *filename)

@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/23 10:49:44 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 10:45:05 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Is in the ascii table, a > b ?
 */
 
-bool		isstrbigger(char *a, char *b)
+bool				isstrbigger(char *a, char *b)
 {
 	int	i;
 
@@ -37,4 +37,18 @@ bool		isstrbigger(char *a, char *b)
 		return (true);
 	else
 		return (false);
+}
+
+struct fat_arch_64	*ffcpu(struct fat_arch_64 *a, cpu_type_t cpu, uint32_t n)
+{
+	struct fat_arch_64 *ret;
+
+	ret = NULL;
+	while (n--)
+	{
+		if (a->cputype == cpu || (cpu_type_t)swap_uint32(a->cputype) == cpu)
+			return (a);
+		a = (void*)a + sizeof(struct fat_arch_64);
+	}
+	return (ret);
 }

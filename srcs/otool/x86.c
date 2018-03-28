@@ -6,21 +6,21 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/27 10:34:26 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 10:53:36 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <otool.h>
 
-static uint64_t nique_la_norme(uint32_t j, uint32_t off, char* h, t_env *env)
+static uint64_t	nique_la_norme(uint32_t j, uint32_t off, char *h, t_env *env)
 {
 	print_hex(*(h + off) & 0xff, true, 2, false);
-	if (j%4 == 3 || !env->in_ppc)
+	if (j % 4 == 3 || !env->in_ppc)
 		ft_putchar(' ');
 	return (++j);
 }
 
-static int	print_section(struct section *s, char *h, bool swap, t_env *env)
+static int		print_section(struct section *s, char *h, bool w, t_env *e)
 {
 	uint32_t	i;
 	uint32_t	j;
@@ -28,9 +28,9 @@ static int	print_section(struct section *s, char *h, bool swap, t_env *env)
 	uint32_t	off;
 
 	i = 0;
-	addr = (swap) ? swap_uint32(s->addr): s->addr;
-	off = (swap) ? swap_uint32(s->offset) : s->offset;
-	s->size = (swap) ? swap_uint32(s->size) : s->size;
+	addr = (w) ? swap_uint32(s->addr) : s->addr;
+	off = (w) ? swap_uint32(s->offset) : s->offset;
+	s->size = (w) ? swap_uint32(s->size) : s->size;
 	while (i < s->size)
 	{
 		j = 0;
@@ -38,8 +38,8 @@ static int	print_section(struct section *s, char *h, bool swap, t_env *env)
 		ft_putchar('\t');
 		while (j < 16 && i + j < s->size)
 		{
-			j = nique_la_norme(j, off, h, env);
-			off++;	
+			j = nique_la_norme(j, off, h, e);
+			off++;
 		}
 		ft_putchar('\n');
 		i += j;
@@ -48,7 +48,7 @@ static int	print_section(struct section *s, char *h, bool swap, t_env *env)
 	return (1);
 }
 
-static int	lc_seg_32(struct segment_command *sc, char *h, bool swap, t_env *env)
+static int		lc1(struct segment_command *sc, char *h, bool swap, t_env *env)
 {
 	uint32_t			i;
 	struct section		*s;
@@ -74,7 +74,7 @@ static int	lc_seg_32(struct segment_command *sc, char *h, bool swap, t_env *env)
 	return (1);
 }
 
-void		handle_32(char *adr, char *max, bool swap, t_env *env)
+void			handle_32(char *adr, char *max, bool swap, t_env *env)
 {
 	int						ncmds;
 	struct mach_header		*header;
@@ -94,9 +94,8 @@ void		handle_32(char *adr, char *max, bool swap, t_env *env)
 		if (lc->cmd == LC_SEGMENT)
 		{
 			sym = (struct symtab_command *)lc;
-			lc_seg_32((struct segment_command*)lc, adr, swap, env);
+			lc1((struct segment_command*)lc, adr, swap, env);
 		}
 		lc = (void*)lc + lc->cmdsize;
 	}
-
 }

@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/27 12:09:59 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 10:44:03 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Is in the ascii table, a > b ?
 */
 
-int		isstrbigger(char *a, char *b)
+int					isstrbigger(char *a, char *b)
 {
 	int	i;
 
@@ -43,7 +43,7 @@ int		isstrbigger(char *a, char *b)
 ** Fucking hell in-efficent code right after it, NSFW
 */
 
-t_cmd		*has_fucked_up_order_cmds(t_env *env)
+t_cmd				*has_fucked_up_order_cmds(t_env *env)
 {
 	t_cmd	*cmds;
 	int		i;
@@ -66,7 +66,7 @@ t_cmd		*has_fucked_up_order_cmds(t_env *env)
 	return (NULL);
 }
 
-void		order_cmds(t_env *env)
+void				order_cmds(t_env *env)
 {
 	t_cmd	*cmds;
 
@@ -80,7 +80,7 @@ void		order_cmds(t_env *env)
 	}
 }
 
-void		print_cmds(t_cmd *cmd, int n)
+void				print_cmds(t_cmd *cmd, int n)
 {
 	t_cmd	*cmds;
 
@@ -99,3 +99,21 @@ void		print_cmds(t_cmd *cmd, int n)
 		cmds = cmds->next;
 	}
 }
+
+struct fat_arch_64	*ffcpu(struct fat_arch_64 *a, cpu_type_t cpu, uint32_t n)
+{
+	struct fat_arch_64 *ret;
+
+	ret = NULL;
+	while (n--)
+	{
+		if (a->cputype == cpu || (cpu_type_t)swap_uint32(a->cputype) == cpu)
+			return (a);
+		a = (void*)a + sizeof(struct fat_arch_64);
+	}
+	return (ret);
+}
+
+/*
+** Could make a get_cputype in bool to get faster result but im lazy
+*/
