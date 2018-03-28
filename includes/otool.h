@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:49:33 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/27 11:33:12 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 09:10:43 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void						handle_ar(char const *file, char *max,
 char						*get_cputype(cpu_type_t cputype);
 bool						shouldprintcpu(struct fat_arch *c, struct fat_arch *arch, uint32_t n);
 uint32_t					how_many_cpu(struct fat_arch *arch, uint32_t n);
+bool						shouldprintcpu64(struct fat_arch_64 *c, struct fat_arch_64 *arch, uint32_t n);
+uint32_t					how_many_cpu64(struct fat_arch_64 *arch, uint32_t n);
 void						handle_fat32(t_env *env, bool swap);
 void						handle_fat64(t_env *env, bool swap);
 void						segfaultcheck(char *ptr, char *end, char *mess);

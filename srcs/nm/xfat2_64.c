@@ -1,55 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xfat2.c                                            :+:      :+:    :+:   */
+/*   xfat2_64.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 09:36:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 09:07:23 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 09:13:30 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
 
-char		*get_cputype(cpu_type_t cputype)
+static struct fat_arch_64	*ffcpu(struct fat_arch_64 *a, cpu_type_t cpu, uint32_t n)
 {
-	if (cputype == CPU_TYPE_VAX)
-		return ("vax");
-	else if (cputype == CPU_TYPE_MC680x0)
-		return ("mc680");
-	else if (cputype == CPU_TYPE_X86 || cputype == CPU_TYPE_I386)
-		return ("i386");
-	else if (cputype == CPU_TYPE_X86_64)
-		return ("x86_64");
-	else if (cputype == CPU_TYPE_MC98000)
-		return ("mc98000");
-	else if (cputype == CPU_TYPE_HPPA)
-		return ("hppa");
-	else if (cputype == CPU_TYPE_ARM)
-		return ("arm");
-	else if (cputype == CPU_TYPE_SPARC)
-		return ("sparc");
-	else if (cputype == CPU_TYPE_I860)
-		return ("i860");
-	else if (cputype == CPU_TYPE_POWERPC)
-		return ("ppc");
-	else if (cputype == CPU_TYPE_POWERPC64)
-		return ("ppc64");
-	else
-		return ("?");
-}
-
-static struct fat_arch	*ffcpu(struct fat_arch *a, cpu_type_t cpu, uint32_t n)
-{
-	struct fat_arch *ret;
+	struct fat_arch_64 *ret;
 
 	ret = NULL;
 	while (n--)
 	{
 		if (a->cputype == cpu || (cpu_type_t)swap_uint32(a->cputype) == cpu)
 			return (a);
-		a = (void*)a + sizeof(struct fat_arch);
+		a = (void*)a + sizeof(struct fat_arch_64);
 	}
 	return (ret);
 }
@@ -78,7 +50,7 @@ static bool				check_var_cpu(cpu_type_t c, bool one, bool current)
 	}
 }
 
-bool					shouldprintcpu(struct fat_arch *c, struct fat_arch *arch, uint32_t n)
+bool					shouldprintcpu64(struct fat_arch_64 *c, struct fat_arch_64 *arch, uint32_t n)
 {
 	if (get_cputype(c->cputype)[0] == '?')
 		return (false);
@@ -89,13 +61,13 @@ bool					shouldprintcpu(struct fat_arch *c, struct fat_arch *arch, uint32_t n)
 	return (true);
 }
 
-uint32_t				how_many_cpu(struct fat_arch *a, uint32_t n)
+uint32_t				how_many_cpu64(struct fat_arch_64 *a, uint32_t n)
 {
 	bool			has_i386;
 	bool			has_x86_x64;
 	unsigned int	count;
 	cpu_type_t		c;
-	struct fat_arch	*original;
+	struct fat_arch_64	*original;
 	uint32_t		noriginal;
 
 	noriginal = n;
@@ -113,7 +85,7 @@ uint32_t				how_many_cpu(struct fat_arch *a, uint32_t n)
 		{
 			count++;
 		}
-		a = (void*)a + sizeof(struct fat_arch);
+		a = (void*)a + sizeof(struct fat_arch_64);
 	}
 	return ((has_x86_x64 && has_i386) ? count - 1 : count);
 }

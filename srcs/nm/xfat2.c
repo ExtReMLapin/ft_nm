@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 09:36:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/27 12:51:19 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 09:14:03 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,7 @@ static struct fat_arch	*ffcpu(struct fat_arch *a, cpu_type_t cpu, uint32_t n)
 ** Could make a get_cputype in bool to get faster result but im lazy
 */
 
-bool					shouldprintcpu(struct fat_arch *c, struct fat_arch *arch, uint32_t n)
-{
-	if (get_cputype(c->cputype)[0] == '?')
-		return (false);
-	if (ffcpu(arch, c->cputype, n) != c)
-		return (false);
-	if (c->cputype == CPU_TYPE_X86 || c->cputype == CPU_TYPE_I386)
-		return (ffcpu(arch, CPU_TYPE_X86_64, n) == NULL);
-	return (true);
-}
-
-bool					check_var_cpu(cpu_type_t c, bool one, bool current)
+static bool				check_var_cpu(cpu_type_t c, bool one, bool current)
 {
 	if (one)
 	{
@@ -87,6 +76,17 @@ bool					check_var_cpu(cpu_type_t c, bool one, bool current)
 		else
 			return (current);
 	}
+}
+
+bool					shouldprintcpu(struct fat_arch *c, struct fat_arch *arch, uint32_t n)
+{
+	if (get_cputype(c->cputype)[0] == '?')
+		return (false);
+	if (ffcpu(arch, c->cputype, n) != c)
+		return (false);
+	if (c->cputype == CPU_TYPE_X86 || c->cputype == CPU_TYPE_I386)
+		return (ffcpu(arch, CPU_TYPE_X86_64, n) == NULL);
+	return (true);
 }
 
 uint32_t				how_many_cpu(struct fat_arch *a, uint32_t n)

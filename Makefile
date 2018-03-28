@@ -6,7 +6,7 @@
 #    By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/21 10:28:45 by pfichepo          #+#    #+#              #
-#    Updated: 2018/03/27 11:16:43 by pfichepo         ###   ########.fr        #
+#    Updated: 2018/03/28 09:16:00 by pfichepo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCSNM 	= ar.c \
 		x86.c \
 		xfat.c \
 		xfat2.c \
+		xfat2_64.c \
 		libft.c
 
 SRCSOTOOL	= ar.c \
@@ -41,6 +42,7 @@ SRCSOTOOL	= ar.c \
 		x86.c \
 		xfat.c \
 		xfat2.c \
+		xfat2_64.c \
 		libft.c
 
 SRCNM = ./srcs/nm/

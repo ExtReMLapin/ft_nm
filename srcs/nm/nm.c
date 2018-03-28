@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 11:20:20 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/23 09:34:37 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 09:30:24 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void			nm2(t_env *env, char *ptr, char *max)
 		handle_32(env, ptr, max, false || env->in_ppc);
 	else if (head == MH_CIGAM)
 		handle_32(env, ptr, max, true);
+	else if (check_ar_header(ptr) == true)
+		handle_ar(ptr, max, env);
 	else
 		failmessage("ohohoh, pas normal\n");
 }

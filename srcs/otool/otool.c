@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   nm.c                                               :+:      :+:    :+:   */
+/*   otool.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 11:20:20 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/27 09:41:04 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 09:38:33 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ void			otool2(t_env *env, char *ptr, char *max)
 		handle_32(ptr, max, false || env->in_ppc, env);
 	else if (head == MH_CIGAM)
 		handle_32(ptr, max, true, env);
+	else if (check_ar_header(ptr) == true)
+	{
+		ft_putstr("Archive : ");
+		ft_putstr(env->file_name);
+		ft_putchar('\n');
+		handle_ar(ptr, max, env);
+	}
 	else
 		failmessage("ohohoh, pas normal\n");
 }
