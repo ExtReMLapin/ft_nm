@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 11:06:51 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 12:33:36 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,6 @@ int						main(int ac, char **av)
 		i = 1;
 		while (i < ac)
 		{
-			if (ac > 2)
-			{
-				write(1, "\n", 1);
-				write(1, av[i], ft_strlen(av[i]));
-				write(1, ":\n", 3);
-			}
 			handlefile(av[i], av);
 			i++;
 		}

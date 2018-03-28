@@ -6,21 +6,33 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:17 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 10:53:36 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 12:16:51 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <otool.h>
 
-static uint64_t	nique_la_norme(uint32_t j, uint32_t off, char *h, t_env *env)
+static uint32_t	nique_la_norme(uint32_t j, uint32_t off, char *h, t_env *env)
 {
-	print_hex(*(h + off) & 0xff, true, 2, false);
+	uint64_t col;
+
+	col = *(h + off) & 0xff;
+	if (COLORS == 1)
+	{
+		if (col == 0)
+			ft_putstr("\e[2m");
+		else if (col == 0xff)
+			ft_putstr("\e[100m");
+	}
+	print_hex(col, true, 2, false);
+	if (COLORS == 1)
+		ft_putstr("\e[0m");
 	if (j % 4 == 3 || !env->in_ppc)
 		ft_putchar(' ');
 	return (++j);
 }
 
-static int		print_section(struct section *s, char *h, bool w, t_env *e)
+static void		print_section(struct section *s, char *h, bool w, t_env *e)
 {
 	uint32_t	i;
 	uint32_t	j;
@@ -34,18 +46,18 @@ static int		print_section(struct section *s, char *h, bool w, t_env *e)
 	while (i < s->size)
 	{
 		j = 0;
+		if (COLORS == 1)
+			ft_putstr("\e[1m");
 		print_hex(addr, true, 8, false);
+		if (COLORS == 1)
+			ft_putstr("\e[0m");
 		ft_putchar('\t');
 		while (j < 16 && i + j < s->size)
-		{
-			j = nique_la_norme(j, off, h, e);
-			off++;
-		}
+			j = nique_la_norme(j, off++, h, e);
 		ft_putchar('\n');
 		i += j;
 		addr += j;
 	}
-	return (1);
 }
 
 static int		lc1(struct segment_command *sc, char *h, bool swap, t_env *env)

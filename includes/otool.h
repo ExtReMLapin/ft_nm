@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:49:33 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 11:20:32 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/28 12:35:17 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define STRINGIFY(x) #x
 # define TOSTRING(x) STRINGIFY(x)
 # define AT __FILE__ ":" TOSTRING(__LINE__)
+# define COLORS 0
 
 typedef struct				s_section
 {
