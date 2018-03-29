@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 10:09:16 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 17:31:44 by anonymous        ###   ########.fr       */
+/*   Updated: 2018/03/29 10:52:02 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,26 @@ static int			isstrbigger(char *a, char *b)
 t_cmd				*has_fucked_up_order_cmds(t_env *env)
 {
 	t_cmd	*cmds;
-	int		i;
 	int		strbigger;
 
 	cmds = env->list;
 	if (cmds == NULL)
 		failmessage("no cmds found\n");
-	i = 0;
 	while (cmds->next)
 	{
 		segfaultcheck(cmds->name, env->end, AT);
 		segfaultcheck(cmds->next->name, env->end, AT);
-		strbigger = isstrbigger(cmds->name, cmds->next->name) != env->reverse;
+		strbigger = isstrbigger(cmds->name, cmds->next->name);
+		if (strbigger > -1 && env->reverse)
+		{
+			if (strbigger == 0)
+				strbigger = 1;
+			else
+				strbigger = 0;
+		}
 		if (strbigger == 1 || (strbigger == -1 && cmds->adr > cmds->next->adr))
 			return (cmds);
 		cmds = cmds->next;
-		i++;
 	}
 	return (NULL);
 }
@@ -100,7 +104,7 @@ void				print_cmds(t_cmd *cmd, int n)
 			if (COLORS == 1)
 				ft_putstr("\e[0m");
 			ft_putchar(' ');
-			ft_putstr(cmds->name);
+			ft_putcmdname(cmds->name);
 			ft_putchar('\n');
 		}
 		cmds = cmds->next;
@@ -120,7 +124,3 @@ struct fat_arch_64	*ffcpu(struct fat_arch_64 *a, cpu_type_t cpu, uint32_t n)
 	}
 	return (ret);
 }
-
-/*
-** Could make a get_cputype in bool to get faster result but im lazy
-*/

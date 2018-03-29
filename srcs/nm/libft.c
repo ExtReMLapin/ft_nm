@@ -6,7 +6,7 @@
 /*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 09:52:06 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 11:08:07 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/03/29 10:57:58 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,19 @@ int		ft_atoi(const char *str)
 		return (-nbr);
 	else
 		return (nbr);
+}
+
+void	ft_putcmdname(char *c)
+{
+	bool special;
+
+	special = (COLORS == 1 && (ft_strcmp(c, "__mh_execute_header") == 0 ||
+		ft_strcmp(c, "___stack_chk_fail") == 0 ||
+		ft_strcmp(c, "___stack_chk_guard") == 0 ||
+		ft_strcmp(c, "dyld_stub_binder") == 0));
+	if (special)
+		ft_putstr("\e[7m");
+	ft_putstr(c);
+	if (special)
+		ft_putstr("\e[0m");
 }
