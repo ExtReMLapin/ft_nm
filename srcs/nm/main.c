@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 17:35:32 by anonymous        ###   ########.fr       */
+/*   Updated: 2018/03/29 09:53:26 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int						main(int ac, char **av)
 		i = 1;
 		while (i < ac)
 		{
-			if (ac > 2 && av[i][0] != '-')
+			if ((ac - (int)reverse) > 2 && av[i][0] != '-')
 			{
 				write(1, "\n", 1);
 				write(1, av[i], ft_strlen(av[i]));

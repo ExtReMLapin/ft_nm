@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 11:28:35 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 17:26:46 by anonymous        ###   ########.fr       */
+/*   Updated: 2018/03/29 09:42:03 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ bool		search_reverse(int ac, char **av)
 	int i;
 
 	i = 0;
-
 	while (i < ac)
 	{
 		if (ft_strcmp(av[i], "-r") == 0)

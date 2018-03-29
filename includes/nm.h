@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 10:49:33 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 17:30:32 by anonymous        ###   ########.fr       */
+/*   Updated: 2018/03/29 10:58:20 by pfichepo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define TOSTRING(x) STRINGIFY(x)
 # define AT __FILE__ ":" TOSTRING(__LINE__)
 # define COLORS 0
-# define REVERSE 0
+
 typedef struct				s_section
 {
 	char					*name;
@@ -136,4 +136,5 @@ int							ft_strcmp(const char *s1, const char *s2);
 void						*ft_memcpy(void *dst,
 	const void *src, size_t n);
 bool						search_reverse(int ac, char **av);
+void						ft_putcmdname(char *c);
 #endif
