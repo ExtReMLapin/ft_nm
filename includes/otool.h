@@ -92,7 +92,7 @@ uint32_t					how_many_cpu64(struct fat_arch_64 *arch,
 	uint32_t n);
 void						handle_fat32(t_env *env, bool swap);
 void						handle_fat64(t_env *env, bool swap);
-void						segfaultcheck(char *ptr, char *end, char *mess);
+bool						segfaultcheck(char *ptr, char *end, char *mess);
 uint32_t					ar_size(char const *name);
 void						read_ranlib(char const *file, char *end,
 	uint32_t nbr, t_env *env);

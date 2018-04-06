@@ -45,8 +45,11 @@ static void	add_output(int nsyms, void *symoff,
 	while (i < nsyms)
 	{
 		swaparray(&array[i], env->tmp_swap);
-		segfaultcheck((char*)(&array[i]), env->end, AT);
-		segfaultcheck(stringtable, env->end, AT);
+		if (segfaultcheck((char*)(&array[i]), env->end, AT) ||
+			segfaultcheck(stringtable, env->end, AT))
+		{
+			return ;
+		}
 		mlccmd(env, array[i].n_value, typing(array[i].n_type, array[i].n_sect,
 			env->section, array[i].n_value),
 		stringtable + array[i].n_un.n_strx);
@@ -65,7 +68,8 @@ static void	browse_lc(int ncmds, bool swap, t_env *env,
 	env->tmp_swap = swap;
 	while (i++ < ncmds)
 	{
-		segfaultcheck((char*)lc, env->end, AT);
+		if (segfaultcheck((char*)lc, env->end, AT))
+			return ;
 		lc->cmdsize = (swap) ? swap_uint32(lc->cmdsize) : lc->cmdsize;
 		lc->cmd = (swap) ? swap_uint32(lc->cmd) : lc->cmd;
 		if (lc->cmd == LC_SEGMENT_64)

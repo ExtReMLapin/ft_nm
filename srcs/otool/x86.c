@@ -95,7 +95,8 @@ void			handle_32(char *adr, char *max, bool swap, t_env *env)
 	struct symtab_command	*sym;
 
 	header = (struct mach_header*)adr;
-	segfaultcheck((char*)header, max, AT);
+	if (segfaultcheck((char*)header, max, AT))
+		return;
 	ncmds = (swap) ? swap_uint32(header->ncmds) : header->ncmds;
 	lc = (struct load_command*)(header + 1);
 	i = 0;

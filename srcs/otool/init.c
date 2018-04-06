@@ -57,7 +57,7 @@ t_env	*make_env(char *ptr, char *end, char *name)
 	t_env *env;
 
 	if ((env = (t_env*)malloc(sizeof(t_env))) == NULL)
-		failmessage("FailMalloc\n");
+		return (NULL);
 	env->file_name = name;
 	env->ptr = ptr;
 	env->end = end;
