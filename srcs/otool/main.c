@@ -20,10 +20,14 @@ static void				otool(char *ptr, char *end, char *name)
 {
 	t_env	*env;
 
-	env = make_env(ptr, end, name);
+	if ((env = make_env(ptr, end, name)) == NULL)
+	{
+		ft_putstr("File not recognized");
+		return ;
+	}
 }
 
-static void				printerror(int type, char **av, char *filename)
+static bool				printerror(int type, char **av, char *filename)
 {
 	ft_putstr(av[0]);
 	ft_putstr(": ");
@@ -37,9 +41,10 @@ static void				printerror(int type, char **av, char *filename)
 	else if (type == 4)
 		ft_putstr(": No such file or directory/Permission denied.");
 	failmessage("\n");
+	return (false);
 }
 
-void					handlefile(char *filename, char **av)
+bool					handlefile(char *filename, char **av)
 {
 	int				fd;
 	char			*ptr;
@@ -48,20 +53,23 @@ void					handlefile(char *filename, char **av)
 	fd = open(filename, O_RDONLY);
 	fstat(fd, &buf);
 	if (S_ISDIR(buf.st_mode))
-		printerror(3, av, filename);
+		return (printerror(3, av, filename));
 	if ((buf.st_mode & S_IRUSR) == 0)
-		printerror(4, av, filename);
+		return (printerror(4, av, filename));
 	if (fd < 0)
-		printerror(1, av, filename);
+		return (printerror(1, av, filename));
 	if ((ptr = mmap(0, buf.st_size, PROT_READ |
 		PROT_WRITE, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
 	{
 		failmessage("Could not map file to ram.");
+		close(fd);
+		return (false);
 	}
 	close(fd);
 	otool(ptr, ptr + buf.st_size, filename);
 	if (munmap(ptr, buf.st_size) < 0)
 		failmessage("unmmap fail");
+	return (true);
 }
 
 int						main(int ac, char **av)

@@ -24,7 +24,8 @@ void	mlccmd(t_env *env, uint64_t n_value, char symbol, char *name)
 	cmd = (t_cmd*)malloc(sizeof(t_cmd));
 	cmd->adr = n_value;
 	cmd->symbol = symbol;
-	segfaultcheck(name, env->end, AT);
+	if (segfaultcheck(name, env->end, AT))
+		return ;
 	cmd->name = name;
 	cmd->next = NULL;
 	if (env->list == NULL)
@@ -63,7 +64,10 @@ void	handle_fat(t_env *env, bool swap)
 
 	header = (struct fat_header*)env->ptr;
 	if ((void*)header > (void*)env->end)
+	{
 		failmessage("Fail header\n");
+		return ;
+	}
 	if (!env->is64bit)
 		handle_fat32(env, swap);
 	else
@@ -75,7 +79,10 @@ t_env	*make_env(char *ptr, char *end, char *name, bool reverse)
 	t_env *env;
 
 	if ((env = (t_env*)malloc(sizeof(t_env))) == NULL)
+	{
 		failmessage("FailMalloc\n");
+		return (NULL);
+	}
 	env->reverse = reverse;
 	env->file_name = name;
 	env->ptr = ptr;
@@ -90,7 +97,7 @@ t_env	*make_env(char *ptr, char *end, char *name, bool reverse)
 	env->in_ppc = false;
 	if (!env->isarchive && !env->is64bit && !env->isswap &&
 		!env->isfattype && *(uint32_t*)ptr != MH_MAGIC)
-		failmessage("File not recognized\n");
+		return (NULL);
 	env->list = NULL;
 	init_commands(env);
 	return (env);

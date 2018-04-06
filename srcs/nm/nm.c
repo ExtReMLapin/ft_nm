@@ -33,14 +33,16 @@ void			nm2(t_env *env, char *ptr, char *max)
 		failmessage("ohohoh, pas normal\n");
 }
 
-void			segfaultcheck(char *ptr, char *end, char *mess)
+bool			segfaultcheck(char *ptr, char *end, char *mess)
 {
 	if (ptr > end)
 	{
 		write(1, "Antisegfault at ", 16);
 		write(1, mess, ft_strlen(mess));
 		failmessage(".\n");
+		return (true);
 	}
+	return (false);
 }
 
 bool			check_ar_header(char *ptr)

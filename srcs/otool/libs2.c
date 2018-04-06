@@ -44,11 +44,16 @@ uint64_t	swap_uint64(uint64_t nb)
 	return (nb);
 }
 
+/*
+** exit was removed here because of stupid rules
+*/
+
 void		failmessage(char *message)
 {
 	write(1, message, ft_strlen(message));
-	exit(EXIT_FAILURE);
+	//exit(EXIT_FAILURE);
 }
+
 
 char		*ft_strchr(const char *s, int c)
 {

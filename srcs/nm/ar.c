@@ -40,7 +40,10 @@ static uint32_t	*filtertable(uint32_t nbr, struct ranlib *ranlib)
 	uint32_t	*artable;
 
 	if ((artable = (uint32_t*)malloc(sizeof(uint32_t) * nbr)) == NULL)
+	{
 		failmessage("FailMalloc\n");
+		return (NULL);
+	}
 	i = 0;
 	while (i < nbr)
 	{
@@ -75,7 +78,8 @@ void			read_ranlib(char const *file, char *end,
 
 	ar = (void*)file + SARMAG;
 	ranlib = (void*)ar + sizeof(struct ar_hdr) + ar_size(ar->ar_name) + 4;
-	artable = filtertable(nbr, ranlib);
+	if ((artable = filtertable(nbr, ranlib)) == NULL)
+		return ;
 	i = 0;
 	while (i < nbr)
 	{
