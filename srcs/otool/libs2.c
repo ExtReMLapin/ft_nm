@@ -51,9 +51,7 @@ uint64_t	swap_uint64(uint64_t nb)
 void		failmessage(char *message)
 {
 	write(1, message, ft_strlen(message));
-	//exit(EXIT_FAILURE);
 }
-
 
 char		*ft_strchr(const char *s, int c)
 {
