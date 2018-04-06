@@ -96,7 +96,7 @@ void			handle_64(char *adr, char *max, bool swap, t_env *env)
 
 	header = (struct mach_header_64*)adr;
 	if (segfaultcheck((char*)header, max, AT))
-		return;
+		return ;
 	ncmds = (swap) ? swap_uint32(header->ncmds) : header->ncmds;
 	lc = (struct load_command*)(header + 1);
 	i = 0;

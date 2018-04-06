@@ -53,11 +53,9 @@ t_cmd				*has_fucked_up_order_cmds(t_env *env)
 		failmessage("no cmds found\n");
 	while (cmds && cmds->next)
 	{
-		if ( segfaultcheck(cmds->name, env->end, AT) ||
-		segfaultcheck(cmds->next->name, env->end, AT))
-		{
+		if (segfaultcheck(cmds->name, env->end, AT) ||
+			segfaultcheck(cmds->next->name, env->end, AT))
 			return (NULL);
-		}
 		strbigger = isstrbigger(cmds->name, cmds->next->name);
 		if (strbigger > -1 && env->reverse)
 		{
