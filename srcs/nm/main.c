@@ -80,7 +80,7 @@ int						main(int ac, char **av)
 	bool	reverse;
 
 	reverse = search_reverse(ac, av);
-	if (ac == 1)
+	if ((ac - (int)reverse) == 1)
 	{
 		handlefile("./a.out", av, reverse);
 		return (EXIT_SUCCESS);
