@@ -22,7 +22,7 @@ static void				otool(char *ptr, char *end, char *name)
 
 	if ((env = make_env(ptr, end, name)) == NULL)
 	{
-		ft_putstr("File not recognized");
+		ft_putstr("File not recognized\n");
 		return ;
 	}
 }
@@ -78,8 +78,10 @@ int						main(int ac, char **av)
 
 	if (ac == 1)
 	{
-		handlefile("./a.out", av);
-		return (EXIT_SUCCESS);
+		ft_putstr("error: ");
+		ft_putstr(av[0]);
+		ft_putstr(": at least one file must be specified\n");
+		return (EXIT_FAILURE);
 	}
 	else
 	{
