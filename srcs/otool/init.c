@@ -71,7 +71,7 @@ t_env	*make_env(char *ptr, char *end, char *name)
 	env->in_ppc = false;
 	if (!env->isarchive && !env->is64bit && !env->isswap &&
 		!env->isfattype && *(uint32_t*)ptr != MH_MAGIC)
-		failmessage("File not recognized\n");
+		return (NULL);
 	init_commands(env);
 	return (env);
 }

@@ -22,7 +22,7 @@ static void				nm(char *ptr, char *end, char *name, bool reverse)
 
 	if ((env = make_env(ptr, end, name, reverse)) == NULL)
 	{
-		ft_putstr("File not recognized");
+		ft_putstr("File not recognized\n");
 		return ;
 	}
 	clearsections(env);
