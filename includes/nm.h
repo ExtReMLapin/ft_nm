@@ -21,9 +21,7 @@
 # include <fcntl.h>
 # include <sys/stat.h>
 # include <stdlib.h>
-# include <stdio.h>
 # include <unistd.h>
-# include <string.h>
 # include <stdbool.h>
 # include <ar.h>
 # define STRINGIFY(x) #x
