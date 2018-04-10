@@ -16,6 +16,7 @@
 # reverse nm
 # support archive sur nm
 # support archive sur otool
+# support ARM et tous un tas de CPU
 
 NAME_NM = ft_nm
 NAME_OTOOL = ft_otool
