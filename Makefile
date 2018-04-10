@@ -10,6 +10,13 @@
 #                                                                              #
 # **************************************************************************** #
 
+# Bonus :
+# couleurs nm
+# couleurs otool
+# reverse nm
+# support archive sur nm
+# support archive sur otool
+
 NAME_NM = ft_nm
 NAME_OTOOL = ft_otool
 
