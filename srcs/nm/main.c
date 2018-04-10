@@ -16,17 +16,15 @@
 ** this project sucks, dont ask me to do things correctly
 */
 
-static void				nm(char *ptr, char *end, char *name, bool reverse)
+static bool				nm(char *ptr, char *end, char *name, bool reverse)
 {
 	t_env	*env;
 
 	if ((env = make_env(ptr, end, name, reverse)) == NULL)
-	{
-		ft_putstr("File not recognized\n");
-		return ;
-	}
+		return (false);
 	clearsections(env);
 	clearlist(env);
+	return (true);
 }
 
 static bool				printerror(int type, char **av, char *filename)
@@ -70,7 +68,8 @@ static bool				handlefile(char *filename, char **av, bool reverse)
 		return (false);
 	}
 	close(fd);
-	nm(ptr, ptr + buf.st_size, filename, reverse);
+	if (nm(ptr, ptr + buf.st_size, filename, reverse) == false)
+		return (printerror(2, av, filename));
 	return (munmap(ptr, buf.st_size) < 0);
 }
 
