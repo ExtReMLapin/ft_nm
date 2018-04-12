@@ -61,14 +61,14 @@ bool					handlefile(char *filename, char **av)
 	if ((ptr = mmap(0, buf.st_size, PROT_READ |
 		PROT_WRITE, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
 	{
-		failmessage("Could not map file to ram.");
+		failmessage("Could not map file to ram.\n");
 		close(fd);
 		return (false);
 	}
 	close(fd);
 	otool(ptr, ptr + buf.st_size, filename);
 	if (munmap(ptr, buf.st_size) < 0)
-		failmessage("unmmap fail");
+		failmessage("unmmap fail\n");
 	return (true);
 }
 
