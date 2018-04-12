@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/28 12:33:36 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/04/12 16:37:07 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void				otool(char *ptr, char *end, char *name)
 		ft_putstr("File not recognized\n");
 		return ;
 	}
+	free(env);
 }
 
 static bool				printerror(int type, char **av, char *filename)
