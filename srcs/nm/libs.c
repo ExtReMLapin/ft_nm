@@ -22,7 +22,10 @@ static int			isstrbigger(char *a, char *b)
 
 	i = 0;
 	if (!b || !a)
+	{
 		failmessage("Attempt to cmp two string is bigger but one is invalid\n");
+		return (-42);
+	}
 	if (ft_strcmp(a, b) == 0)
 		return (-1);
 	while (a[i] && b[i])
@@ -50,20 +53,17 @@ t_cmd				*has_fucked_up_order_cmds(t_env *env)
 
 	cmds = env->list;
 	if (cmds == NULL)
-		failmessage("no cmds found\n");
+		failmessage("no symbols found\n");
 	while (cmds && cmds->next)
 	{
 		if (segfaultcheck(cmds->name, env->end, AT) ||
 			segfaultcheck(cmds->next->name, env->end, AT))
 			return (NULL);
 		strbigger = isstrbigger(cmds->name, cmds->next->name);
+		if (strbigger == -42)
+			return (NULL);
 		if (strbigger > -1 && env->reverse)
-		{
-			if (strbigger == 0)
-				strbigger = 1;
-			else
-				strbigger = 0;
-		}
+			strbigger = (int)(strbigger == 0);
 		if (strbigger == 1 || (strbigger == -1 && cmds->adr > cmds->next->adr))
 			return (cmds);
 		cmds = cmds->next;

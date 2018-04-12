@@ -16,6 +16,8 @@ void			nm2(t_env *env, char *ptr, char *max)
 {
 	uint32_t head;
 
+	if (segfaultcheck(ptr, env->end, AT) || segfaultcheck(max, env->end, AT))
+		return ;
 	head = *(uint32_t*)ptr;
 	clearlist(env);
 	clearsections(env);
