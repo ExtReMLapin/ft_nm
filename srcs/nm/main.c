@@ -63,7 +63,7 @@ static bool				handlefile(char *filename, char **av, bool reverse)
 	if ((ptr = mmap(0, buf.st_size, PROT_READ |
 		PROT_WRITE, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
 	{
-		failmessage("Could not map file to ram.");
+		failmessage("Could not map file to ram.\n");
 		close(fd);
 		return (false);
 	}
