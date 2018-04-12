@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   xfat.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:58:23 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/29 11:17:47 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/04/12 16:54:15 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void			handle_fat32(t_env *env, bool swap)
 	arch = (struct fat_arch*)(h + 1);
 	h->nfat_arch = (swap) ? swap_uint32(h->nfat_arch) : h->nfat_arch;
 	cpucount = h->nfat_arch;
-	while (h->nfat_arch--)
+	while (!segfaultcheck((char*)(arch + 1), env->end, AT) && h->nfat_arch--)
 	{
 		swapvars32(arch, swap);
 		header2 = (void*)env->ptr + arch->offset;
@@ -88,7 +88,7 @@ void			handle_fat64(t_env *env, bool swap)
 	arch = (struct fat_arch_64*)(h + 1);
 	h->nfat_arch = (swap) ? swap_uint32(h->nfat_arch) : h->nfat_arch;
 	cpucount = h->nfat_arch;
-	while (h->nfat_arch--)
+	while (!segfaultcheck((char*)(arch + 1), env->end, AT) && h->nfat_arch--)
 	{
 		swapvars64(arch, swap);
 		header2 = (void*)env->ptr + arch->offset;

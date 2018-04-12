@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ar.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 09:41:11 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/29 10:43:05 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/04/12 16:51:25 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nm.h>
-
+#include <stdio.h>
 static bool		isartablesorted(uint32_t *table, uint32_t nbr)
 {
 	uint32_t i;
@@ -93,6 +93,7 @@ void			read_ranlib(char const *file, char *end,
 		nm2(env, (char*)obj, end);
 		i++;
 	}
+	free(artable);
 }
 
 int				ft_strcmp(const char *s1, const char *s2)

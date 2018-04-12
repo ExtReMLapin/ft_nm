@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfichepo <pfichepo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anonymous <anonymous@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 09:47:50 by pfichepo          #+#    #+#             */
-/*   Updated: 2018/03/29 09:53:26 by pfichepo         ###   ########.fr       */
+/*   Updated: 2018/04/12 16:39:53 by anonymous        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static bool				nm(char *ptr, char *end, char *name, bool reverse)
 		return (false);
 	clearsections(env);
 	clearlist(env);
+	free(env);
+
 	return (true);
 }
 
