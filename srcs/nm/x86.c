@@ -92,7 +92,7 @@ void		handle_32(t_env *env, char *adr, char *max, bool swap)
 	browse_lc(ncmds, swap, env, header);
 	lc = (struct load_command*)(header + 1);
 	i = 0;
-	while (i++ < ncmds)
+	while (!segfaultcheck((char*)(lc + 1), max, AT) && i++ < ncmds)
 	{
 		if (lc->cmd == LC_SYMTAB)
 		{

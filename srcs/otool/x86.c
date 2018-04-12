@@ -100,7 +100,7 @@ void			handle_32(char *adr, char *max, bool swap, t_env *env)
 	ncmds = (swap) ? swap_uint32(header->ncmds) : header->ncmds;
 	lc = (struct load_command*)(header + 1);
 	i = 0;
-	while (i++ < ncmds)
+	while (!segfaultcheck((char*)(lc + 1), max, AT) && i++ < ncmds)
 	{
 		lc->cmdsize = (swap) ? swap_uint32(lc->cmdsize) : lc->cmdsize;
 		lc->cmd = (swap) ? swap_uint32(lc->cmd) : lc->cmd;
