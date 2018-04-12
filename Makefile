@@ -22,7 +22,7 @@ NAME_NM = ft_nm
 NAME_OTOOL = ft_otool
 
 CC = clang
-CFLAGS = -Ofast -g -Wall -Wextra -Werror -I ./includes
+CFLAGS = -O0 -g -Wall -Wextra -Werror -I ./includes
 SRCSNM 	= ar.c \
 		init.c \
 		lib2.c \

@@ -16,6 +16,8 @@ void			otool2(t_env *env, char *ptr, char *max)
 {
 	uint32_t head;
 
+	if (segfaultcheck(ptr, env->end, AT) || segfaultcheck(max, env->end, AT))
+		return ;
 	head = *(uint32_t*)ptr;
 	if (head == MH_MAGIC_64)
 		handle_64(ptr, max, false || env->in_ppc, env);
