@@ -34,7 +34,7 @@ static bool		isartablesorted(uint32_t *table, uint32_t nbr)
 	return (true);
 }
 
-static uint32_t	*filtertable(uint32_t nbr, struct ranlib *ranlib)
+static uint32_t	*filtertable(uint32_t nbr, struct ranlib *ranlib, char *end)
 {
 	uint32_t	i;
 	uint32_t	*artable;
@@ -47,6 +47,8 @@ static uint32_t	*filtertable(uint32_t nbr, struct ranlib *ranlib)
 	i = 0;
 	while (i < nbr)
 	{
+		if (segfaultcheck((char*)(&ranlib[i + 1]), end, AT))
+			return (NULL);
 		artable[i] = ranlib[i].ran_off;
 		i++;
 	}
@@ -77,7 +79,7 @@ void			read_ranlib(char const *file, char *end,
 
 	ar = (void*)file + SARMAG;
 	ranlib = (void*)ar + sizeof(struct ar_hdr) + ar_size(ar->ar_name) + 4;
-	if ((artable = filtertable(nbr, ranlib)) == NULL)
+	if ((artable = filtertable(nbr, ranlib, end)) == NULL)
 		return ;
 	i = 0;
 	while (i < nbr)
