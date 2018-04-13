@@ -60,10 +60,10 @@ static uint32_t	*filtertable(uint32_t nbr, struct ranlib *ranlib)
 
 static void		printext(char *file_name, char *ar_name)
 {
-	write(1, file_name, ft_strlen(file_name));
-	write(1, "(", 1);
-	write(1, ar_name, ft_strlen(ar_name));
-	write(1, "):\n", 3);
+	ft_putstr(file_name);
+	ft_putchar('(');
+	ft_putstr(ar_name);
+	ft_putstr("):\n");
 }
 
 void			read_ranlib(char const *file, char *end,

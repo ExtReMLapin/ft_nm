@@ -50,7 +50,7 @@ uint64_t	swap_uint64(uint64_t nb)
 
 void		failmessage(char *message)
 {
-	write(1, message, ft_strlen(message));
+	ft_putstr(message);
 }
 
 void		swapcmds(t_cmd *a, t_cmd *b)

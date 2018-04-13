@@ -21,6 +21,10 @@ void			nm2(t_env *env, char *ptr, char *max)
 	head = *(uint32_t*)ptr;
 	clearlist(env);
 	clearsections(env);
+	if ((env->section = (t_lsection*)malloc(sizeof(t_lsection))) == NULL)
+		return ;
+	env->section->first = NULL;
+	env->section->last = NULL;
 	if (head == MH_MAGIC_64)
 		handle_64(env, ptr, max, false || env->in_ppc);
 	else if (head == MH_CIGAM_64)

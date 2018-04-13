@@ -12,33 +12,13 @@
 
 #include <nm.h>
 
-char						*ft_strdup(char *src)
-{
-	int		i;
-	int		len;
-	char	*str;
-
-	len = 0;
-	while (src[len])
-		len++;
-	str = (char*)malloc(sizeof(*str) * (len + 1));
-	i = 0;
-	while (i < len)
-	{
-		str[i] = src[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
-}
-
 void						add_list(char *name, t_lsection *list)
 {
 	t_section	*add;
 
 	if ((add = (t_section*)malloc(sizeof(t_section))) == NULL)
 		return ;
-	add->name = ft_strdup(name);
+	add->name = name;
 	add->next = NULL;
 	if (list->first == NULL)
 	{
