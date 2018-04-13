@@ -41,7 +41,7 @@ void		print_hex(uint64_t hex, bool first, int how_many_chars, bool blank)
 		else
 			c = '0';
 		while (i--)
-			write(1, &c, 1);
+			ft_putchar(c);
 		if (hex == 0x0)
 			return ;
 	}
@@ -52,7 +52,7 @@ void		print_hex(uint64_t hex, bool first, int how_many_chars, bool blank)
 		print_hex(hex % 16, false, 0, blank);
 	}
 	else
-		write(1, &hex_chars[hex], 1);
+		ft_putchar(hex_chars[hex]);
 }
 
 static char	secto(t_lsection *sec, unsigned int n_sect)

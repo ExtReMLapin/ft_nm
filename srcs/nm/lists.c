@@ -59,4 +59,6 @@ void		clearsections(t_env *env)
 	}
 	free(env->section->first);
 	env->section->first = NULL;
+	free(env->section);
+	env->section = NULL;
 }

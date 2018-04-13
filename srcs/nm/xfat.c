@@ -36,11 +36,11 @@ static void		swapvars64(struct fat_arch_64 *arch, bool swap)
 
 void			printarch(char *filename, char *arch)
 {
-	write(1, "\n", 1);
-	write(1, filename, ft_strlen(filename));
-	write(1, " (for architecture ", 19);
-	write(1, arch, ft_strlen(arch));
-	write(1, "):\n", 3);
+	ft_putchar('\n');
+	ft_putstr(filename);
+	ft_putstr(" (for architecture ");
+	ft_putstr(arch);
+	ft_putstr("):\n");
 }
 
 void			handle_fat32(t_env *env, bool swap)

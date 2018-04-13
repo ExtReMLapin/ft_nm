@@ -15,17 +15,24 @@
 /*
 ** this project sucks, dont ask me to do things correctly
 */
+#include <stdio.h>
 
-static bool				nm(char *ptr, char *end, char *name, bool reverse)
+static bool				nm(char *ptr, char *end, char *name, int reverse)
 {
-	t_env	*env;
+	t_env		*env;
 
-	if ((env = make_env(ptr, end, name, reverse)) == NULL)
+	if (reverse > 1 && !((*(uint32_t*)ptr == FAT_CIGAM ||
+		*(uint32_t*)ptr == FAT_MAGIC)))
+	{
+		ft_putchar('\n');
+		ft_putstr(name);
+		ft_putstr(":\n");
+	}
+	if ((env = make_env(ptr, end, name, reverse == 1)) == NULL)
 		return (false);
 	clearsections(env);
 	clearlist(env);
 	free(env);
-
 	return (true);
 }
 
@@ -46,7 +53,7 @@ static bool				printerror(int type, char **av, char *filename)
 	return (false);
 }
 
-static bool				handlefile(char *filename, char **av, bool reverse)
+static bool				handlefile(char *filename, char **av, bool r, bool pn)
 {
 	int				fd;
 	char			*ptr;
@@ -70,7 +77,7 @@ static bool				handlefile(char *filename, char **av, bool reverse)
 		return (false);
 	}
 	close(fd);
-	if (nm(ptr, ptr + buf.st_size, filename, reverse) == false)
+	if (nm(ptr, ptr + buf.st_size, filename, (int)r + (int)(pn) * 2) == 0)
 		return (printerror(2, av, filename));
 	return (munmap(ptr, buf.st_size) < 0);
 }
@@ -83,7 +90,7 @@ int						main(int ac, char **av)
 	reverse = search_reverse(ac, av);
 	if ((ac - (int)reverse) == 1)
 	{
-		handlefile("./a.out", av, reverse);
+		handlefile("./a.out", av, reverse, false);
 		return (EXIT_SUCCESS);
 	}
 	else
@@ -92,12 +99,9 @@ int						main(int ac, char **av)
 		while (i < ac)
 		{
 			if ((ac - (int)reverse) > 2 && av[i][0] != '-')
-			{
-				write(1, "\n", 1);
-				write(1, av[i], ft_strlen(av[i]));
-				write(1, ":\n", 3);
-			}
-			handlefile(av[i++], av, reverse);
+				handlefile(av[i++], av, reverse, true);
+			else
+				handlefile(av[i++], av, reverse, false);
 		}
 	}
 	return (EXIT_SUCCESS);
