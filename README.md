@@ -10,3 +10,6 @@ Le projet le plus chiant de 42
 ![](https://i.imgur.com/AJ7byIC.png)
 
 # 42Born2Parse mon gars
+
+
+Evidemment, pas de commentaires car la norme stupide de 42 n'est pas propice à faire du beau et bon code.
